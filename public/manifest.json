@@ -1,0 +1,17 @@
+{
+  "name": "TableQ",
+  "short_name": "TableQ",
+  "description": "Your table, without the wait.",
+  "start_url": "/check-in",
+  "display": "standalone",
+  "background_color": "#f5f4ee",
+  "theme_color": "#536548",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

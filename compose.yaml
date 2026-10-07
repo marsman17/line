@@ -1,0 +1,52 @@
+services:
+  app:
+    build: .
+    image: tableq:local
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      NODE_ENV: production
+      DATABASE_PATH: /app/data/tableq.sqlite
+      TRUST_PROXY: "true"
+    volumes:
+      - tableq-data:/app/data
+    expose:
+      - "3000"
+    security_opt:
+      - no-new-privileges:true
+  worker:
+    image: tableq:local
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      NODE_ENV: production
+      DATABASE_PATH: /app/data/tableq.sqlite
+    volumes:
+      - tableq-data:/app/data
+    command: ["npm", "run", "worker"]
+    depends_on:
+      app:
+        condition: service_healthy
+    healthcheck:
+      disable: true
+    security_opt:
+      - no-new-privileges:true
+  proxy:
+    image: caddy:2.10-alpine
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      app:
+        condition: service_healthy
+volumes:
+  tableq-data:
+  caddy-data:
+  caddy-config:
