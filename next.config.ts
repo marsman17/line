@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+const isDevelopment = process.env.NODE_ENV === "development";
 const config: NextConfig = {
   poweredByHeader: false,
   serverExternalPackages: ["web-push"],
@@ -17,7 +18,7 @@ const config: NextConfig = {
           {
             key: "Content-Security-Policy",
             value:
-              "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; font-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; worker-src 'self'",
+              `default-src 'self'; script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""}; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'${isDevelopment ? " ws: wss:" : ""}; font-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; worker-src 'self'`,
           },
         ],
       },
