@@ -10,8 +10,19 @@ import {
   transition,
   rateLimit,
   health,
+  branch,
+  branches,
+  canAccessBranch,
+  saveBranch,
+  transaction,
+  type Manager,
 } from "../../../lib/db";
-import { hash, passwordMatches, token } from "../../../lib/security";
+import {
+  hash,
+  passwordHash,
+  passwordMatches,
+  token,
+} from "../../../lib/security";
 import {
   deliverNotifications,
   pushConfigured,
@@ -65,23 +76,54 @@ function manager(req: NextRequest) {
   if (!secret) return null;
   return db
     .prepare(
-      "SELECT m.id,m.email FROM sessions s JOIN managers m ON m.id=s.manager_id WHERE s.token_hash=? AND s.expires>?",
+      "SELECT m.id,m.email,m.role FROM sessions s JOIN managers m ON m.id=s.manager_id WHERE s.token_hash=? AND s.expires>?",
     )
-    .get(hash(secret), Date.now()) as { id: number; email: string } | undefined;
+    .get(hash(secret), Date.now()) as Manager | undefined;
 }
-function publicInfo() {
+const branchSchema = z.object({
+  name: z.string().trim().min(1).max(80),
+  address: z.string().trim().min(1).max(200),
+  capacity: z.number().int().min(1).max(2000),
+  openingHours: z.string().trim().max(500).default(""),
+  archived: z.boolean().default(false),
+});
+const staffSchema = z.object({
+  email: z.email().max(200),
+  password: z.string().min(12).max(200).optional(),
+  branchIds: z.array(z.string().min(1).max(40)).min(1).max(100),
+});
+function publicInfo(id = "main") {
+  const location = branch(id);
+  if (!location) throw Error("Branch not found.");
   return {
-    name: process.env.RESTAURANT_NAME || "The Olive Table",
-    address:
-      process.env.RESTAURANT_ADDRESS ||
-      "24 Garden Avenue · Welcome to our table",
-    capacity: Number(process.env.RESTAURANT_CAPACITY || 50),
+    branchId: location.id,
+    name: location.name,
+    address: location.address,
+    capacity: location.capacity,
+    openingHours: location.opening_hours,
+    archived: !!location.archived,
     pushEnabled: pushConfigured(),
     smsEnabled: smsConfigured(),
     vapidKey: process.env.VAPID_PUBLIC_KEY || "",
-    waiting: tickets().filter((t) => t.status === "waiting").length,
+    waiting: tickets(location.id).filter((t) => t.status === "waiting").length,
     appUrl: process.env.APP_URL || "",
   };
+}
+function staffList() {
+  return (
+    db
+      .prepare(
+        "SELECT id,email,role FROM managers WHERE role='staff' ORDER BY email",
+      )
+      .all() as Manager[]
+  ).map((m) => ({
+    ...m,
+    branchIds: (
+      db
+        .prepare("SELECT branch_id FROM manager_branches WHERE manager_id=?")
+        .all(m.id) as { branch_id: string }[]
+    ).map((b) => b.branch_id),
+  }));
 }
 async function handle(
   req: NextRequest,
@@ -104,11 +146,14 @@ async function handle(
         { status: health() ? "ok" : "setup-required" },
         health() ? 200 : 503,
       );
-    if (route === "public" && method === "GET") return json(publicInfo());
+    if (route === "public" && method === "GET")
+      return branch(req.nextUrl.searchParams.get("branch") || "main")
+        ? json(publicInfo(req.nextUrl.searchParams.get("branch") || "main"))
+        : json({ error: "Branch not found." }, 404);
     if (route === "session" && method === "GET") {
       const user = manager(req);
       return user
-        ? json({ user, ...publicInfo() })
+        ? json({ user, branches: branches(user) })
         : json({ error: "Please sign in." }, 401);
     }
     if (route === "login" && method === "POST") {
@@ -177,7 +222,12 @@ async function handle(
           { error: "Please consent to updates about this visit." },
           400,
         );
-      return json(join({ ...data, priority: false, notes: "" }), 201);
+      const branchId = z
+        .string()
+        .min(1)
+        .max(40)
+        .parse(req.nextUrl.searchParams.get("branch") || "main");
+      return json(join({ ...data, branchId, priority: false, notes: "" }), 201);
     }
     if (path[0] === "guest" && path[1]) {
       const secret = path[1];
@@ -185,7 +235,10 @@ async function handle(
       if (!guest)
         return json({ error: "This guest link could not be found." }, 404);
       if (method === "GET" && path.length === 2)
-        return json({ ...guestView(secret), restaurant: publicInfo() });
+        return json({
+          ...guestView(secret),
+          restaurant: publicInfo(guest.branch_id),
+        });
       if (method === "POST" && path[2] === "cancel") {
         if (!["waiting", "notified"].includes(guest.status))
           return json({ error: "This visit has already ended." }, 409);
@@ -228,13 +281,157 @@ async function handle(
     }
     const user = manager(req);
     if (!user) return json({ error: "Please sign in." }, 401);
+    if (route === "branches" || path[0] === "branches") {
+      if (route === "branches" && method === "GET")
+        return json({ branches: branches(user), user });
+      if (user.role !== "admin")
+        return json({ error: "Only administrators can manage branches." }, 403);
+      if (
+        (route === "branches" && method === "POST") ||
+        (path.length === 2 && method === "PATCH")
+      ) {
+        const d = branchSchema.parse(await readBody(req));
+        return json(
+          saveBranch(
+            {
+              name: d.name,
+              address: d.address,
+              capacity: d.capacity,
+              opening_hours: d.openingHours,
+              archived: d.archived ? 1 : 0,
+            },
+            method === "PATCH" ? path[1] : undefined,
+          ),
+          method === "POST" ? 201 : 200,
+        );
+      }
+      return json({ error: "Not found." }, 404);
+    }
+    if (path[0] === "staff") {
+      if (user.role !== "admin")
+        return json({ error: "Only administrators can manage staff." }, 403);
+      if (route === "staff" && method === "GET")
+        return json({ staff: staffList() });
+      if (
+        (route === "staff" && method === "POST") ||
+        (path.length === 2 && method === "PATCH")
+      ) {
+        const d = staffSchema.parse(await readBody(req));
+        if (d.branchIds.some((id) => !branch(id)))
+          return json({ error: "Choose valid branches." }, 400);
+        const email = d.email.toLowerCase();
+        const existing = db
+          .prepare("SELECT id FROM managers WHERE email=?")
+          .get(email) as { id: number } | undefined;
+        const id =
+          method === "PATCH"
+            ? z.coerce.number().int().positive().parse(path[1])
+            : undefined;
+        if (existing && existing.id !== id)
+          return json({ error: "This email already has an account." }, 409);
+        if (method === "POST" && !d.password)
+          return json(
+            { error: "A password of at least 12 characters is required." },
+            400,
+          );
+        if (
+          id &&
+          !db
+            .prepare("SELECT id FROM managers WHERE id=? AND role='staff'")
+            .get(id)
+        )
+          return json({ error: "Staff account not found." }, 404);
+        transaction(() => {
+          const staffId =
+            id ||
+            Number(
+              db
+                .prepare(
+                  "INSERT INTO managers(email,password,role) VALUES (?,?,'staff')",
+                )
+                .run(email, passwordHash(d.password!)).lastInsertRowid,
+            );
+          db.prepare("UPDATE managers SET email=? WHERE id=?").run(
+            email,
+            staffId,
+          );
+          if (id && d.password)
+            db.prepare("UPDATE managers SET password=? WHERE id=?").run(
+              passwordHash(d.password),
+              staffId,
+            );
+          db.prepare("DELETE FROM sessions WHERE manager_id=?").run(staffId);
+          db.prepare("DELETE FROM manager_branches WHERE manager_id=?").run(
+            staffId,
+          );
+          for (const b of new Set(d.branchIds))
+            db.prepare("INSERT INTO manager_branches VALUES (?,?)").run(
+              staffId,
+              b,
+            );
+        });
+        return json({ staff: staffList() }, method === "POST" ? 201 : 200);
+      }
+      if (path.length === 2 && method === "DELETE") {
+        const id = z.coerce.number().int().positive().parse(path[1]);
+        if (
+          !db
+            .prepare("SELECT id FROM managers WHERE id=? AND role='staff'")
+            .get(id)
+        )
+          return json({ error: "Staff account not found." }, 404);
+        transaction(() => {
+          db.prepare("DELETE FROM sessions WHERE manager_id=?").run(id);
+          db.prepare("DELETE FROM managers WHERE id=? AND role='staff'").run(
+            id,
+          );
+        });
+        return json({ ok: true });
+      }
+      return json({ error: "Not found." }, 404);
+    }
+    const accessible = branches(user);
+    const scope =
+      req.nextUrl.searchParams.get("branch") ||
+      accessible.find((b) => b.id === "main")?.id ||
+      accessible[0]?.id;
+    if (scope === "all") {
+      if (route !== "tickets" || method !== "GET")
+        return json({ error: "Choose a branch for this action." }, 400);
+      const ids = new Set(accessible.map((b) => b.id));
+      return json({
+        tickets: tickets().filter((t) => ids.has(t.branch_id)),
+        notifications: [],
+        branches: accessible,
+        user,
+        branchId: "all",
+        name: "All branches",
+        address: "Across your accessible branches",
+        capacity: accessible.reduce((n, b) => n + b.capacity, 0),
+        openingHours: "",
+        archived: false,
+        pushEnabled: pushConfigured(),
+        smsEnabled: smsConfigured(),
+        vapidKey: process.env.VAPID_PUBLIC_KEY || "",
+        waiting: 0,
+        appUrl: process.env.APP_URL || "",
+      });
+    }
+    if (!scope || !canAccessBranch(user, scope))
+      return json({ error: "You do not have access to this branch." }, 403);
     if (route === "qr" && method === "GET") {
       const url = new URL(
         "/check-in",
         process.env.APP_URL || req.nextUrl.origin,
       ).toString();
+      const checkInURL = new URL(url);
+      checkInURL.searchParams.set("branch", scope);
       return new NextResponse(
-        await QRCode.toString(url, { type: "svg", margin: 2, width: 360 }),
+        await QRCode.toString(checkInURL.toString(), {
+          type: "svg",
+          margin: 2,
+          width: 360,
+        }),
         {
           headers: {
             "Content-Type": "image/svg+xml",
@@ -246,25 +443,30 @@ async function handle(
     if (route === "tickets" && method === "GET") {
       await deliverNotifications();
       return json({
-        tickets: tickets(),
+        tickets: tickets(scope),
+        branches: accessible,
+        user,
         notifications: db
           .prepare(
-            "SELECT ticket_id,channel,status,last_error FROM notifications",
+            "SELECT n.ticket_id,n.channel,n.status,n.last_error FROM notifications n JOIN tickets t ON t.id=n.ticket_id WHERE t.branch_id=?",
           )
-          .all(),
-        ...publicInfo(),
+          .all(scope),
+        ...publicInfo(scope),
       });
     }
     if (route === "tickets" && method === "POST")
-      return json(join(guestSchema.parse(await readBody(req))), 201);
+      return json(
+        join({ ...guestSchema.parse(await readBody(req)), branchId: scope }),
+        201,
+      );
     if (path[0] === "tickets" && path.length === 2) {
       const id = path[1];
-      if (!tickets().find((t) => t.id === id))
+      if (!tickets(scope).find((t) => t.id === id))
         return json({ error: "Guest not found." }, 404);
       if (method === "PATCH") {
         const raw = await readBody(req);
         if (raw.action === "release") {
-          const ticket = tickets().find((t) => t.id === id)!;
+          const ticket = tickets(scope).find((t) => t.id === id)!;
           if (ticket.status !== "served" || ticket.released_at)
             return json({ error: "This table is not occupied." }, 409);
           db.prepare("UPDATE tickets SET released_at=? WHERE id=?").run(
@@ -282,12 +484,12 @@ async function handle(
           return json(result);
         }
         const data = guestSchema.parse(raw);
-        const current = tickets().find((t) => t.id === id)!;
+        const current = tickets(scope).find((t) => t.id === id)!;
         if (
           current.status === "notified" ||
           (current.status === "served" && !current.released_at)
         ) {
-          const occupied = tickets()
+          const occupied = tickets(scope)
             .filter(
               (t) =>
                 t.id !== id &&
@@ -295,10 +497,7 @@ async function handle(
                   (t.status === "served" && !t.released_at)),
             )
             .reduce((sum, t) => sum + t.party_size, 0);
-          if (
-            occupied + data.partySize >
-            Number(process.env.RESTAURANT_CAPACITY || 50)
-          )
+          if (occupied + data.partySize > branch(scope)!.capacity)
             return json(
               { error: "Not enough free seats for this party size." },
               409,
@@ -336,7 +535,9 @@ async function handle(
       return json({ error: "Invalid request." }, 400);
     if (
       error instanceof Error &&
-      /Cannot change|Guest not found|queue is full/.test(error.message)
+      /Cannot change|Guest not found|queue is full|Branch not found|not accepting check-ins|before archiving|reserved seats/.test(
+        error.message,
+      )
     )
       return json({ error: error.message }, 409);
     console.error(

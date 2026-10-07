@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowDownToLine,
   ArrowLeft,
@@ -31,9 +31,12 @@ import {
   X,
 } from "lucide-react";
 import { api, csv, type Restaurant } from "../lib/client";
-import type { Ticket } from "../lib/db";
+import BranchManagement from "./branches";
+import type { Branch, Manager, Ticket } from "../lib/db";
 type Tab = "overview" | "queue" | "customers" | "analytics";
 type Data = Restaurant & {
+  branches: Branch[];
+  user: Manager;
   tickets: Ticket[];
   notifications: {
     ticket_id: string;
@@ -68,6 +71,9 @@ const initials = (name: string) =>
     .join("")
     .toUpperCase();
 export default function Dashboard() {
+  const [branchId, setBranchId] = useState("");
+  const [manageBranches, setManageBranches] = useState(false);
+  const requestVersion = useRef(0);
   const [tab, setTab] = useState<Tab>("overview");
   const [data, setData] = useState<Data | null>(null);
   const [loading, setLoading] = useState(true);
@@ -89,22 +95,30 @@ export default function Dashboard() {
   const [customer, setCustomer] = useState<string | null>(null);
   const [receipt, setReceipt] = useState("");
   const refresh = useCallback(async () => {
+    const version = ++requestVersion.current;
     try {
-      const result = await api<Data>("tickets");
+      const result = await api<Data>(
+        `tickets${branchId ? "?branch=" + encodeURIComponent(branchId) : ""}`,
+      );
+      if (version !== requestVersion.current) return;
       setData(result);
       setError("");
     } catch (e) {
+      if (version !== requestVersion.current) return;
       const message = (e as Error).message;
       if (message === "Please sign in.") window.location.replace("/login");
       else setError(message);
     } finally {
-      setLoading(false);
+      if (version === requestVersion.current) setLoading(false);
     }
-  }, []);
+  }, [branchId]);
   useEffect(() => {
     refresh();
     const timer = setInterval(refresh, 10000);
-    return () => clearInterval(timer);
+    return () => {
+      clearInterval(timer);
+      requestVersion.current++;
+    };
   }, [refresh]);
   useEffect(() => {
     if (toast) {
@@ -113,7 +127,8 @@ export default function Dashboard() {
     }
   }, [toast]);
   useEffect(() => {
-    if (!form && !qr && !confirm && !menu && !customer) return;
+    if (!form && !qr && !confirm && !menu && !customer && !manageBranches)
+      return;
     const handler = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setForm(null);
@@ -121,15 +136,20 @@ export default function Dashboard() {
         setConfirm(null);
         setMenu(false);
         setCustomer(null);
+        setManageBranches(false);
       }
     };
     document.addEventListener("keydown", handler);
     return () => document.removeEventListener("keydown", handler);
-  }, [form, qr, confirm, menu, customer]);
+  }, [form, qr, confirm, menu, customer, manageBranches]);
   async function mutate(id: string, body: unknown) {
     setBusy(id);
     try {
-      await api(`tickets/${id}`, "PATCH", body);
+      await api(
+        `tickets/${id}?branch=${encodeURIComponent(data!.branchId)}`,
+        "PATCH",
+        body,
+      );
       await refresh();
       setToast("Queue updated.");
     } catch (e) {
@@ -144,6 +164,8 @@ export default function Dashboard() {
   const seated = all.filter((t) => t.status === "served" && !t.released_at);
   const daily = all.filter((t) => today(t.joined_at));
   const occupancy = seated.reduce((s, t) => s + t.party_size, 0);
+  const reservedSeats =
+    occupancy + called.reduce((s, t) => s + t.party_size, 0);
   const averages = all
     .filter((t) => t.notified_at)
     .map(
@@ -211,9 +233,25 @@ export default function Dashboard() {
     }
     return [...map.values()].sort((a, b) => b.last.localeCompare(a.last));
   }, [all]);
+  function selectBranch(id: string) {
+    requestVersion.current++;
+    setData(null);
+    setLoading(true);
+    setError("");
+    setBranchId(id);
+    setSearch("");
+    setReceipt("");
+    setFilter("waiting");
+    setForm(null);
+    setQr(false);
+    setConfirm(null);
+    setCustomer(null);
+    if (id === "all") setTab("analytics");
+  }
   function exportQueue() {
     csv("tableq-queue.csv", [
       [
+        "Branch",
         "Name",
         "Phone",
         "Email",
@@ -232,6 +270,7 @@ export default function Dashboard() {
               Date.now() - Number(range) * 86400000,
         )
         .map((t) => [
+          data?.branches.find((b) => b.id === t.branch_id)?.name || t.branch_id,
           t.name,
           t.phone,
           t.email,
@@ -283,12 +322,31 @@ export default function Dashboard() {
           <span className="restaurant-avatar">
             <Leaf size={21} />
           </span>
-          <div>
-            <strong>{data.name}</strong>
-            <small>Restaurant workspace</small>
-          </div>
-          <ChevronDown size={15} />
+          <label className="branch-picker">
+            Branch
+            <select
+              aria-label="Branch"
+              value={data.branchId}
+              onChange={(e) => selectBranch(e.target.value)}
+            >
+              {data.branches.map((b) => (
+                <option key={b.id} value={b.id}>
+                  {b.name}
+                  {b.archived ? " (archived)" : ""}
+                </option>
+              ))}
+              {tab === "analytics" && <option value="all">All branches</option>}
+            </select>
+          </label>
         </div>
+        {data.user.role === "admin" && (
+          <button
+            className="button secondary branch-manage"
+            onClick={() => setManageBranches(true)}
+          >
+            Manage branches & staff
+          </button>
+        )}
         <span className="sidebar-label">WORKSPACE</span>
         <nav>
           {tabs.map(({ id, name, icon: Icon }) => (
@@ -296,6 +354,8 @@ export default function Dashboard() {
               key={id}
               className={tab === id ? "nav-item active" : "nav-item"}
               onClick={() => {
+                if (data.branchId === "all" && id !== "analytics")
+                  selectBranch(data.branches[0].id);
                 setTab(id);
                 setSearch("");
                 setMenu(false);
@@ -316,14 +376,21 @@ export default function Dashboard() {
             </span>
             <strong>Let guests check in.</strong>
             <p>One scan. A warmer welcome.</p>
-            <button onClick={() => setQr(true)}>
+            <button
+              disabled={data.branchId === "all"}
+              onClick={() => setQr(true)}
+            >
               Get your QR code <ArrowRight size={14} />
             </button>
           </div>
           <div className="manager-profile">
             <span className="avatar manager">M</span>
             <div>
-              <strong>Restaurant manager</strong>
+              <strong>
+                {data.user.role === "admin"
+                  ? "Administrator"
+                  : "Branch manager"}
+              </strong>
               <small>Front desk</small>
             </div>
             <button
@@ -433,6 +500,7 @@ export default function Dashboard() {
               {(tab === "overview" || tab === "queue") && (
                 <button
                   className="button primary"
+                  disabled={data.archived}
                   onClick={() => setForm("new")}
                 >
                   <Plus size={17} />
@@ -452,6 +520,13 @@ export default function Dashboard() {
               )}
             </div>
           </div>
+          {data.archived && (
+            <p className="error">
+              This branch is archived. Its history is preserved and new
+              check-ins are closed. An administrator can restore it in Manage
+              branches & staff.
+            </p>
+          )}
           {receipt && (
             <div className="receipt-banner">
               <Check size={17} />
@@ -486,7 +561,11 @@ export default function Dashboard() {
                 Live guest status is active. Configure Web Push or SMS to send
                 alerts when guests leave the page.
               </span>
-              <a href="/check-in" target="_blank" rel="noreferrer">
+              <a
+                href={`/check-in?branch=${encodeURIComponent(data.branchId)}`}
+                target="_blank"
+                rel="noreferrer"
+              >
                 Guest view <ExternalLink size={13} />
               </a>
             </div>
@@ -546,9 +625,9 @@ export default function Dashboard() {
                     <div>
                       <strong>A little room for a great evening.</strong>
                       <p>
-                        {occupancy >= data.capacity
+                        {reservedSeats >= data.capacity
                           ? "Your dining room is full. Free a table when guests leave."
-                          : `${Math.max(0, data.capacity - occupancy)} seats available in your dining room.`}
+                          : `${Math.max(0, data.capacity - reservedSeats)} seats available in your dining room.`}
                       </p>
                     </div>
                   </div>
@@ -729,10 +808,10 @@ export default function Dashboard() {
                                 className="button call-button"
                                 disabled={
                                   busy === t.id ||
-                                  occupancy + t.party_size > data.capacity
+                                  reservedSeats + t.party_size > data.capacity
                                 }
                                 title={
-                                  occupancy + t.party_size > data.capacity
+                                  reservedSeats + t.party_size > data.capacity
                                     ? "Not enough free seats"
                                     : "Call this guest"
                                 }
@@ -750,7 +829,7 @@ export default function Dashboard() {
                                   className="button seat-button"
                                   disabled={
                                     busy === t.id ||
-                                    occupancy + t.party_size > data.capacity
+                                    reservedSeats > data.capacity
                                   }
                                   onClick={() =>
                                     mutate(t.id, { status: "served" })
@@ -821,7 +900,10 @@ export default function Dashboard() {
                                     description:
                                       "This permanently deletes this visit and its notification records. This cannot be undone.",
                                     action: async () => {
-                                      await api(`tickets/${t.id}`, "DELETE");
+                                      await api(
+                                        `tickets/${t.id}?branch=${encodeURIComponent(data.branchId)}`,
+                                        "DELETE",
+                                      );
                                       await refresh();
                                       setReceipt("");
                                       setToast("Guest record deleted.");
@@ -862,6 +944,7 @@ export default function Dashboard() {
                     {filter === "waiting" && !search && (
                       <button
                         className="button primary"
+                        disabled={data.archived}
                         onClick={() => setForm("new")}
                       >
                         <Plus size={16} />
@@ -1007,7 +1090,33 @@ export default function Dashboard() {
             </section>
           )}
           {tab === "analytics" && (
-            <Analytics tickets={all} range={Number(range)} avg={avg} />
+            <>
+              <Analytics tickets={all} range={Number(range)} avg={avg} />
+              {data.branchId === "all" && (
+                <section className="panel branch-comparison">
+                  <h2>Branch comparison</h2>
+                  {data.branches.map((b) => {
+                    const visits = all.filter(
+                      (t) =>
+                        t.branch_id === b.id &&
+                        new Date(t.joined_at).getTime() >=
+                          Date.now() - Number(range) * 86400000,
+                    );
+                    return (
+                      <div className="branch-item" key={b.id}>
+                        <strong>{b.name}</strong>
+                        <small>
+                          {visits.length} parties ·{" "}
+                          {visits.reduce((n, t) => n + t.party_size, 0)} guests
+                          · {visits.filter((t) => t.status === "served").length}{" "}
+                          seated parties
+                        </small>
+                      </div>
+                    );
+                  })}
+                </section>
+              )}
+            </>
           )}
           <footer className="dashboard-footer">
             <span>
@@ -1019,6 +1128,19 @@ export default function Dashboard() {
           </footer>
         </main>
       </div>
+      {manageBranches && (
+        <Modal
+          title="Branches & staff"
+          onClose={() => setManageBranches(false)}
+        >
+          <BranchManagement
+            currentBranch={data.branchId}
+            onChanged={async () => {
+              await refresh();
+            }}
+          />
+        </Modal>
+      )}
       {toast && (
         <div className="toast" role="status">
           <Check size={17} />
@@ -1028,6 +1150,7 @@ export default function Dashboard() {
       {form && (
         <GuestForm
           ticket={form}
+          branchId={data.branchId}
           onClose={() => setForm(null)}
           onSaved={async (result) => {
             if (form === "new") {
@@ -1060,7 +1183,7 @@ export default function Dashboard() {
               <strong>{data.name}</strong>
             </div>
             <img
-              src="/api/qr"
+              src={`/api/qr?branch=${encodeURIComponent(data.branchId)}`}
               width="240"
               height="240"
               alt="Scan to join the restaurant queue"
@@ -1072,7 +1195,7 @@ export default function Dashboard() {
           <div className="modal-actions">
             <a
               className="button secondary"
-              href="/api/qr"
+              href={`/api/qr?branch=${encodeURIComponent(data.branchId)}`}
               download="tableq-check-in.svg"
             >
               <ArrowDownToLine size={16} />
@@ -1080,7 +1203,7 @@ export default function Dashboard() {
             </a>
             <a
               className="button primary"
-              href="/check-in"
+              href={`/check-in?branch=${encodeURIComponent(data.branchId)}`}
               target="_blank"
               rel="noreferrer"
             >
@@ -1273,10 +1396,12 @@ export function Modal({
 }
 function GuestForm({
   ticket,
+  branchId,
   onClose,
   onSaved,
 }: {
   ticket: Ticket | "new";
+  branchId: string;
   onClose: () => void;
   onSaved: (result: { token?: string }) => Promise<void>;
 }) {
@@ -1299,7 +1424,9 @@ function GuestForm({
           setError("");
           try {
             const result = await api(
-              initial ? `tickets/${initial.id}` : "tickets",
+              initial
+                ? `tickets/${initial.id}?branch=${encodeURIComponent(branchId)}`
+                : `tickets?branch=${encodeURIComponent(branchId)}`,
               initial ? "PATCH" : "POST",
               { name, phone, email, partySize: size, priority, notes, consent },
             );

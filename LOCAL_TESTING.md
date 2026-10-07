@@ -9,13 +9,13 @@ This is the complete app with local SQLite storage. No Docker, database server, 
 3. Open **Terminal → New Terminal** and run:
 
 ```sh
-npm ci
-npm run local
+npm.cmd ci
+npm.cmd run local
 ```
 
-These commands work in Windows PowerShell, macOS, and Linux. The local launcher creates `.env.local` and notification keys on first use, then starts both the app and notification worker. Existing configuration and data are preserved.
+On Windows PowerShell, use `npm.cmd` as shown to avoid script execution-policy errors. On macOS/Linux, use `npm` instead of `npm.cmd`. The local launcher creates `.env.local` and notification keys on first use, then starts both the app and notification worker. Existing configuration and data are preserved.
 
-Open `http://localhost:3000` in your browser. If port 3000 is already in use, run `npm run local -- --port 3005` instead and open `http://localhost:3005`. The launcher keeps the app, guest links, and QR URL on the chosen port.
+Open `http://localhost:3000` in your browser. If port 3000 is already in use, run `npm.cmd run local -- --port 3005` instead and open `http://localhost:3005`. The launcher keeps the app, guest links, and QR URL on the chosen port.
 
 **Manager login**
 
@@ -37,18 +37,28 @@ You can also press **F5** and select **TableQ: run and debug locally** after ins
 
 Use the browser’s responsive/device toolbar to test the mobile layout. QR codes generated in local mode point to localhost, so scanning them on a different phone will not reach your computer. To test an actual phone and off-page mobile alerts, use an HTTPS deployment as described in README.md. Windows/macOS notification settings, browser permissions, and outbound access to your browser’s push service can affect delivery. Live page updates work without push permission.
 
+## Add branches
+
+Sign in with the administrator account and click **Manage branches & staff** in the sidebar. Add branch details, then close the dialog and select the branch using **Branch**. Use **Check-in QR** to get that branch's entrance QR and public link. Queues, seats, guest history and individual analytics are separate. In **Analytics**, select **All branches** to see combined results.
+
+In the same administration dialog, open **Staff access** to create accounts assigned to specific branches. Staff use the same login page and cannot access unassigned branches or administration.
+
+## Update an existing installation
+
+Stop the old app and worker with **Ctrl+C** before updating. Extract the new project ZIP into a new folder. Copy your old **data** folder and **.env.local** file into the new project folder before starting it. Run `npm.cmd ci` and `npm.cmd run local` there. Your original visits are automatically retained under the original branch. Keep the old folder as a backup until the new version works. Do not delete the old data to update.
+
 ## Stop and restart
 
-Press **Ctrl+C** in the terminal to stop the app and worker. Run `npm run local` to resume. Your visits are kept in `data/tableq.sqlite`.
+Press **Ctrl+C** in the terminal to stop the app and worker. Run `npm.cmd run local` to resume. Your visits are kept in `data/tableq.sqlite`.
 
 To start with a clean queue, stop the app and worker, then remove the local `data` folder. This permanently deletes local visits and login sessions. The development account is recreated on the next startup. Avoid doing this to production data.
 
 ## Checks
 
 ```sh
-npm test
-npm run typecheck
-npm run build
+npm.cmd test
+npm.cmd run typecheck
+npm.cmd run build
 ```
 
-Run the app once before type checking so Next.js can generate its route types. This local package uses the same application code and deployment files as the production version. Use `npm run local` for testing; `npm start` is production mode and requires production credentials.
+Run the app once before type checking so Next.js can generate its route types. This local package uses the same application code and deployment files as the production version. Use `npm.cmd run local` for testing; `npm start` is production mode and requires production credentials.

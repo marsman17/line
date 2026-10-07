@@ -3111,3 +3111,96 @@ select {
     margin-left: auto;
   }
 }
+
+/* Branch administration shares the existing responsive workspace. */
+.branch-picker {
+  display: block;
+  flex: 1;
+  min-width: 0;
+  font-size: 10px;
+  margin: 0;
+}
+.branch-picker select {
+  width: 100%;
+  background: transparent;
+  color: var(--text, #eff2e9);
+  border: 0;
+  padding: 4px 0;
+  font-size: 12px;
+}
+.branch-picker option {
+  background: #242b1f;
+  color: #eff2e9;
+}
+.branch-manage {
+  margin: 8px 0 18px;
+  width: 100%;
+  font-size: 11px;
+}
+.branch-management form {
+  margin-top: 15px;
+}
+.branch-management fieldset {
+  border: 1px solid #414c35;
+  border-radius: 8px;
+  padding: 12px;
+}
+.branch-management legend {
+  font-size: 11px;
+}
+.branch-mode {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.branch-list {
+  display: grid;
+  gap: 10px;
+  margin: 18px 0 24px;
+}
+.branch-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid #414c35;
+  border-radius: 9px;
+}
+.branch-item > div {
+  min-width: 0;
+}
+.branch-item strong {
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.branch-item small {
+  display: block;
+  color: #a0ac94;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+.branch-item .button {
+  flex-shrink: 0;
+  padding: 8px;
+  font-size: 11px;
+}
+.branch-item .branch-mode {
+  margin-bottom: 0;
+}
+@media (max-width: 480px) {
+  .branch-item {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+.branch-comparison {
+  padding: 20px;
+}
+.branch-comparison h2 {
+  margin-bottom: 15px;
+}
+.sidebar .restaurant-switch {
+  margin-bottom: 12px;
+}

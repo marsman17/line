@@ -92,15 +92,23 @@ export function CheckIn() {
   const [busy, setBusy] = useState(false);
   const [resume, setResume] = useState("");
   useEffect(() => {
-    api<Restaurant>("public")
+    const branchId =
+      new URLSearchParams(window.location.search).get("branch") || "main";
+    api<Restaurant>(`public?branch=${encodeURIComponent(branchId)}`)
       .then(setRestaurant)
       .catch((e) => setError(e.message));
     try {
-      const secret = localStorage.getItem("tableq-visit");
+      const secret =
+        localStorage.getItem("tableq-visit:" + branchId) ||
+        (branchId === "main" ? localStorage.getItem("tableq-visit") : null);
       if (secret)
         api<GuestStatus>(`guest/${secret}`)
           .then((s) => {
-            if (["waiting", "notified"].includes(s.status)) setResume(secret);
+            if (
+              s.restaurant.branchId === branchId &&
+              ["waiting", "notified"].includes(s.status)
+            )
+              setResume(secret);
           })
           .catch(() => {});
     } catch {}
@@ -113,11 +121,23 @@ export function CheckIn() {
             <ListIcon />
           </span>
           <span className="guest-open">
-            <i /> {restaurant ? "Check-in is open" : "Loading restaurant…"}
+            <i />{" "}
+            {restaurant?.archived
+              ? "Check-in is closed"
+              : restaurant
+                ? "Check-in is open"
+                : "Loading restaurant…"}
           </span>
         </div>
         <h2>A table is worth the wait.</h2>
-        <p>Join the queue. We’ll take care of the rest.</p>
+        <p>
+          {restaurant?.archived
+            ? "This branch is closed for check-in."
+            : "Join the queue. We’ll take care of the rest."}
+        </p>
+        {restaurant?.openingHours && (
+          <p>Opening hours: {restaurant.openingHours}</p>
+        )}
         {resume && (
           <a className="resume-visit" href={`/guest/${resume}`}>
             <Clock size={17} />
@@ -131,15 +151,22 @@ export function CheckIn() {
             setBusy(true);
             setError("");
             try {
-              const result = await api<{ token: string }>("join", "POST", {
-                name,
-                phone,
-                email,
-                partySize: size,
-                consent,
-              });
+              const result = await api<{ token: string }>(
+                `join?branch=${encodeURIComponent(restaurant!.branchId)}`,
+                "POST",
+                {
+                  name,
+                  phone,
+                  email,
+                  partySize: size,
+                  consent,
+                },
+              );
               try {
-                localStorage.setItem("tableq-visit", result.token);
+                localStorage.setItem(
+                  "tableq-visit:" + restaurant!.branchId,
+                  result.token,
+                );
               } catch {}
               window.location.href = `/guest/${result.token}`;
             } catch (e) {
@@ -226,7 +253,7 @@ export function CheckIn() {
           )}
           <button
             className="button guest-primary"
-            disabled={busy || !restaurant}
+            disabled={busy || !restaurant || restaurant.archived}
           >
             {busy ? "Saving your place…" : "Join the queue"}
             <ArrowRight size={18} />

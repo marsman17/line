@@ -13,7 +13,17 @@ A restaurant queue manager with a dark manager workspace and a light guest check
 - Searchable customer history, CSV exports protected against formula injection, date/status queue filters, and analytics calculated from actual visits.
 - Loading, empty, validation, disconnected, and error states. No fake restaurant metrics or prepopulated customer records.
 
-This release supports one restaurant and one manager account. Locations, staff administration, billing, reservations, email delivery, and exact replication of screens not supplied in the reference are outside this scope. Estimated waits use a simple five-minute-per-party heuristic and are clearly labeled estimates.
+This release supports multiple branches, administrator accounts and staff assigned to specific branches. Billing/subscriptions, general account settings and self-service password recovery, reservations, email delivery, and exact replication of screens not supplied in the reference are outside this scope. Estimated waits use a simple five-minute-per-party heuristic and are clearly labeled estimates.
+
+## Multiple branches and staff
+
+Sign in as an administrator and select **Manage branches & staff** in the sidebar. Create or edit a branch with its name, address, seating capacity and displayed opening hours. The original restaurant and its existing visits are migrated automatically into the `main` branch; existing private guest links and sessions remain valid. Environment restaurant values seed the original branch once. After that, edit branch details in the app.
+
+Use the **Branch** selector to switch queues. Each branch has its own capacity, customer history, queue order, check-in link (`/check-in?branch=ID`) and downloadable QR. Open **Analytics**, then select **All branches** for combined results and a branch comparison. CSV visit exports include the branch name.
+
+Under **Staff access**, create staff accounts with passwords of at least 12 characters and assign one or more branches. Staff can manage visits and view analytics only for assigned branches; administrators manage all branches and staff. Share credentials privately. Updating staff access or a password revokes that account's sessions. Removing staff also revokes access. Existing manager accounts become administrators during migration.
+
+Archive branches only after cancelling/finishing active visits and freeing occupied tables. Archived branches stop accepting check-ins but keep visit history and private guest links. Restore them by editing and clearing **Archived**. Opening hours are informational; this release does not automatically schedule check-in opening/closing or handle branch time zones. Notification messages name the guest's branch, while all branches share the configured Web Push/Twilio provider.
 
 ## Local development
 
@@ -97,4 +107,4 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-The browser suite uses a separate database under `/tmp/tableq-e2e`, a production server on port 3100, and a test-only account. It covers mobile QR check-in, guest live updates, manager login and CRUD, seating/table release, QR rendering, CSV download, responsive layout, private API access, and origin checks. Unit tests exercise capacity, queue order, transitions, consent, rate limiting, password verification, and mocked SMS delivery/retry behavior. Actual SMS and device push require the production phone smoke test above.
+The browser suite uses a separate database under `/tmp/tableq-e2e`, a production server on port 3100, and a test-only account. It covers mobile QR check-in, guest live updates, manager login and CRUD, seating/table release, QR rendering, CSV download, responsive layout, private API access, and origin checks. Unit tests exercise branch isolation, additive database migration, archive/restore rules, capacity, queue order, transitions, consent, rate limiting, password verification, and mocked SMS delivery/retry behavior. Browser checks also cover branch administration, branch-specific QR/check-in, staff authorization, session revocation and combined analytics. Actual SMS and device push require the production phone smoke test above.

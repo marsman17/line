@@ -57,10 +57,9 @@ if (!health()) {
     throw new Error(
       "First startup requires ADMIN_EMAIL and ADMIN_PASSWORD with at least 12 characters.",
     );
-  db.prepare("INSERT INTO managers(email,password) VALUES (?,?)").run(
-    email.toLowerCase(),
-    passwordHash(password),
-  );
+  db.prepare(
+    "INSERT INTO managers(email,password,role) VALUES (?, ?, 'admin') ON CONFLICT(email) DO UPDATE SET password=excluded.password,role='admin'",
+  ).run(email.toLowerCase(), passwordHash(password));
   console.log("Production manager account created.");
 }
 if (!process.env.VAPID_PUBLIC_KEY && !process.env.TWILIO_ACCOUNT_SID)

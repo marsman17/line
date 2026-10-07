@@ -22,7 +22,7 @@ export async function deliverNotifications() {
     ).run(Date.now());
     const jobs = db
       .prepare(
-        "SELECT n.*, t.phone, t.name, t.status AS ticket_status FROM notifications n JOIN tickets t ON t.id=n.ticket_id WHERE n.status='pending' AND n.next_attempt<=? AND n.attempts<5",
+        "SELECT n.*, t.phone, t.name, t.status AS ticket_status, b.name AS branch_name FROM notifications n JOIN tickets t ON t.id=n.ticket_id JOIN branches b ON b.id=t.branch_id WHERE n.status='pending' AND n.next_attempt<=? AND n.attempts<5",
       )
       .all(Date.now()) as unknown as {
       id: number;
@@ -32,6 +32,7 @@ export async function deliverNotifications() {
       phone: string;
       name: string;
       ticket_status: string;
+      branch_name: string;
     }[];
     for (const job of jobs) {
       if (job.ticket_status !== "notified") {
@@ -66,7 +67,7 @@ export async function deliverNotifications() {
             JSON.parse(sub.subscription),
             JSON.stringify({
               title: "Your table is ready",
-              body: `${job.name}, please return to the host at ${process.env.RESTAURANT_NAME || "The Olive Table"}.`,
+              body: `${job.name}, please return to the host at ${job.branch_name}.`,
               ticketId: job.ticket_id,
             }),
             { TTL: 300, timeout: 10000 },
@@ -90,7 +91,7 @@ export async function deliverNotifications() {
               body: new URLSearchParams({
                 To: job.phone,
                 From: process.env.TWILIO_FROM_NUMBER!,
-                Body: `${job.name}, your table at ${process.env.RESTAURANT_NAME || "The Olive Table"} is ready. Please return to the host.`,
+                Body: `${job.name}, your table at ${job.branch_name} is ready. Please return to the host.`,
               }),
               signal: AbortSignal.timeout(10000),
             },

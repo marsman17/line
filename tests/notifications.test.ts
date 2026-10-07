@@ -159,3 +159,52 @@ test("expired push subscriptions are removed and marked failed", async () => {
     "failed",
   );
 });
+
+test("SMS and push alerts identify the guest branch rather than the default restaurant", async () => {
+  const { saveBranch } = await import("../lib/db.ts");
+  const branch = saveBranch({
+    name: "North Garden",
+    address: "10 North Street",
+    capacity: 10,
+    opening_hours: "",
+    archived: 0,
+  });
+  const t = join({
+    name: "North Guest",
+    phone: "+15551234567",
+    email: "",
+    partySize: 2,
+    consent: true,
+    branchId: branch.id,
+  });
+  transition(t.id, "notified");
+  db.prepare("INSERT INTO subscriptions VALUES (?,?)").run(
+    t.id,
+    JSON.stringify({
+      endpoint: "https://example.test/push",
+      keys: { auth: "test", p256dh: "test" },
+    }),
+  );
+  process.env.VAPID_PUBLIC_KEY = "test-key";
+  process.env.VAPID_PRIVATE_KEY = "test-key";
+  process.env.VAPID_SUBJECT = "mailto:test@example.test";
+  const originalDetails = webpush.setVapidDetails;
+  webpush.setVapidDetails = () => {};
+  let smsBody = "",
+    pushBody = "";
+  globalThis.fetch = async (_url, init) => {
+    smsBody = String(init?.body);
+    return new Response("{}", { status: 201 });
+  };
+  webpush.sendNotification = async (_subscription, payload) => {
+    pushBody = String(payload);
+    return { statusCode: 201, body: "", headers: {} };
+  };
+  try {
+    await deliverNotifications();
+    assert.match(new URLSearchParams(smsBody).get("Body")!, /North Garden/);
+    assert.match(JSON.parse(pushBody).body, /North Garden/);
+  } finally {
+    webpush.setVapidDetails = originalDetails;
+  }
+});

@@ -5,6 +5,7 @@ import { hash, passwordHash, token } from "./security.ts";
 export type Status = "waiting" | "notified" | "served" | "cancelled";
 export type Ticket = {
   id: string;
+  branch_id: string;
   name: string;
   phone: string;
   email: string;
@@ -33,11 +34,119 @@ CREATE TABLE IF NOT EXISTS subscriptions(ticket_id TEXT PRIMARY KEY REFERENCES t
 CREATE TABLE IF NOT EXISTS notifications(id INTEGER PRIMARY KEY, ticket_id TEXT NOT NULL REFERENCES tickets(id) ON DELETE CASCADE, channel TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'pending', attempts INTEGER NOT NULL DEFAULT 0, last_error TEXT, created_at TEXT NOT NULL, sent_at TEXT, next_attempt INTEGER NOT NULL DEFAULT 0, UNIQUE(ticket_id,channel));
 CREATE TABLE IF NOT EXISTS rate_limits(key TEXT PRIMARY KEY, count INTEGER NOT NULL, expires INTEGER NOT NULL);
 `);
+// Additive migration preserves existing visits, sessions and notification records.
+db.exec("BEGIN IMMEDIATE");
+db.exec(`CREATE TABLE IF NOT EXISTS branches(id TEXT PRIMARY KEY, name TEXT NOT NULL, address TEXT NOT NULL, capacity INTEGER NOT NULL CHECK(capacity BETWEEN 1 AND 2000), opening_hours TEXT NOT NULL DEFAULT '', archived INTEGER NOT NULL DEFAULT 0 CHECK(archived IN (0,1)));
+CREATE TABLE IF NOT EXISTS manager_branches(manager_id INTEGER NOT NULL REFERENCES managers(id) ON DELETE CASCADE, branch_id TEXT NOT NULL REFERENCES branches(id), PRIMARY KEY(manager_id,branch_id));`);
+db.prepare(
+  "INSERT OR IGNORE INTO branches(id,name,address,capacity) VALUES ('main',?,?,?)",
+).run(
+  process.env.RESTAURANT_NAME || "The Olive Table",
+  process.env.RESTAURANT_ADDRESS || "24 Garden Avenue · Welcome to our table",
+  Number(process.env.RESTAURANT_CAPACITY || 50),
+);
+if (
+  !(db.prepare("PRAGMA table_info(tickets)").all() as { name: string }[]).some(
+    (c) => c.name === "branch_id",
+  )
+)
+  db.exec(
+    "ALTER TABLE tickets ADD COLUMN branch_id TEXT NOT NULL DEFAULT 'main'",
+  );
+if (
+  !(db.prepare("PRAGMA table_info(managers)").all() as { name: string }[]).some(
+    (c) => c.name === "role",
+  )
+)
+  db.exec(
+    "ALTER TABLE managers ADD COLUMN role TEXT NOT NULL DEFAULT 'admin' CHECK(role IN ('admin','staff'))",
+  );
+db.exec(`CREATE INDEX IF NOT EXISTS tickets_branch_status ON tickets(branch_id,status,joined_at);
+CREATE TRIGGER IF NOT EXISTS tickets_branch_insert BEFORE INSERT ON tickets WHEN NOT EXISTS(SELECT 1 FROM branches WHERE id=NEW.branch_id) BEGIN SELECT RAISE(ABORT,'Unknown branch'); END;
+CREATE TRIGGER IF NOT EXISTS tickets_branch_update BEFORE UPDATE OF branch_id ON tickets WHEN NOT EXISTS(SELECT 1 FROM branches WHERE id=NEW.branch_id) BEGIN SELECT RAISE(ABORT,'Unknown branch'); END;`);
+db.exec("COMMIT");
+export type Branch = {
+  id: string;
+  name: string;
+  address: string;
+  capacity: number;
+  opening_hours: string;
+  archived: number;
+};
+export type Manager = { id: number; email: string; role: "admin" | "staff" };
+export function branches(user?: Manager): Branch[] {
+  return (
+    user?.role === "staff"
+      ? db
+          .prepare(
+            "SELECT b.* FROM branches b JOIN manager_branches m ON m.branch_id=b.id WHERE m.manager_id=? ORDER BY b.archived,b.name,b.id",
+          )
+          .all(user.id)
+      : db.prepare("SELECT * FROM branches ORDER BY archived,name,id").all()
+  ) as Branch[];
+}
+export function branch(id = "main") {
+  return db.prepare("SELECT * FROM branches WHERE id=?").get(id) as
+    Branch | undefined;
+}
+export function canAccessBranch(user: Manager, id: string) {
+  return user.role === "admin"
+    ? !!branch(id)
+    : !!db
+        .prepare(
+          "SELECT branch_id FROM manager_branches WHERE manager_id=? AND branch_id=?",
+        )
+        .get(user.id, id);
+}
+export function saveBranch(input: Omit<Branch, "id">, id?: string) {
+  return transaction(() => {
+    const current = id ? branch(id) : undefined;
+    if (id && !current) throw Error("Branch not found.");
+    if (current) {
+      const active = tickets(id).filter(
+        (t) =>
+          t.status === "waiting" ||
+          t.status === "notified" ||
+          (t.status === "served" && !t.released_at),
+      );
+      if (input.archived && active.length)
+        throw Error(
+          "Finish or cancel active visits and free tables before archiving this branch.",
+        );
+      const occupied = active
+        .filter((t) => t.status === "notified" || t.status === "served")
+        .reduce((sum, t) => sum + t.party_size, 0);
+      if (input.capacity < occupied)
+        throw Error("Capacity cannot be lower than currently reserved seats.");
+      db.prepare(
+        "UPDATE branches SET name=?,address=?,capacity=?,opening_hours=?,archived=? WHERE id=?",
+      ).run(
+        input.name,
+        input.address,
+        input.capacity,
+        input.opening_hours,
+        input.archived,
+        id!,
+      );
+    } else {
+      id = token().slice(0, 12);
+      db.prepare("INSERT INTO branches VALUES (?,?,?,?,?,?)").run(
+        id,
+        input.name,
+        input.address,
+        input.capacity,
+        input.opening_hours,
+        input.archived,
+      );
+    }
+    return branch(id)!;
+  });
+}
 if (
   process.env.NODE_ENV !== "production" &&
-  !db.prepare("SELECT id FROM managers LIMIT 1").get()
+  !db.prepare("SELECT id FROM managers WHERE role='admin' LIMIT 1").get()
 )
-  db.prepare("INSERT INTO managers(email,password) VALUES (?,?)").run(
+  db.prepare("INSERT OR IGNORE INTO managers(email,password) VALUES (?,?)").run(
     "admin@tableq.local",
     passwordHash("tableq-dev-only"),
   );
@@ -66,17 +175,17 @@ export function rateLimit(key: string, limit: number, seconds: number) {
     return true;
   });
 }
-export function tickets() {
+export function tickets(branchId?: string) {
   return db
     .prepare(
-      "SELECT id,name,phone,email,party_size,priority,status,joined_at,notified_at,finished_at,notes,consent,released_at FROM tickets ORDER BY priority DESC, joined_at ASC, rowid ASC",
+      `SELECT id,branch_id,name,phone,email,party_size,priority,status,joined_at,notified_at,finished_at,notes,consent,released_at FROM tickets ${branchId ? "WHERE branch_id=?" : ""} ORDER BY priority DESC, joined_at ASC, rowid ASC`,
     )
-    .all() as Ticket[];
+    .all(...(branchId ? [branchId] : [])) as Ticket[];
 }
 export function findGuest(secret: string) {
   return db
     .prepare(
-      "SELECT id,name,phone,email,party_size,priority,status,joined_at,notified_at,finished_at,notes,consent,released_at FROM tickets WHERE token_hash=?",
+      "SELECT id,branch_id,name,phone,email,party_size,priority,status,joined_at,notified_at,finished_at,notes,consent,released_at FROM tickets WHERE token_hash=?",
     )
     .get(hash(secret)) as Ticket | undefined;
 }
@@ -85,21 +194,26 @@ export type GuestInput = {
   phone: string;
   email: string;
   partySize: number;
+  branchId?: string;
   priority?: boolean;
   notes?: string;
   consent?: boolean;
 };
 export function join(input: GuestInput) {
   return transaction(() => {
+    const location = branch(input.branchId || "main");
+    if (!location || location.archived)
+      throw Error("This branch is not accepting check-ins.");
     if (
-      tickets().filter((t) => t.status === "waiting" || t.status === "notified")
-        .length >= 200
+      tickets(location.id).filter(
+        (t) => t.status === "waiting" || t.status === "notified",
+      ).length >= 200
     )
       throw new Error("The queue is full. Please speak with the host.");
     const secret = token();
     const id = token().slice(0, 12);
     db.prepare(
-      "INSERT INTO tickets(id,token_hash,name,phone,email,party_size,priority,joined_at,notes,consent) VALUES (?,?,?,?,?,?,?,?,?,?)",
+      "INSERT INTO tickets(id,token_hash,name,phone,email,party_size,priority,joined_at,notes,consent,branch_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
     ).run(
       id,
       hash(secret),
@@ -111,6 +225,7 @@ export function join(input: GuestInput) {
       new Date().toISOString(),
       input.notes || "",
       input.consent ? 1 : 0,
+      location.id,
     );
     return { id, token: secret };
   });
@@ -118,10 +233,13 @@ export function join(input: GuestInput) {
 export function guestView(secret: string) {
   const ticket = findGuest(secret);
   if (!ticket) return null;
-  const active = tickets().filter((t) => t.status === "waiting");
+  const active = tickets(ticket.branch_id).filter(
+    (t) => t.status === "waiting",
+  );
   const index = active.findIndex((t) => t.id === ticket.id);
   return {
     id: ticket.id,
+    branchId: ticket.branch_id,
     name: ticket.name,
     partySize: ticket.party_size,
     status: ticket.status,
@@ -149,7 +267,7 @@ export function transition(id: string, status: Status) {
     if (!allowed[ticket.status].includes(status))
       throw new Error(`Cannot change ${ticket.status} to ${status}.`);
     if (status === "notified" || status === "served") {
-      const occupied = tickets()
+      const occupied = tickets(ticket.branch_id)
         .filter(
           (t) =>
             t.id !== id &&
@@ -157,10 +275,7 @@ export function transition(id: string, status: Status) {
               (t.status === "served" && !t.released_at)),
         )
         .reduce((sum, t) => sum + t.party_size, 0);
-      if (
-        occupied + ticket.party_size >
-        Number(process.env.RESTAURANT_CAPACITY || 50)
-      )
+      if (occupied + ticket.party_size > branch(ticket.branch_id)!.capacity)
         throw new Error(
           "Cannot change status: not enough free seats. Free a table first.",
         );
@@ -195,5 +310,7 @@ export function transition(id: string, status: Status) {
 }
 export function health() {
   db.prepare("SELECT 1").get();
-  return !!db.prepare("SELECT id FROM managers LIMIT 1").get();
+  return !!db
+    .prepare("SELECT id FROM managers WHERE role='admin' LIMIT 1")
+    .get();
 }

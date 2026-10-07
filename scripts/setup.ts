@@ -12,7 +12,7 @@ if (!email || !password || password.length < 12) {
   process.exit(1);
 }
 db.prepare(
-  "INSERT INTO managers(email,password) VALUES (?,?) ON CONFLICT(email) DO UPDATE SET password=excluded.password",
+  "INSERT INTO managers(email,password,role) VALUES (?,?,'admin') ON CONFLICT(email) DO UPDATE SET password=excluded.password,role='admin'",
 ).run(email.toLowerCase(), passwordHash(password));
 db.prepare("DELETE FROM sessions").run();
 if (
