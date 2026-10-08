@@ -84,3 +84,7 @@ npm.cmd run build
 ```
 
 Run the app once before type checking so Next.js can generate its route types. This local package uses the same application code and deployment files as the production version. Use `npm.cmd run local` for testing; `npm start` is production mode and requires production credentials.
+
+## Restaurant website and menu links
+
+In **CMS → Branches**, edit a branch and enter optional **Website URL** and **Menu URL** values, including `https://`. These links appear on that branch’s guest check-in and waiting pages and open in a new tab. Leave a field blank to hide its link. Branch managers retain queue access; administrators manage branch configuration. Existing data and links are preserved when updating other branch settings.

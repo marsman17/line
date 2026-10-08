@@ -4843,3 +4843,6 @@ select {
   align-items: center;
   justify-content: center;
 }
+
+.guest-restaurant-links { display: flex; flex-wrap: wrap; gap: 10px; margin-block: 18px; }
+.guest-restaurant-links a { text-decoration: none; }

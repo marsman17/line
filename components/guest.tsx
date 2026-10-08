@@ -76,6 +76,33 @@ function GuestFrame({
           <p>
             {restaurant?.address || tx("A warm welcome is waiting for you.")}
           </p>
+          {(restaurant?.websiteUrl || restaurant?.menuUrl) && (
+            <nav
+              className="guest-restaurant-links"
+              aria-label={tx("Restaurant links")}
+            >
+              {restaurant.websiteUrl && (
+                <a
+                  className="button secondary"
+                  href={restaurant.websiteUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {tx("Visit website")} ↗
+                </a>
+              )}
+              {restaurant.menuUrl && (
+                <a
+                  className="button primary"
+                  href={restaurant.menuUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {tx("View menu")} ↗
+                </a>
+              )}
+            </nav>
+          )}
           <div className="guest-promise">
             <Clock size={19} />
             <div>

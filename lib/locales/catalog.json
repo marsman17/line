@@ -3745,5 +3745,61 @@
     "L’estimation apparaît après l’inscription.",
     "La stima appare dopo il check-in.",
     "چیک اِن کے بعد انتظار کا اندازہ دکھایا جائے گا۔"
+  ],
+  "Website URL (optional)": [
+    "URL del sitio web (opcional)",
+    "URL do site (opcional)",
+    "Website-URL (optional)",
+    "URL du site (facultatif)",
+    "URL del sito (facoltativo)",
+    "ویب سائٹ کا URL (اختیاری)"
+  ],
+  "Menu URL (optional)": [
+    "URL del menú (opcional)",
+    "URL do menu (opcional)",
+    "Menü-URL (optional)",
+    "URL du menu (facultatif)",
+    "URL del menu (facoltativo)",
+    "مینو کا URL (اختیاری)"
+  ],
+  "Shown on guest check-in and waiting pages. Leave blank to hide a link.": [
+    "Se muestra al registrarse y durante la espera. Deje vacío para ocultar el enlace.",
+    "Exibido no check-in e na espera. Deixe em branco para ocultar o link.",
+    "Auf Check-in- und Warteseiten angezeigt. Leer lassen, um den Link auszublenden.",
+    "Affiché sur les pages d’arrivée et d’attente. Laissez vide pour masquer le lien.",
+    "Mostrato nelle pagine di check-in e attesa. Lascia vuoto per nascondere il link.",
+    "مہمان کے اندراج اور انتظار کے صفحات پر دکھایا جاتا ہے۔ لنک چھپانے کے لیے خالی چھوڑیں۔"
+  ],
+  "Restaurant links": [
+    "Enlaces del restaurante",
+    "Links do restaurante",
+    "Restaurant-Links",
+    "Liens du restaurant",
+    "Link del ristorante",
+    "ریستوران کے لنکس"
+  ],
+  "Visit website": [
+    "Visitar sitio web",
+    "Visitar site",
+    "Website besuchen",
+    "Visiter le site",
+    "Visita il sito",
+    "ویب سائٹ دیکھیں"
+  ],
+  "View menu": [
+    "Ver menú",
+    "Ver menu",
+    "Menü ansehen",
+    "Voir le menu",
+    "Visualizza menu",
+    "مینو دیکھیں"
+  ],
+  "Enter a valid http:// or https:// URL without login details.": [
+    "Introduzca una URL http:// o https:// válida sin credenciales.",
+    "Insira uma URL http:// ou https:// válida sem credenciais.",
+    "Gültige http://- oder https://-URL ohne Anmeldedaten eingeben.",
+    "Saisissez une URL http:// ou https:// valide sans identifiants.",
+    "Inserisci un URL http:// o https:// valido senza credenziali.",
+    "لاگ ان معلومات کے بغیر درست http:// یا https:// URL درج کریں۔"
   ]
 }

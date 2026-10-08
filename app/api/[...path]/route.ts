@@ -1,3 +1,4 @@
+import { validRestaurantUrl } from "../../../lib/restaurant-links";
 import { waitEstimates } from "../../../lib/wait-estimates";
 import {
   saveCompanyLogo,
@@ -106,7 +107,18 @@ function manager(req: NextRequest) {
     )
     .get(hash(secret), Date.now()) as Manager | undefined;
 }
+const restaurantLinkSchema = z
+  .string()
+  .trim()
+  .max(2048)
+  .refine(
+    validRestaurantUrl,
+    "Enter a valid http:// or https:// URL without login details.",
+  )
+  .optional();
 const branchSchema = z.object({
+  websiteUrl: restaurantLinkSchema,
+  menuUrl: restaurantLinkSchema,
   serviceMinutes: z.number().int().min(5).max(480).nullable().optional(),
   name: z.string().trim().min(1).max(80),
   address: z.string().trim().min(1).max(200),
@@ -129,6 +141,8 @@ function publicInfo(id = "main") {
     : undefined;
   return {
     branchId: location.id,
+    websiteUrl: location.website_url || "",
+    menuUrl: location.menu_url || "",
     logoVersion: location.logo_version,
     serviceMinutes: location.service_minutes,
     estimatedWaitMinutes: estimates
@@ -505,6 +519,8 @@ async function handle(
               capacity: d.capacity,
               opening_hours: d.openingHours,
               service_minutes: d.serviceMinutes,
+              website_url: d.websiteUrl,
+              menu_url: d.menuUrl,
               archived: d.archived ? 1 : 0,
             },
             method === "PATCH" ? path[1] : undefined,

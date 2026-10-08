@@ -1,3 +1,4 @@
+import { restaurantUrl } from "./restaurant-links";
 import { waitEstimates } from "./wait-estimates";
 import { DatabaseSync } from "node:sqlite";
 import { mkdirSync } from "node:fs";
@@ -50,6 +51,16 @@ if (
   db.exec(
     "ALTER TABLE branches ADD COLUMN service_minutes INTEGER CHECK(service_minutes IS NULL OR service_minutes BETWEEN 5 AND 480)",
   );
+for (const column of ["website_url", "menu_url"]) {
+  if (
+    !(
+      db.prepare("PRAGMA table_info(branches)").all() as { name: string }[]
+    ).some((c) => c.name === column)
+  )
+    db.exec(
+      `ALTER TABLE branches ADD COLUMN ${column} TEXT NOT NULL DEFAULT ''`,
+    );
+}
 db.prepare(
   "INSERT OR IGNORE INTO branches(id,name,address,capacity) VALUES ('main',?,?,?)",
 ).run(
@@ -163,6 +174,8 @@ db.exec(
   `CREATE TABLE IF NOT EXISTS branch_logos(branch_id TEXT PRIMARY KEY REFERENCES branches(id) ON DELETE CASCADE,image BLOB NOT NULL,version TEXT NOT NULL);`,
 );
 export type Branch = {
+  website_url?: string;
+  menu_url?: string;
   service_minutes?: number | null;
   logo_version?: string | null;
   id: string;
@@ -208,6 +221,10 @@ export function saveBranch(input: Omit<Branch, "id">, id?: string) {
   return transaction(() => {
     const current = id ? branch(id) : undefined;
     if (id && !current) throw Error("Branch not found.");
+    const websiteUrl = restaurantUrl(
+      input.website_url ?? current?.website_url ?? "",
+    );
+    const menuUrl = restaurantUrl(input.menu_url ?? current?.menu_url ?? "");
     if (current) {
       const active = tickets(id).filter(
         (t) =>
@@ -225,7 +242,7 @@ export function saveBranch(input: Omit<Branch, "id">, id?: string) {
       if (input.capacity < occupied)
         throw Error("Capacity cannot be lower than currently reserved seats.");
       db.prepare(
-        "UPDATE branches SET name=?,address=?,capacity=?,opening_hours=?,archived=?,service_minutes=? WHERE id=?",
+        "UPDATE branches SET name=?,address=?,capacity=?,opening_hours=?,archived=?,service_minutes=?,website_url=?,menu_url=? WHERE id=?",
       ).run(
         input.name,
         input.address,
@@ -235,12 +252,14 @@ export function saveBranch(input: Omit<Branch, "id">, id?: string) {
         input.service_minutes === undefined
           ? (current.service_minutes ?? null)
           : input.service_minutes,
+        websiteUrl,
+        menuUrl,
         id!,
       );
     } else {
       id = token().slice(0, 12);
       db.prepare(
-        "INSERT INTO branches(id,name,address,capacity,opening_hours,archived,service_minutes) VALUES (?,?,?,?,?,?,?)",
+        "INSERT INTO branches(id,name,address,capacity,opening_hours,archived,service_minutes,website_url,menu_url) VALUES (?,?,?,?,?,?,?,?,?)",
       ).run(
         id,
         input.name,
@@ -249,6 +268,8 @@ export function saveBranch(input: Omit<Branch, "id">, id?: string) {
         input.opening_hours,
         input.archived,
         input.service_minutes ?? null,
+        websiteUrl,
+        menuUrl,
       );
     }
     return branch(id)!;

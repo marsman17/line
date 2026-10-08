@@ -10,6 +10,8 @@ const blankBranch = {
   address: "",
   capacity: 50,
   openingHours: "",
+  websiteUrl: "",
+  menuUrl: "",
   serviceMinutes: null as number | null,
   archived: false,
 };
@@ -182,6 +184,8 @@ export default function BranchManagement({
                         address: b.address,
                         capacity: b.capacity,
                         openingHours: b.opening_hours,
+                        websiteUrl: b.website_url || "",
+                        menuUrl: b.menu_url || "",
                         serviceMinutes: b.service_minutes ?? null,
                         archived: !!b.archived,
                       });
@@ -288,6 +292,35 @@ export default function BranchManagement({
             <p className="helper">
               {tx(
                 "Optional. Uses seat capacity, party sizes and occupied seats to estimate waits. Seats still need to be freed by a manager.",
+              )}
+            </p>
+            <label>
+              {tx("Website URL (optional)")}
+              <input
+                type="url"
+                maxLength={2048}
+                placeholder="https://example.com"
+                value={branchForm.websiteUrl}
+                onChange={(e) =>
+                  setBranchForm({ ...branchForm, websiteUrl: e.target.value })
+                }
+              />
+            </label>
+            <label>
+              {tx("Menu URL (optional)")}
+              <input
+                type="url"
+                maxLength={2048}
+                placeholder="https://example.com/menu"
+                value={branchForm.menuUrl}
+                onChange={(e) =>
+                  setBranchForm({ ...branchForm, menuUrl: e.target.value })
+                }
+              />
+            </label>
+            <p className="helper">
+              {tx(
+                "Shown on guest check-in and waiting pages. Leave blank to hide a link.",
               )}
             </p>
             <label>
