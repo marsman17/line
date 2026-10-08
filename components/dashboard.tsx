@@ -542,7 +542,13 @@ export default function Dashboard() {
                 />
                 <Stat
                   label={tx("Estimated wait")}
-                  value={waiting.length ? Math.max(5, waiting.length * 5) : 0}
+                  value={
+                    data.serviceMinutes
+                      ? (data.estimatedWaitMinutes ?? "—")
+                      : waiting.length
+                        ? Math.max(5, waiting.length * 5)
+                        : 0
+                  }
                   unit={tx("min")}
                   icon={Clock}
                   note={
@@ -1190,7 +1196,7 @@ function Stat({
   tone,
 }: {
   label: string;
-  value: number;
+  value: number | string;
   unit: string;
   icon: typeof Users;
   note: string;
@@ -1207,7 +1213,7 @@ function Stat({
         </span>
       </div>
       <div className="stat-value">
-        {n(value)}
+        {typeof value === "number" ? n(value) : value}
         <span>{tx(unit)}</span>
       </div>
       <p>

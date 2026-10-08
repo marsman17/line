@@ -1,3 +1,4 @@
+import { waitEstimates } from "../../../lib/wait-estimates";
 import {
   saveCompanyLogo,
   removeCompanyLogo,
@@ -106,6 +107,7 @@ function manager(req: NextRequest) {
     .get(hash(secret), Date.now()) as Manager | undefined;
 }
 const branchSchema = z.object({
+  serviceMinutes: z.number().int().min(5).max(480).nullable().optional(),
   name: z.string().trim().min(1).max(80),
   address: z.string().trim().min(1).max(200),
   capacity: z.number().int().min(1).max(2000),
@@ -120,9 +122,20 @@ const staffSchema = z.object({
 function publicInfo(id = "main") {
   const location = branch(id);
   if (!location) throw Error("Branch not found.");
+  const estimates = location.service_minutes
+    ? Object.values(
+        waitEstimates(tickets(id), location.capacity, location.service_minutes),
+      )
+    : undefined;
   return {
     branchId: location.id,
     logoVersion: location.logo_version,
+    serviceMinutes: location.service_minutes,
+    estimatedWaitMinutes: estimates
+      ? estimates.length
+        ? estimates[0]
+        : 0
+      : undefined,
     name: location.name,
     address: location.address,
     capacity: location.capacity,
@@ -491,6 +504,7 @@ async function handle(
               address: d.address,
               capacity: d.capacity,
               opening_hours: d.openingHours,
+              service_minutes: d.serviceMinutes,
               archived: d.archived ? 1 : 0,
             },
             method === "PATCH" ? path[1] : undefined,

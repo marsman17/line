@@ -10,6 +10,7 @@ const blankBranch = {
   address: "",
   capacity: 50,
   openingHours: "",
+  serviceMinutes: null as number | null,
   archived: false,
 };
 export default function BranchManagement({
@@ -181,6 +182,7 @@ export default function BranchManagement({
                         address: b.address,
                         capacity: b.capacity,
                         openingHours: b.opening_hours,
+                        serviceMinutes: b.service_minutes ?? null,
                         archived: !!b.archived,
                       });
                       setError("");
@@ -252,6 +254,42 @@ export default function BranchManagement({
                 }
               />
             </label>
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                checked={branchForm.serviceMinutes !== null}
+                onChange={(e) =>
+                  setBranchForm({
+                    ...branchForm,
+                    serviceMinutes: e.target.checked ? 60 : null,
+                  })
+                }
+              />
+              {tx("Use service-based wait estimates")}
+            </label>
+            {branchForm.serviceMinutes !== null && (
+              <label>
+                {tx("Average service duration (minutes)")}
+                <input
+                  type="number"
+                  required
+                  min={5}
+                  max={480}
+                  value={branchForm.serviceMinutes}
+                  onChange={(e) =>
+                    setBranchForm({
+                      ...branchForm,
+                      serviceMinutes: Number(e.target.value),
+                    })
+                  }
+                />
+              </label>
+            )}
+            <p className="helper">
+              {tx(
+                "Optional. Uses seat capacity, party sizes and occupied seats to estimate waits. Seats still need to be freed by a manager.",
+              )}
+            </p>
             <label>
               {tx("Opening hours")}
               <textarea

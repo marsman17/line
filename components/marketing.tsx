@@ -384,9 +384,8 @@ function Home() {
         <div className={styles.heroCopy}>
           <span className={styles.eyebrow}>LESS WAITING. MORE WELCOME.</span>
           <h1>
-            The queue management system
-            <br />
-            that keeps customer flow moving
+            A better wait.
+            <br />A warmer welcome.
           </h1>
           <p>
             Guests join from their phone. Your team welcomes them with
@@ -550,7 +549,7 @@ function Home() {
                   <div
                     className={styles.solutionVisual}
                     style={{
-                      background: `linear-gradient(135deg, ${["#e5c27a", "#acae85", "#bf9687"][i % 3]}, #514534)`,
+                      background: `linear-gradient(135deg, ${["#d9e9cf", "#ccddd8", "#eeded1"][i % 3]}, #527f64)`,
                     }}
                   >
                     <Icon size={60} />

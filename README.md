@@ -159,3 +159,11 @@ In **CMS → Branches** or **Manage branches & staff**, use **Upload company log
 Visitors to `/` see the public homepage; authenticated managers keep their dashboard. `/website` always opens the marketing homepage, `/pricing` opens the pricing comparison, and `/app` opens the manager application (requiring sign-in). Product, Solutions and Resources menus link to dedicated pages under `/website`, including a help center, informational blog, and interactive ROI calculator. FAQs expand with native keyboard-accessible controls, and pricing switches between monthly and annual examples. All visuals and styles are bundled locally.
 
 The displayed plans are illustrative: this app does not collect payments, enforce plan quotas, start timed trials or offer public self-signup. Buttons open the existing app. Scheduled appointments, email/WhatsApp alerts and digital floor plans are identified as unavailable rather than advertised as existing functionality. Contact links direct users to the actual in-app support workflow. The operator should replace example pricing and publish organization-specific legal policies before selling a hosted service.
+
+### Optional service-based wait estimates
+
+In **CMS → Branches → Edit branch**, enable **Use service-based wait estimates** and set the average dining/service duration (5–480 minutes). It is off by default, so no setup is required to keep using TableQ. Estimates model seat capacity, occupied seats, party sizes and priority/FIFO order. Seated parties use elapsed time; called parties reserve a full service window. An overdue party retains a five-minute buffer. These are estimates, not individual-table predictions, and managers still release seats explicitly. Oversized parties show an unavailable estimate. Turning the setting off restores the original simple estimate.
+
+### Fillable launch roadmap
+
+Download `/tableq-roadmap.pdf` from the running app, or open `public/tableq-roadmap.pdf`. The 26-page PDF separates restaurant launch gates from feature parity and paid SaaS work, with editable checkboxes, owners, dates, statuses and evidence fields. Documentation and final product-name clearance have their own tracks. See `docs/README.md` for regeneration instructions.

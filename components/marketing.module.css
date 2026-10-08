@@ -1,8 +1,8 @@
 .site {
-  --gold: #f6a313;
-  --fg: #eeeee9;
-  --sub: #a5a39a;
-  background: #201f1c;
+  --gold: #23664f;
+  --fg: #20382f;
+  --sub: #63766b;
+  background: #f7f8f2;
   color: var(--fg);
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.55;
@@ -70,8 +70,8 @@
   top: 20px;
   max-width: 1160px;
   padding: 12px 22px;
-  background: #282720e8;
-  border: 1px solid #ffffff16;
+  background: #fffffff2;
+  border: 1px solid #dbe6dc;
   border-radius: 17px;
   height: 65px;
   box-shadow: 0 10px 35px #0001;
@@ -104,7 +104,7 @@
   padding: 9px 4px;
 }
 .navItem > button[aria-expanded="true"] {
-  background: #ffffff0d;
+  background: #e8f0e5;
   border-radius: 9px;
 }
 .mega {
@@ -112,8 +112,8 @@
   top: calc(100% + 8px);
   left: 0;
   right: 0;
-  background: #34332f;
-  border: 1px solid #ffffff1b;
+  background: #ffffff;
+  border: 1px solid #dce6dc;
   border-radius: 15px;
   padding: 26px;
   display: grid;
@@ -121,11 +121,11 @@
   box-shadow: 0 24px 50px #0006;
 }
 .mega > div + div {
-  border-left: 1px solid #ffffff16;
+  border-left: 1px solid #dbe6dc;
   padding-left: 22px;
 }
 .mega h3 {
-  color: #aaa79f;
+  color: #6a7f70;
   text-transform: uppercase;
   font-size: 13px;
   margin: 0 12px 18px;
@@ -139,12 +139,12 @@
   border-radius: 10px;
 }
 .menuItem:hover {
-  background: #ffffff08;
+  background: #edf4eb;
 }
 .menuItem strong {
   display: block;
   font-size: 16px;
-  color: #f2f2ed;
+  color: #243e31;
   margin-bottom: 3px;
 }
 .menuItem small {
@@ -152,7 +152,7 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 1.5;
-  color: #aaa79f;
+  color: #6a7f70;
 }
 .icon {
   width: 52px;
@@ -161,7 +161,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: #f5a31312;
+  background: #e4eee0;
   color: var(--gold);
   border-radius: 16px;
 }
@@ -184,8 +184,8 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background: #f8f7f1;
-  color: #24231f !important;
+  background: #23664f;
+  color: #ffffff !important;
   padding: 10px 17px;
   border-radius: 9px;
   font-size: 13px;
@@ -200,7 +200,7 @@
 }
 .hero {
   background:
-    radial-gradient(ellipse at 10% 40%, #fff6dc 0%, transparent 55%),
+    radial-gradient(ellipse at 10% 40%, #9bb7a0dc 0%, transparent 55%),
     radial-gradient(ellipse at 90% 2%, #f8b640, transparent 60%),
     linear-gradient(120deg, #f8dba1, #f7c76f);
   color: #181713;
@@ -589,15 +589,15 @@
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  border-bottom: 1px solid #fff6;
+  border-bottom: 1px solid #9bb7a0;
   margin-top: 14px;
   font-size: 13px;
 }
 .glowCard {
   background:
     radial-gradient(ellipse at 0% 100%, #46546155, transparent 55%),
-    radial-gradient(ellipse at 100% 100%, #80623a55, transparent 55%), #282724;
-  border: 1px solid #42403a;
+    radial-gradient(ellipse at 100% 100%, #80623a55, transparent 55%), #ffffff;
+  border: 1px solid #dce6d8;
   border-radius: 19px;
   padding: 30px;
   box-shadow: 0 18px 30px #0002;
@@ -628,20 +628,20 @@
   background: var(--gold);
   border: 0;
   border-radius: 8px;
-  color: #251c0b !important;
+  color: #ffffff !important;
   padding: 13px 22px;
   font-size: 13px;
   font-weight: 700;
 }
 .primary:hover {
-  background: #ffb72f;
+  background: #194c3a;
 }
 .tag {
   display: inline-block;
   background: var(--gold);
   border-radius: 8px;
   padding: 5px 10px;
-  color: #302309;
+  color: #ffffff;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.1px;
@@ -675,8 +675,8 @@
   filter: brightness(1.08);
 }
 .brownCard {
-  background: #392e1c;
-  border: 1px solid #493b23;
+  background: #eef3e8;
+  border: 1px solid #dbe5d3;
   border-radius: 18px;
   padding: 26px;
 }
@@ -693,7 +693,7 @@
 }
 .winCard {
   padding: 24px;
-  background: #201f1c;
+  background: #f7f8f2;
   border-radius: 13px;
 }
 .winCard > svg {
@@ -723,7 +723,7 @@
   font-size: 32px;
 }
 .faq {
-  background: #34332f;
+  background: #ffffff;
   border-radius: 15px;
   padding: 24px;
   display: flex;
@@ -731,7 +731,7 @@
   gap: 10px;
 }
 .faq details {
-  background: #282724;
+  background: #ffffff;
   border-radius: 9px;
 }
 .faq summary {
@@ -756,7 +756,7 @@
   font-size: 14px;
 }
 .footer {
-  background: #34332f;
+  background: #ffffff;
   margin-top: 80px;
   padding: 64px max(24px, calc((100vw - 1112px) / 2)) 28px;
 }
@@ -777,7 +777,7 @@
 .footerGrid > div > a:not(.mark) {
   display: block;
   font-size: 12px;
-  color: #a5a39a;
+  color: #63766b;
   margin-bottom: 9px;
 }
 .footerGrid a:hover {
@@ -786,10 +786,10 @@
 .footerBottom {
   display: flex;
   gap: 24px;
-  border-top: 1px solid #ffffff0d;
+  border-top: 1px solid #e8f0e5;
   padding-top: 26px;
   margin-top: 55px;
-  color: #a5a39a;
+  color: #63766b;
   font-size: 11px;
   flex-wrap: wrap;
 }
@@ -819,9 +819,9 @@
 }
 .billing button {
   border: 0;
-  background: #34332f;
+  background: #ffffff;
   padding: 7px 13px;
-  color: #a5a39a;
+  color: #63766b;
   font-size: 12px;
 }
 .billing button:first-child {
@@ -831,17 +831,17 @@
   border-radius: 0 8px 8px 0;
 }
 .billing button[aria-pressed="true"] {
-  background: #56524a;
+  background: #23664f;
   color: white;
 }
 .billing small {
-  color: #a5a39a;
+  color: #63766b;
   margin-left: 8px;
   font-size: 11px;
 }
 .notice {
   font-size: 12px !important;
-  color: #a89c7f !important;
+  color: #5d7162 !important;
   margin-top: 20px !important;
   line-height: 1.7;
 }
@@ -873,7 +873,7 @@
 }
 .price small {
   font-size: 10px;
-  color: #a5a39a;
+  color: #63766b;
   font-weight: 400;
   padding-left: 4px;
 }
@@ -911,8 +911,8 @@
   align-items: center;
   gap: 20px;
   padding: 24px;
-  background: #2b2a26;
-  border: 1px solid #36352f;
+  background: #ffffff;
+  border: 1px solid #d9e4d7;
   border-radius: 13px;
   margin-bottom: 15px;
 }
@@ -938,13 +938,13 @@
   border-collapse: collapse;
   font-size: 12px;
   min-width: 620px;
-  color: #c4c2b8;
+  color: #4c6557;
 }
 .comparison th,
 .comparison td {
   text-align: left;
   padding: 14px 12px;
-  border-bottom: 1px solid #34332b;
+  border-bottom: 1px solid #e1e8dc;
   font-weight: 400;
 }
 .comparison thead th {
@@ -955,7 +955,7 @@
   width: 40%;
 }
 .tableGroup th {
-  background: #2e2d29;
+  background: #eaf0e4;
   color: white;
   font-size: 14px;
   font-weight: 600;
@@ -964,8 +964,8 @@
   background: #ffffff02;
 }
 .valueCallout {
-  border: 1px solid #a47022;
-  background: #f6a3130c;
+  border: 1px solid #a9c6ac;
+  background: #23664f0c;
   border-radius: 13px;
   padding: 24px;
   display: flex;
@@ -984,7 +984,7 @@
 .back {
   display: inline-block;
   margin-bottom: 32px;
-  color: #a5a39a !important;
+  color: #63766b !important;
   font-size: 13px;
 }
 .detail > .intro {
@@ -997,7 +997,7 @@
 }
 .prose {
   max-width: 850px;
-  background: #2c2b26;
+  background: #ffffff;
   padding: 35px;
   border-radius: 16px;
 }
@@ -1012,9 +1012,9 @@
   grid-template-columns: 1fr 1fr;
   gap: 35px;
   padding: 35px;
-  border: 1px solid #494334;
+  border: 1px solid #cfddca;
   border-radius: 18px;
-  background: #2e2b23;
+  background: #eef4e9;
 }
 .calculator label {
   display: flex;
@@ -1024,8 +1024,8 @@
   font-size: 14px;
 }
 .calculator input {
-  background: #22211d;
-  border: 1px solid #595140;
+  background: #ffffff;
+  border: 1px solid #b9cdb8;
   border-radius: 9px;
   padding: 12px;
   color: #eee;
@@ -1061,7 +1061,7 @@
 }
 .bars span {
   flex: 1;
-  background: linear-gradient(#e9b85c, #f2aa35);
+  background: linear-gradient(#acd0a7, #2e795c);
   border-radius: 5px 5px 0 0;
 }
 @media (max-width: 1000px) {
@@ -1140,8 +1140,8 @@
     right: 0;
     top: calc(100% + 7px);
     padding: 16px;
-    background: #302e28;
-    border: 1px solid #ffffff20;
+    background: #ffffff;
+    border: 1px solid #d6e1d2;
     border-radius: 13px;
     flex-direction: column;
     align-items: stretch;
@@ -1167,7 +1167,7 @@
   .mega > div + div {
     border-left: 0;
     padding-left: 0;
-    border-top: 1px solid #ffffff16;
+    border-top: 1px solid #dbe6dc;
     padding-top: 18px;
   }
   .mega h3 {
@@ -1448,5 +1448,251 @@
   }
   .roiResult strong {
     font-size: 42px;
+  }
+}
+
+/* TableQ: botanical colors, editorial typography and an airy split hero. */
+.site {
+  --gold: #23664f;
+  --fg: #20382f;
+  --sub: #63766b;
+  background: #f7f8f2;
+  color: var(--fg);
+}
+.mark {
+  color: #20382f !important;
+  letter-spacing: -1.5px;
+}
+.mark span {
+  color: #28785b;
+}
+.header {
+  background: #ffffffed;
+  border: 1px solid #dce6d6;
+  box-shadow: 0 8px 28px #304e2810;
+}
+.site h1 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  letter-spacing: -2px;
+}
+.site h2 {
+  letter-spacing: -0.8px;
+}
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 48px;
+  align-items: center;
+  background:
+    radial-gradient(ellipse at 85% 35%, #dcebcf, transparent 60%), #eef3e5;
+  padding: 160px max(28px, calc((100vw - 1160px) / 2)) 80px;
+}
+.heroCopy {
+  text-align: left;
+  margin: 0;
+}
+.heroCopy h1 {
+  font-size: clamp(46px, 5vw, 72px);
+  line-height: 1.04;
+}
+.heroCopy p {
+  color: #60725f;
+  font-size: 17px;
+}
+.hero .eyebrow,
+.heroCopy > small {
+  color: #526f52;
+}
+.heroActions {
+  justify-content: flex-start;
+}
+.outlineButton {
+  border-color: #97af8d;
+  background: transparent;
+}
+.heroProduct {
+  margin: 0;
+  padding-right: 40px;
+  width: 100%;
+}
+.heroProduct > .preview {
+  border-radius: 18px;
+  min-height: 390px;
+  box-shadow: 0 28px 65px #234c2720;
+}
+.heroProduct > .phone {
+  right: -15px;
+  bottom: -24px;
+  width: 174px;
+  min-height: 315px;
+  box-shadow: 0 20px 35px #234c2720;
+}
+.heroProduct .previewBody aside {
+  width: 98px;
+  font-size: 8px;
+  padding: 18px 10px;
+}
+.heroProduct .previewMain {
+  padding: 20px 15px;
+}
+.heroProduct .previewMain h3 {
+  font-size: 18px;
+}
+.heroProduct .previewQueue small {
+  display: none;
+}
+.heroProduct .previewQueue > div > strong {
+  font-size: 9px;
+}
+.heroProduct .previewStats strong {
+  font-size: 23px;
+}
+.featureVisual {
+  background: radial-gradient(ellipse at 85% 60%, #edf5e5, #c7dcc2);
+}
+.glowCard {
+  background: linear-gradient(145deg, #ffffff, #f0f5ec);
+  border-color: #d7e3d0;
+  box-shadow: 0 12px 30px #304e2808;
+}
+.brownCard {
+  background: #edf3e7;
+  border-color: #d7e2ce;
+}
+.primary {
+  background: #23664f;
+  color: #fff !important;
+}
+.primary:hover {
+  background: #194c3a;
+}
+.tag {
+  background: #dcebd2;
+  color: #28513b;
+}
+.demoCall {
+  background: #dcebd2;
+  color: #28513b;
+}
+.previewQueue > b > span {
+  color: #23664f;
+}
+.cta {
+  background:
+    radial-gradient(ellipse at 90% 0%, #71936950, transparent 65%), #254e3c;
+  border: 0;
+  color: #fff;
+}
+.cta p {
+  color: #d0ded0;
+}
+.cta .eyebrow {
+  color: #b9d5ae;
+}
+.cta .primary {
+  background: #d9ebc6;
+  color: #254e3c !important;
+}
+.faq {
+  background: #e8eee0;
+}
+.faq details {
+  background: white;
+}
+.footer {
+  background: #e8eee0;
+}
+.footerBottom {
+  border-color: #cfdbc7;
+}
+.benefit .icon {
+  background: #e5efdc;
+}
+.winCard {
+  background: #e7efe0;
+}
+.quoteCard {
+  background: white;
+}
+.solutionVisual {
+  color: #244c37;
+}
+.calculator input {
+  color: #20382f;
+}
+.billing button[aria-pressed="true"] {
+  color: white;
+}
+.comparison thead th {
+  color: #20382f;
+}
+.tableGroup th {
+  color: #20382f;
+}
+.roiResult strong {
+  color: #23664f;
+}
+.footerGrid a:hover {
+  color: #23664f !important;
+}
+@media (max-width: 1100px) and (min-width: 761px) {
+  .hero {
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 26px;
+    padding-inline: 30px;
+  }
+  .heroCopy h1 {
+    font-size: 53px;
+  }
+  .heroProduct .previewBody aside {
+    display: none;
+  }
+  .heroProduct > .phone {
+    width: 150px;
+  }
+}
+@media (max-width: 760px) {
+  .hero {
+    display: block;
+    padding: 135px 20px 62px;
+  }
+  .heroCopy {
+    text-align: center;
+  }
+  .heroCopy h1 {
+    font-size: 50px;
+  }
+  .heroActions {
+    justify-content: center;
+  }
+  .heroProduct {
+    margin-top: 48px;
+    padding-right: 25px;
+    min-height: 300px;
+  }
+  .heroProduct > .preview {
+    min-height: 290px;
+  }
+  .heroProduct > .phone {
+    width: 128px;
+    min-height: 222px;
+    right: -5px;
+    bottom: -18px;
+  }
+  .heroProduct .previewMain {
+    padding: 15px 12px;
+  }
+  .heroProduct .previewMain h3 {
+    font-size: 15px;
+  }
+  .heroProduct .previewStats strong {
+    font-size: 18px;
+  }
+  .heroProduct .previewQueue > div > strong {
+    font-size: 8px;
+  }
+  .heroProduct .previewBody aside {
+    display: none;
   }
 }

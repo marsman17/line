@@ -63,7 +63,7 @@ test("CMS sign-in, branch setup, manager creation, roles, password resets and ac
     .click();
   await expect(dialog).not.toBeVisible();
   await expect(
-    page.getByText("riverside-host@example.test", { exact: true }),
+    page.getByRole("main").getByText("riverside-host@example.test", { exact: true }),
   ).toBeVisible();
   await page.screenshot({
     path: "/tmp/tableq-cms-desktop.png",
@@ -207,7 +207,7 @@ test("CMS sign-in, branch setup, manager creation, roles, password resets and ac
     .getByRole("button", { name: "Remove account", exact: true })
     .click();
   await expect(
-    page.getByText("riverside-host@example.test", { exact: true }),
+    page.getByRole("main").getByText("riverside-host@example.test", { exact: true }),
   ).not.toBeVisible();
   expect((await staff.request.get("/api/cms")).status()).toBe(401);
   expect((await page.request.get("/api/cms")).status()).toBe(200);

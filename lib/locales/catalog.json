@@ -3713,5 +3713,37 @@
     "Logo supprimé.",
     "Logo rimosso.",
     "کمپنی کا لوگو ہٹا دیا گیا۔"
+  ],
+  "Use service-based wait estimates": [
+    "Usar estimaciones según el servicio",
+    "Usar estimativas por serviço",
+    "Servicebasierte Wartezeiten nutzen",
+    "Estimer selon la durée du service",
+    "Usa stime basate sul servizio",
+    "سروس کی بنیاد پر انتظار کا اندازہ لگائیں"
+  ],
+  "Average service duration (minutes)": [
+    "Duración media del servicio (minutos)",
+    "Duração média do serviço (minutos)",
+    "Durchschnittliche Servicedauer (Minuten)",
+    "Durée moyenne du service (minutes)",
+    "Durata media del servizio (minuti)",
+    "اوسط سروس کا دورانیہ (منٹ)"
+  ],
+  "Optional. Uses seat capacity, party sizes and occupied seats to estimate waits. Seats still need to be freed by a manager.": [
+    "Opcional. Usa capacidad, tamaño de grupos y plazas ocupadas. El gerente debe liberar las plazas.",
+    "Opcional. Usa capacidade, tamanho dos grupos e lugares ocupados. O gerente deve liberar os lugares.",
+    "Optional. Nutzt Kapazität, Gruppengröße und belegte Plätze. Plätze müssen vom Manager freigegeben werden.",
+    "Facultatif. Utilise la capacité, les groupes et les places occupées. Le responsable libère les places.",
+    "Facoltativo. Usa capacità, gruppi e posti occupati. Il gestore deve liberare i posti.",
+    "اختیاری۔ نشستوں کی گنجائش، گروپ کے حجم اور مصروف نشستوں سے انتظار کا اندازہ لگاتا ہے۔ مینیجر کو نشستیں خالی کرنا ہوں گی۔"
+  ],
+  "Your wait estimate is shown after check-in.": [
+    "La espera estimada aparece tras registrarte.",
+    "A estimativa aparece após o check-in.",
+    "Die Wartezeit wird nach dem Check-in angezeigt.",
+    "L’estimation apparaît après l’inscription.",
+    "La stima appare dopo il check-in.",
+    "چیک اِن کے بعد انتظار کا اندازہ دکھایا جائے گا۔"
   ]
 }

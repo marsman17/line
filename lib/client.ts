@@ -38,6 +38,8 @@ export function csv(filename: string, rows: (string | number)[][]) {
   URL.revokeObjectURL(url);
 }
 export type Restaurant = {
+  serviceMinutes?: number | null;
+  estimatedWaitMinutes?: number | null;
   logoVersion?: string | null;
   branchId: string;
   openingHours: string;

@@ -7,7 +7,7 @@ test("public website, desktop/mobile menus, pricing, FAQs and ROI calculator", a
   await page.goto("/");
   await expect(
     page.getByRole("heading", {
-      name: "The queue management system that keeps customer flow moving",
+      name: "A better wait. A warmer welcome.",
     }),
   ).toBeVisible();
   await page.getByRole("button", { name: "Product", exact: true }).click();

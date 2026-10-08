@@ -25,7 +25,7 @@ type GuestStatus = {
   partySize: number;
   status: "waiting" | "notified" | "served" | "cancelled";
   position: number;
-  estimatedMinutes: number;
+  estimatedMinutes: number | null;
   joinedAt: string;
   notifiedAt: string | null;
   pushEnabled: boolean;
@@ -282,11 +282,13 @@ export function CheckIn() {
           </button>
           <div className="guest-estimate">
             <Clock size={14} />
-            {restaurant?.waiting
-              ? tx("Estimated wait: about {value0} minutes", {
-                  value0: restaurant.waiting * 5,
-                })
-              : tx("Estimated wait: less than 5 minutes")}
+            {restaurant?.serviceMinutes
+              ? tx("Your wait estimate is shown after check-in.")
+              : restaurant?.waiting
+                ? tx("Estimated wait: about {value0} minutes", {
+                    value0: restaurant.waiting * 5,
+                  })
+                : tx("Estimated wait: less than 5 minutes")}
           </div>
         </form>
         <div className="guest-safe">
@@ -490,9 +492,11 @@ export function GuestVisit({ token }: { token: string }) {
                     <strong>
                       {ready
                         ? n(status.partySize)
-                        : status.estimatedMinutes < 5
-                          ? "< " + n(5)
-                          : n(status.estimatedMinutes)}
+                        : status.estimatedMinutes === null
+                          ? "—"
+                          : status.estimatedMinutes < 5
+                            ? "< " + n(5)
+                            : n(status.estimatedMinutes)}
                     </strong>
                     <small>{ready ? tx("guests") : tx("minutes")}</small>
                   </div>

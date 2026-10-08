@@ -1,3 +1,4 @@
+import { waitEstimates } from "./wait-estimates";
 import { DatabaseSync } from "node:sqlite";
 import { mkdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
@@ -41,6 +42,14 @@ CREATE TABLE IF NOT EXISTS rate_limits(key TEXT PRIMARY KEY, count INTEGER NOT N
 db.exec("BEGIN IMMEDIATE");
 db.exec(`CREATE TABLE IF NOT EXISTS branches(id TEXT PRIMARY KEY, name TEXT NOT NULL, address TEXT NOT NULL, capacity INTEGER NOT NULL CHECK(capacity BETWEEN 1 AND 2000), opening_hours TEXT NOT NULL DEFAULT '', archived INTEGER NOT NULL DEFAULT 0 CHECK(archived IN (0,1)));
 CREATE TABLE IF NOT EXISTS manager_branches(manager_id INTEGER NOT NULL REFERENCES managers(id) ON DELETE CASCADE, branch_id TEXT NOT NULL REFERENCES branches(id), PRIMARY KEY(manager_id,branch_id));`);
+if (
+  !(db.prepare("PRAGMA table_info(branches)").all() as { name: string }[]).some(
+    (c) => c.name === "service_minutes",
+  )
+)
+  db.exec(
+    "ALTER TABLE branches ADD COLUMN service_minutes INTEGER CHECK(service_minutes IS NULL OR service_minutes BETWEEN 5 AND 480)",
+  );
 db.prepare(
   "INSERT OR IGNORE INTO branches(id,name,address,capacity) VALUES ('main',?,?,?)",
 ).run(
@@ -154,6 +163,7 @@ db.exec(
   `CREATE TABLE IF NOT EXISTS branch_logos(branch_id TEXT PRIMARY KEY REFERENCES branches(id) ON DELETE CASCADE,image BLOB NOT NULL,version TEXT NOT NULL);`,
 );
 export type Branch = {
+  service_minutes?: number | null;
   logo_version?: string | null;
   id: string;
   name: string;
@@ -215,24 +225,30 @@ export function saveBranch(input: Omit<Branch, "id">, id?: string) {
       if (input.capacity < occupied)
         throw Error("Capacity cannot be lower than currently reserved seats.");
       db.prepare(
-        "UPDATE branches SET name=?,address=?,capacity=?,opening_hours=?,archived=? WHERE id=?",
+        "UPDATE branches SET name=?,address=?,capacity=?,opening_hours=?,archived=?,service_minutes=? WHERE id=?",
       ).run(
         input.name,
         input.address,
         input.capacity,
         input.opening_hours,
         input.archived,
+        input.service_minutes === undefined
+          ? (current.service_minutes ?? null)
+          : input.service_minutes,
         id!,
       );
     } else {
       id = token().slice(0, 12);
-      db.prepare("INSERT INTO branches VALUES (?,?,?,?,?,?)").run(
+      db.prepare(
+        "INSERT INTO branches(id,name,address,capacity,opening_hours,archived,service_minutes) VALUES (?,?,?,?,?,?,?)",
+      ).run(
         id,
         input.name,
         input.address,
         input.capacity,
         input.opening_hours,
         input.archived,
+        input.service_minutes ?? null,
       );
     }
     return branch(id)!;
@@ -350,7 +366,16 @@ export function guestView(secret: string) {
     joinedAt: ticket.joined_at,
     notifiedAt: ticket.notified_at,
     position: index >= 0 ? index + 1 : 0,
-    estimatedMinutes: index >= 0 ? index * 5 : 0,
+    estimatedMinutes:
+      index >= 0
+        ? branch(ticket.branch_id)?.service_minutes
+          ? waitEstimates(
+              tickets(ticket.branch_id),
+              branch(ticket.branch_id)!.capacity,
+              branch(ticket.branch_id)!.service_minutes!,
+            )[ticket.id]
+          : index * 5
+        : 0,
     smsEligible: Boolean(ticket.phone && ticket.consent),
     pushEnabled: !!db
       .prepare("SELECT ticket_id FROM subscriptions WHERE ticket_id=?")
