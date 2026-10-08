@@ -153,3 +153,9 @@ Open **Account menu → Website color** (or **Profile**) to choose Amber, Blue, 
 ### Company logos
 
 In **CMS → Branches** or **Manage branches & staff**, use **Upload company logo** beside a branch. Upload a PNG/JPG up to 2 MB; transparent PNGs keep their transparency. The logo appears in that branch’s manager workspace and guest check-in/status pages, including for all assigned managers. Upload again to replace it or select **Remove logo** to restore the leaf icon. Only administrators can change branch logos. Images are decoded, stripped of metadata and resized while preserving their proportions, then stored in SQLite. Create the branch first to upload its logo.
+
+### Public TableQ website
+
+Visitors to `/` see the public homepage; authenticated managers keep their dashboard. `/website` always opens the marketing homepage, `/pricing` opens the pricing comparison, and `/app` opens the manager application (requiring sign-in). Product, Solutions and Resources menus link to dedicated pages under `/website`, including a help center, informational blog, and interactive ROI calculator. FAQs expand with native keyboard-accessible controls, and pricing switches between monthly and annual examples. All visuals and styles are bundled locally.
+
+The displayed plans are illustrative: this app does not collect payments, enforce plan quotas, start timed trials or offer public self-signup. Buttons open the existing app. Scheduled appointments, email/WhatsApp alerts and digital floor plans are identified as unavailable rather than advertised as existing functionality. Contact links direct users to the actual in-app support workflow. The operator should replace example pricing and publish organization-specific legal policies before selling a hosted service.

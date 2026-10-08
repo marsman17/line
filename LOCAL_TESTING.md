@@ -17,6 +17,12 @@ On Windows PowerShell, use `npm.cmd` as shown to avoid script execution-policy e
 
 Open `http://localhost:3000` in your browser. If port 3000 is already in use, run `npm.cmd run local -- --port 3005` instead and open `http://localhost:3005`. The launcher keeps the app, guest links, and QR URL on the chosen port.
 
+**Public website:** `/website` (also shown at `/` when signed out).
+
+**Pricing:** `/pricing`.
+
+**Manager workspace:** click **Open TableQ**, or open `/app`.
+
 **Manager login**
 
 - Email: `admin@tableq.local`

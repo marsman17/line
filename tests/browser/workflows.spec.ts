@@ -41,7 +41,7 @@ test("mobile guest check-in, manager CRUD, notifications, and seating", async ({
   });
   const manager = await context.newPage();
   manager.on("pageerror", (e) => errors.push(e.message));
-  await manager.goto("/");
+  await manager.goto("/app");
   await expect(manager).toHaveURL(/\/login/);
   await manager.getByLabel("Email address").fill("manager@example.test");
   await manager
