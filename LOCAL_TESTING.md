@@ -43,6 +43,16 @@ Open **Customers** to use the reference-style list, date presets/calendar, branc
 
 For a called guest, the activity dialog includes **Mark no-show**. This ends their visit and frees reserved seats. Ordinary cancellations remain separate. Reservations and next-visit sorting are not yet supported.
 
+## CMS accounts and branches
+
+Open `http://localhost:3000/cms` (use your chosen port if different), or select **CMS administration** in the sidebar. The local administrator login above is also your CMS login. Production uses the administrator credentials you configured.
+
+1. Open **Branches** and create a branch with its address and seating capacity.
+2. Open **Manager accounts**, select **Add manager account**, enter a name/email and an initial password of at least 12 characters, and choose **Branch manager**. Select the branches that person may manage, then create the account.
+3. Test their email/password in a private browser window. They can operate assigned queues, but cannot access the CMS or other branches.
+4. To create another owner/CMS account, select **CMS administrator** as the role. It grants administration access and access to every branch.
+5. Use **Edit** to reset a password or change access. Existing sessions are revoked. **Remove** deletes that account and revokes access while keeping restaurant/customer data. Your own CMS account is protected from these controls; edit personal details through **Profile**.
+
 ## Add branches
 
 Sign in with the administrator account and click **Manage branches & staff** in the sidebar. Add branch details, then close the dialog and select the branch using **Branch**. Use **Check-in QR** to get that branch's entrance QR and public link. Queues, seats, guest history and individual analytics are separate. In **Analytics**, select **All branches** to see combined results.

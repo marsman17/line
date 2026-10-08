@@ -151,6 +151,12 @@ export default function AccountMenu() {
               {t("Contact support")}
             </button>
             <div className="account-divider" />
+            {user.role === "admin" && (
+              <a href="/cms">
+                <User size={19} />
+                CMS administration
+              </a>
+            )}
             <a href="/profile">
               <User size={19} />
               {t("Profile")}

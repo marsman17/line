@@ -1,4 +1,9 @@
 import {
+  managerDirectory,
+  saveManager,
+  removeManager,
+} from "../../../lib/managers";
+import {
   account,
   updateAccount,
   deleteAccount,
@@ -386,6 +391,32 @@ async function handle(
         : json({ error: "Feedback not found." }, 404);
     }
 
+    if (path[0] === "cms") {
+      if (user.role !== "admin")
+        return json({ error: "CMS administrator access required." }, 403);
+      if (route === "cms" && method === "GET")
+        return json({
+          user,
+          branches: branches(user),
+          managers: managerDirectory(user),
+        });
+      if (route === "cms/managers" && method === "POST") {
+        saveManager(user, await readBody(req));
+        return json({ managers: managerDirectory(user) }, 201);
+      }
+      if (path[1] === "managers" && path.length === 3) {
+        const id = z.coerce.number().int().positive().parse(path[2]);
+        if (method === "PATCH") {
+          saveManager(user, await readBody(req), id);
+          return json({ managers: managerDirectory(user) });
+        }
+        if (method === "DELETE") {
+          removeManager(user, id);
+          return json({ ok: true });
+        }
+      }
+      return json({ error: "Not found." }, 404);
+    }
     if (route === "branches" || path[0] === "branches") {
       if (route === "branches" && method === "GET")
         return json({ branches: branches(user), user });

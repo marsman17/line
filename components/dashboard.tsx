@@ -302,6 +302,12 @@ export default function Dashboard() {
             Manage branches & staff
           </button>
         )}
+        {data.user.role === "admin" && (
+          <a className="nav-item cms-nav" href="/cms">
+            <SlidersHorizontal size={18} />
+            CMS administration
+          </a>
+        )}
         <span className="sidebar-label">WORKSPACE</span>
         <nav>
           {tabs.map(({ id, name, icon: Icon }) => (

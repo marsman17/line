@@ -4410,3 +4410,252 @@ select {
   font: inherit;
   margin: 0;
 }
+.cms-page {
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 35px 25px 60px;
+}
+.cms-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+.cms-title h1 {
+  font-size: 32px;
+  letter-spacing: -1px;
+  margin: 7px 0;
+}
+.cms-title p,
+.cms-help {
+  color: var(--muted);
+  font-size: 13px;
+}
+.cms-role {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--amber);
+  white-space: nowrap;
+}
+.cms-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 25px 0;
+}
+.cms-stats > div {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 20px;
+}
+.cms-stats svg {
+  color: var(--amber);
+}
+.cms-stats strong {
+  font-size: 25px;
+}
+.cms-stats span {
+  color: var(--muted);
+}
+.cms-tabs {
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid var(--border);
+  margin: 28px 0 20px;
+}
+.cms-tabs button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 18px;
+  border-bottom: 2px solid transparent;
+  color: var(--muted);
+}
+.cms-tabs button.active {
+  border-color: var(--amber);
+  color: var(--text);
+}
+.cms-panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  padding: 25px;
+}
+.cms-account-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+.cms-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: var(--muted);
+  min-width: 0;
+}
+.cms-search input {
+  margin: 0 !important;
+  max-width: 320px;
+}
+.cms-account-list {
+  margin-top: 20px;
+}
+.cms-account-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 0;
+  border-top: 1px solid var(--border);
+}
+.cms-account-identity {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.cms-account-identity > span,
+.cms-account-identity > small {
+  display: block;
+  color: var(--muted);
+}
+.cms-account-role {
+  font-size: 11px;
+  border-radius: 20px;
+  background: var(--panel-raised);
+  border: 1px solid var(--border);
+  padding: 5px 10px;
+  white-space: nowrap;
+}
+.cms-account-role.admin {
+  color: var(--amber);
+}
+.cms-row-actions {
+  display: flex;
+  gap: 8px;
+}
+.cms-row-actions .button {
+  padding: 7px 10px;
+}
+.cms-success {
+  color: var(--green);
+  padding: 12px 0;
+}
+.cms-account-dialog {
+  width: 600px;
+  background: var(--panel);
+}
+.cms-account-dialog .profile-field {
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+.cms-assignments {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 15px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+.cms-assignments legend {
+  color: var(--muted);
+  font-size: 12px;
+}
+.cms-panel .branch-management {
+  max-width: 760px;
+}
+.cms-panel .branch-item,
+.cms-panel fieldset {
+  border-color: var(--border);
+}
+.cms-nav {
+  margin-bottom: 10px;
+  border: 1px solid var(--border);
+}
+.cms-shell .profile-header .brand {
+  white-space: nowrap;
+  font-size: 21px;
+}
+@media (max-width: 700px) {
+  .cms-page {
+    padding: 25px 15px;
+  }
+  .cms-title {
+    display: block;
+  }
+  .cms-role {
+    margin-top: 15px;
+    font-size: 12px;
+  }
+  .cms-title h1 {
+    font-size: 28px;
+  }
+  .cms-stats {
+    gap: 8px;
+  }
+  .cms-stats > div {
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px 8px;
+    text-align: center;
+  }
+  .cms-stats span {
+    font-size: 11px;
+  }
+  .cms-panel {
+    padding: 18px;
+  }
+  .cms-account-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .cms-search input {
+    max-width: none;
+  }
+  .cms-account-row {
+    flex-wrap: wrap;
+  }
+  .cms-account-identity {
+    flex-basis: calc(100% - 50px);
+  }
+  .cms-account-role {
+    margin-left: 50px;
+  }
+  .cms-row-actions {
+    margin-left: auto;
+  }
+  .cms-shell .profile-header .brand {
+    font-size: 16px;
+    gap: 7px;
+  }
+  .cms-shell .profile-header .brand svg {
+    width: 22px;
+  }
+  .cms-shell .profile-header > .account-menu {
+    width: 120px;
+  }
+  .cms-shell .profile-header > a.button {
+    width: 35px;
+    font-size: 0;
+    overflow: hidden;
+    padding: 8px;
+  }
+  .cms-tabs button {
+    padding: 12px 9px;
+    font-size: 13px;
+  }
+}
+@media (max-height: 880px) {
+  .sidebar:has(.cms-nav) .qr-promo {
+    display: none;
+  }
+  .sidebar:has(.cms-nav) .sidebar-bottom {
+    padding-top: 20px;
+  }
+}

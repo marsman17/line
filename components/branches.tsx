@@ -12,8 +12,10 @@ const blankBranch = {
 };
 export default function BranchManagement({
   onChanged,
+  branchesOnly = false,
 }: {
   currentBranch: string;
+  branchesOnly?: boolean;
   onChanged: () => Promise<void>;
 }) {
   const [branches, setBranches] = useState<Branch[]>([]);
@@ -62,20 +64,22 @@ export default function BranchManagement({
   }
   return (
     <div className="branch-management">
-      <div className="branch-mode">
-        <button
-          className={`button ${mode === "branches" ? "primary" : "secondary"}`}
-          onClick={() => setMode("branches")}
-        >
-          Branches
-        </button>
-        <button
-          className={`button ${mode === "staff" ? "primary" : "secondary"}`}
-          onClick={() => setMode("staff")}
-        >
-          Staff access
-        </button>
-      </div>
+      {!branchesOnly && (
+        <div className="branch-mode">
+          <button
+            className={`button ${mode === "branches" ? "primary" : "secondary"}`}
+            onClick={() => setMode("branches")}
+          >
+            Branches
+          </button>
+          <button
+            className={`button ${mode === "staff" ? "primary" : "secondary"}`}
+            onClick={() => setMode("staff")}
+          >
+            Staff access
+          </button>
+        </div>
+      )}
       {error && (
         <p className="error" role="alert">
           {error}

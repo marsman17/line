@@ -15,6 +15,19 @@ A restaurant queue manager with a manager workspace with light, dark and system 
 
 This release supports multiple branches, administrator accounts and staff assigned to specific branches. Billing/subscriptions and self-service password recovery, reservations, email delivery, and exact replication of screens not supplied in the reference are outside this scope. Estimated waits use a simple five-minute-per-party heuristic and are clearly labeled estimates.
 
+## CMS administration
+
+Open **CMS administration** from the sidebar/account menu, or visit `/cms`. Signed-out visitors go to `/cms/login`. Existing administrator accounts are CMS accounts; branch-manager accounts cannot access this area. In local development, sign in with `admin@tableq.local` / `tableq-dev-only`. In production, use your configured `ADMIN_EMAIL` and password. There is no extra shared CMS password or publicly available registration.
+
+Under **Manager accounts**, create a named account with an email, an initial password of at least 12 characters and a role:
+
+- **Branch manager**: select one or more assigned branches. They can operate those queues and see their branch customers/analytics.
+- **CMS administrator**: manages every branch, manager account and workspace feedback, including branches created later.
+
+Edit an account to change its name, email, role or branch assignments. Leave the password field blank to preserve it, or enter a new password to reset it. Every update revokes that account's active sessions. Remove an account to revoke access and remove personal settings/feedback; restaurant queues and customers remain. Share initial credentials privately. The CMS prevents editing/removing your own account; use **Profile** for personal changes, or another CMS administrator for access/password changes. The last administrator is protected from deletion/demotion.
+
+Under **Branches**, create branches and edit address, capacity, displayed opening hours, archive/restore state. Each branch has its own guest check-in link, QR and queue. Open the restaurant workspace and select a branch to use its QR. Archiving preserves records and requires active parties to finish first. All CMS changes use the existing SQLite database, so keep your `data` folder when updating the project.
+
 ## Account menu and profile
 
 Open your name at the bottom of the sidebar for **Language**, **Theme**, **Contact support**, **Profile**, or **Log out**. Preferences are saved per account. English, Spanish, Portuguese, German, French and Italian localize the account menu, profile, feedback form and main navigation; operational queue/customer screens and server validation messages currently remain in English. **System** follows your device appearance and responds when it changes.
@@ -25,7 +38,7 @@ Phone verification requires the existing three `TWILIO_*` settings. Choose a cou
 
 **Contact support** stores feedback durably for your own workspace administrators. It does not send email to an outside support team. Administrators can select **Workspace feedback** to review all messages and mark them resolved/reopen them. Staff see only **My messages**. Categories match the supplied reference; selecting a billing category does not add billing functionality.
 
-**Delete account** requires your password and deletes your own sessions, settings, picture and feedback while preserving restaurant/customer data. The final administrator cannot be deleted. If an additional administrator is required, run the documented `setup` command with a new `ADMIN_EMAIL` and password; it creates/updates that administrator. All profile migrations are additive and preserve existing queue data.
+**Delete account** requires your password and deletes your own sessions, settings, picture and feedback while preserving restaurant/customer data. The final administrator cannot be deleted. Create additional administrators under **CMS administration → Manager accounts**, or run the documented `setup` command with a new `ADMIN_EMAIL` and password. All profile migrations are additive and preserve existing queue data.
 
 ## Multiple branches and staff
 
