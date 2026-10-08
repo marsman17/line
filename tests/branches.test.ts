@@ -21,7 +21,7 @@ const {
 } = await import("../lib/db.ts");
 beforeEach(() =>
   db.exec(
-    "DELETE FROM notifications; DELETE FROM subscriptions; DELETE FROM tickets; DELETE FROM manager_branches; DELETE FROM branches WHERE id!='main'; DELETE FROM managers WHERE role='staff'; UPDATE branches SET capacity=6,archived=0 WHERE id='main';",
+    "DELETE FROM notifications; DELETE FROM subscriptions; DELETE FROM tickets; DELETE FROM customers; DELETE FROM manager_branches; DELETE FROM branches WHERE id!='main'; DELETE FROM managers WHERE role='staff'; UPDATE branches SET capacity=6,archived=0 WHERE id='main';",
   ),
 );
 after(() => {
@@ -132,7 +132,7 @@ test("queue fullness is enforced per branch and unknown branch records are rejec
   assert.throws(() => visit("Unknown", "unknown"), /not accepting check-ins/);
   assert.throws(
     () => db.prepare("UPDATE tickets SET branch_id='unknown'").run(),
-    /Unknown branch/,
+    /Unknown branch|Customer branch mismatch/,
   );
 });
 test("legacy database migration preserves visits, private links, notification jobs and sessions on repeated startup", () => {

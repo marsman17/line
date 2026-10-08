@@ -37,6 +37,12 @@ You can also press **F5** and select **TableQ: run and debug locally** after ins
 
 Use the browser’s responsive/device toolbar to test the mobile layout. QR codes generated in local mode point to localhost, so scanning them on a different phone will not reach your computer. To test an actual phone and off-page mobile alerts, use an HTTPS deployment as described in README.md. Windows/macOS notification settings, browser permissions, and outbound access to your browser’s push service can affect delivery. Live page updates work without push permission.
 
+## Customer directory
+
+Open **Customers** to use the reference-style list, date presets/calendar, branch filter, search, priority and marketing-consent filters, and sorting. Click **Edit** to save profile details, private notes and explicit marketing consent. Activity and visit/no-show counts reflect the selected date range. Queue-update consent never automatically enables marketing consent. Export CSV respects all active customer filters.
+
+For a called guest, the activity dialog includes **Mark no-show**. This ends their visit and frees reserved seats. Ordinary cancellations remain separate. Reservations and next-visit sorting are not yet supported.
+
 ## Add branches
 
 Sign in with the administrator account and click **Manage branches & staff** in the sidebar. Add branch details, then close the dialog and select the branch using **Branch**. Use **Check-in QR** to get that branch's entrance QR and public link. Queues, seats, guest history and individual analytics are separate. In **Analytics**, select **All branches** to see combined results.

@@ -6,6 +6,9 @@ export type Status = "waiting" | "notified" | "served" | "cancelled";
 export type Ticket = {
   id: string;
   branch_id: string;
+  customer_id: string;
+  no_show: number;
+  queue_number: number;
   name: string;
   phone: string;
   email: string;
@@ -64,7 +67,89 @@ if (
 db.exec(`CREATE INDEX IF NOT EXISTS tickets_branch_status ON tickets(branch_id,status,joined_at);
 CREATE TRIGGER IF NOT EXISTS tickets_branch_insert BEFORE INSERT ON tickets WHEN NOT EXISTS(SELECT 1 FROM branches WHERE id=NEW.branch_id) BEGIN SELECT RAISE(ABORT,'Unknown branch'); END;
 CREATE TRIGGER IF NOT EXISTS tickets_branch_update BEFORE UPDATE OF branch_id ON tickets WHEN NOT EXISTS(SELECT 1 FROM branches WHERE id=NEW.branch_id) BEGIN SELECT RAISE(ABORT,'Unknown branch'); END;`);
+db.exec(`CREATE TABLE IF NOT EXISTS customers(id TEXT PRIMARY KEY, branch_id TEXT NOT NULL REFERENCES branches(id), name TEXT NOT NULL DEFAULT '', phone TEXT NOT NULL DEFAULT '', email TEXT NOT NULL DEFAULT '', marketing_consent INTEGER NOT NULL DEFAULT 0 CHECK(marketing_consent IN (0,1)), notes TEXT NOT NULL DEFAULT '');
+CREATE INDEX IF NOT EXISTS customers_branch_contacts ON customers(branch_id,phone,email);`);
+for (const column of [
+  { name: "customer_id", sql: "customer_id TEXT REFERENCES customers(id)" },
+  {
+    name: "no_show",
+    sql: "no_show INTEGER NOT NULL DEFAULT 0 CHECK(no_show IN (0,1))",
+  },
+  { name: "queue_number", sql: "queue_number INTEGER" },
+]) {
+  if (
+    !(
+      db.prepare("PRAGMA table_info(tickets)").all() as { name: string }[]
+    ).some((c) => c.name === column.name)
+  )
+    db.exec("ALTER TABLE tickets ADD COLUMN " + column.sql);
+}
+// A stable profile ID keeps history attached when contact details are edited.
+for (const t of db
+  .prepare(
+    "SELECT id,branch_id,name,phone,email FROM tickets WHERE customer_id IS NULL ORDER BY joined_at ASC,rowid ASC",
+  )
+  .all() as {
+  id: string;
+  branch_id: string;
+  name: string;
+  phone: string;
+  email: string;
+}[]) {
+  const id = ensureCustomer(t.branch_id, t);
+  db.prepare("UPDATE tickets SET customer_id=? WHERE id=?").run(id, t.id);
+}
+for (const t of db
+  .prepare(
+    "SELECT id,branch_id FROM tickets WHERE queue_number IS NULL ORDER BY joined_at ASC,rowid ASC",
+  )
+  .all() as { id: string; branch_id: string }[]) {
+  const next = Number(
+    db
+      .prepare(
+        "SELECT COALESCE(MAX(queue_number),0)+1 AS n FROM tickets WHERE branch_id=?",
+      )
+      .get(t.branch_id)!.n,
+  );
+  db.prepare("UPDATE tickets SET queue_number=? WHERE id=?").run(next, t.id);
+}
+db.exec(`CREATE INDEX IF NOT EXISTS tickets_customer_joined ON tickets(customer_id,joined_at);
+CREATE TRIGGER IF NOT EXISTS tickets_customer_insert BEFORE INSERT ON tickets WHEN NEW.customer_id IS NOT NULL AND NOT EXISTS(SELECT 1 FROM customers WHERE id=NEW.customer_id AND branch_id=NEW.branch_id) BEGIN SELECT RAISE(ABORT,'Customer branch mismatch'); END;
+CREATE TRIGGER IF NOT EXISTS tickets_customer_update BEFORE UPDATE OF customer_id,branch_id ON tickets WHEN NEW.customer_id IS NOT NULL AND NOT EXISTS(SELECT 1 FROM customers WHERE id=NEW.customer_id AND branch_id=NEW.branch_id) BEGIN SELECT RAISE(ABORT,'Customer branch mismatch'); END;`);
 db.exec("COMMIT");
+export function ensureCustomer(
+  branchId: string,
+  input: { name: string; phone: string; email: string },
+) {
+  const existing =
+    (input.phone
+      ? db
+          .prepare(
+            "SELECT id FROM customers WHERE branch_id=? AND phone=? ORDER BY rowid ASC LIMIT 1",
+          )
+          .get(branchId, input.phone)
+      : undefined) ||
+    (input.email
+      ? db
+          .prepare(
+            "SELECT id FROM customers WHERE branch_id=? AND lower(email)=? ORDER BY rowid ASC LIMIT 1",
+          )
+          .get(branchId, input.email.toLowerCase())
+      : undefined) ||
+    (!input.phone && !input.email
+      ? db
+          .prepare(
+            "SELECT id FROM customers WHERE branch_id=? AND lower(name)=? AND phone='' AND email='' ORDER BY rowid ASC LIMIT 1",
+          )
+          .get(branchId, input.name.toLowerCase())
+      : undefined);
+  if (existing) return String(existing.id);
+  const id = token().slice(0, 16);
+  db.prepare(
+    "INSERT INTO customers(id,branch_id,name,phone,email) VALUES (?,?,?,?,?)",
+  ).run(id, branchId, input.name, input.phone, input.email);
+  return id;
+}
 export type Branch = {
   id: string;
   name: string;
@@ -178,14 +263,14 @@ export function rateLimit(key: string, limit: number, seconds: number) {
 export function tickets(branchId?: string) {
   return db
     .prepare(
-      `SELECT id,branch_id,name,phone,email,party_size,priority,status,joined_at,notified_at,finished_at,notes,consent,released_at FROM tickets ${branchId ? "WHERE branch_id=?" : ""} ORDER BY priority DESC, joined_at ASC, rowid ASC`,
+      `SELECT id,branch_id,customer_id,no_show,queue_number,name,phone,email,party_size,priority,status,joined_at,notified_at,finished_at,notes,consent,released_at FROM tickets ${branchId ? "WHERE branch_id=?" : ""} ORDER BY priority DESC, joined_at ASC, rowid ASC`,
     )
     .all(...(branchId ? [branchId] : [])) as Ticket[];
 }
 export function findGuest(secret: string) {
   return db
     .prepare(
-      "SELECT id,branch_id,name,phone,email,party_size,priority,status,joined_at,notified_at,finished_at,notes,consent,released_at FROM tickets WHERE token_hash=?",
+      "SELECT id,branch_id,customer_id,no_show,queue_number,name,phone,email,party_size,priority,status,joined_at,notified_at,finished_at,notes,consent,released_at FROM tickets WHERE token_hash=?",
     )
     .get(hash(secret)) as Ticket | undefined;
 }
@@ -213,7 +298,7 @@ export function join(input: GuestInput) {
     const secret = token();
     const id = token().slice(0, 12);
     db.prepare(
-      "INSERT INTO tickets(id,token_hash,name,phone,email,party_size,priority,joined_at,notes,consent,branch_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+      "INSERT INTO tickets(id,token_hash,name,phone,email,party_size,priority,joined_at,notes,consent,branch_id,customer_id,queue_number) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
     ).run(
       id,
       hash(secret),
@@ -226,6 +311,14 @@ export function join(input: GuestInput) {
       input.notes || "",
       input.consent ? 1 : 0,
       location.id,
+      ensureCustomer(location.id, input),
+      Number(
+        db
+          .prepare(
+            "SELECT COALESCE(MAX(queue_number),0)+1 AS n FROM tickets WHERE branch_id=?",
+          )
+          .get(location.id)!.n,
+      ),
     );
     return { id, token: secret };
   });
@@ -253,11 +346,13 @@ export function guestView(secret: string) {
       .get(ticket.id),
   };
 }
-export function transition(id: string, status: Status) {
+export function transition(id: string, status: Status, noShow = false) {
   return transaction(() => {
     const ticket = db.prepare("SELECT * FROM tickets WHERE id=?").get(id) as
       Ticket | undefined;
     if (!ticket) throw new Error("Guest not found.");
+    if (noShow && (status !== "cancelled" || ticket.status !== "notified"))
+      throw Error("Cannot mark this visit as a no-show.");
     const allowed: Record<Status, Status[]> = {
       waiting: ["notified", "cancelled"],
       notified: ["served", "cancelled", "waiting"],
@@ -282,7 +377,7 @@ export function transition(id: string, status: Status) {
     }
     const now = new Date().toISOString();
     db.prepare(
-      "UPDATE tickets SET status=?,notified_at=?,finished_at=? WHERE id=?",
+      "UPDATE tickets SET status=?,notified_at=?,finished_at=?,no_show=? WHERE id=?",
     ).run(
       status,
       status === "notified"
@@ -291,6 +386,7 @@ export function transition(id: string, status: Status) {
           ? null
           : ticket.notified_at,
       status === "served" || status === "cancelled" ? now : null,
+      noShow ? 1 : 0,
       id,
     );
     if (status === "waiting" || status === "cancelled")

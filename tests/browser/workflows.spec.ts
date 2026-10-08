@@ -472,6 +472,13 @@ test("branch administration, separate guest queues, staff permissions and combin
   await expect(page.getByRole("status")).toContainText("Staff access updated.");
   expect((await staff.request.get("/api/tickets")).status()).toBe(401);
   await page.setViewportSize({ width: 390, height: 844 });
+  await expect
+    .poll(() =>
+      page
+        .locator(".sidebar")
+        .evaluate((el) => el.getBoundingClientRect().right),
+    )
+    .toBeLessThanOrEqual(0);
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= window.innerWidth,
@@ -480,4 +487,325 @@ test("branch administration, separate guest queues, staff permissions and combin
   expect(errors).toEqual([]);
   await guestContext.close();
   await staffContext.close();
+});
+
+test("customer reference layout, filters, profile editing, activity and filtered CSV", async ({
+  page,
+  browser,
+}) => {
+  test.setTimeout(90000);
+  const errors: string[] = [];
+  page.on("pageerror", (e) => errors.push(e.message));
+  await page.setViewportSize({ width: 1440, height: 1050 });
+  await page.goto("/login");
+  await page.getByLabel("Email address").fill("manager@example.test");
+  await page
+    .getByLabel("Password", { exact: true })
+    .fill("test-password-12345");
+  await page.getByRole("button", { name: "Sign in", exact: true }).click();
+  await expect(
+    page.getByRole("heading", { name: "A warm welcome starts here." }),
+  ).toBeVisible();
+  const headers = { Origin: "http://localhost:3100" };
+  const b = await page.request.post("/api/branches", {
+    headers,
+    data: {
+      name: "Customer Reference",
+      address: "22 Customer Street",
+      capacity: 30,
+    },
+  });
+  expect(b.status()).toBe(201);
+  const branch = await b.json();
+  async function add(name: string, email: string, priority = false) {
+    const r = await page.request.post("/api/tickets?branch=" + branch.id, {
+      headers,
+      data: { name, email, phone: "", partySize: 2, priority, consent: true },
+    });
+    expect(r.status()).toBe(201);
+    return r.json();
+  }
+  const first = await add(
+    "Hooriya Hussain",
+    "hooriyahussain20@gmail.com",
+    true,
+  );
+  await add("Hooriya Hussain", "hooriyahussain20@gmail.com");
+  await add("Aurangzeb Ahmed", "aurangzebwork2020@gmail.com");
+  await add("Sarmad", "sarmad321@gmail.com");
+  const called = await add("Irshad", "irshadaltaf40@gmail.com");
+  expect(
+    (
+      await page.request.patch(`/api/tickets/${first.id}?branch=${branch.id}`, {
+        headers,
+        data: { status: "notified" },
+      })
+    ).status(),
+  ).toBe(200);
+  expect(
+    (
+      await page.request.patch(`/api/tickets/${first.id}?branch=${branch.id}`, {
+        headers,
+        data: { status: "served" },
+      })
+    ).status(),
+  ).toBe(200);
+  expect(
+    (
+      await page.request.patch(
+        `/api/tickets/${called.id}?branch=${branch.id}`,
+        { headers, data: { status: "notified" } },
+      )
+    ).status(),
+  ).toBe(200);
+  await page.getByRole("button", { name: "Customers", exact: true }).click();
+  await expect(
+    page.getByRole("heading", { name: "Customers", exact: true }),
+  ).toBeVisible();
+  await page
+    .getByRole("combobox", { name: "Customer branch", exact: true })
+    .selectOption(branch.id);
+  const rows = page.locator(".customer-list-row");
+  await expect(rows).toHaveCount(4);
+  await expect(
+    page.getByText("4 customers match", { exact: true }),
+  ).toBeVisible();
+  await expect(rows.getByText("Not granted", { exact: true })).toHaveCount(4);
+  await page
+    .getByRole("combobox", { name: "Priority filter" })
+    .selectOption("yes");
+  await expect(rows).toHaveCount(1);
+  await expect(
+    rows.getByText("Hooriya Hussain", { exact: true }),
+  ).toBeVisible();
+  await page
+    .getByRole("combobox", { name: "Priority filter" })
+    .selectOption("no");
+  await expect(rows).toHaveCount(3);
+  await page
+    .getByRole("combobox", { name: "Priority filter" })
+    .selectOption("any");
+  await expect(rows).toHaveCount(4);
+  await page
+    .getByRole("combobox", { name: "Sort customers" })
+    .selectOption("name");
+  await expect(
+    rows.first().getByText("Aurangzeb Ahmed", { exact: true }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Sort descending" }).click();
+  await expect(rows.first().getByText("Sarmad", { exact: true })).toBeVisible();
+  await page
+    .getByRole("button", { name: "Edit customer Hooriya Hussain", exact: true })
+    .click();
+  const dialog = page.getByRole("dialog");
+  await expect(
+    dialog.getByRole("heading", { name: "Customer Hooriya Hussain" }),
+  ).toBeVisible();
+  await expect(dialog.getByText("Showed", { exact: true })).toBeVisible();
+  await expect(dialog.locator(".customer-activity-row")).toHaveCount(2);
+  await dialog
+    .getByLabel("Name (optional)", { exact: true })
+    .fill("Hooriya Updated");
+  await dialog
+    .getByLabel("Phone (optional)", { exact: true })
+    .fill("+15551234567");
+  await dialog
+    .getByLabel("Email (optional)", { exact: true })
+    .fill("hooriya.updated@example.test");
+  await dialog
+    .getByRole("switch", { name: "Marketing consent", exact: true })
+    .check();
+  await dialog
+    .getByPlaceholder("Internal customer notes")
+    .fill("Prefers a quiet table.");
+  await dialog
+    .getByRole("button", { name: "Save changes", exact: true })
+    .click();
+  await expect(dialog).toHaveCount(0);
+  await page
+    .getByRole("combobox", { name: "Marketing consent filter" })
+    .selectOption("granted");
+  await expect(rows).toHaveCount(1);
+  await expect(
+    rows.getByText("Hooriya Updated", { exact: true }),
+  ).toBeVisible();
+  const downloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "Export CSV", exact: true }).click();
+  const download = await downloadPromise;
+  expect(download.suggestedFilename()).toBe("tableq-customers.csv");
+  const stream = await download.createReadStream();
+  let content = "";
+  for await (const chunk of stream!) content += chunk.toString();
+  expect(content).toContain("Hooriya Updated");
+  expect(content).toContain("Granted");
+  expect(content).not.toContain("Aurangzeb Ahmed");
+  await page.reload();
+  await page.getByRole("button", { name: "Customers", exact: true }).click();
+  await page
+    .getByRole("combobox", { name: "Customer branch", exact: true })
+    .selectOption(branch.id);
+  await expect(rows).toHaveCount(4);
+  await page
+    .getByRole("button", { name: "Edit customer Hooriya Updated", exact: true })
+    .click();
+  await expect(dialog.getByPlaceholder("Internal customer notes")).toHaveValue(
+    "Prefers a quiet table.",
+  );
+  await expect(
+    dialog.getByRole("switch", { name: "Marketing consent", exact: true }),
+  ).toBeChecked();
+  await dialog
+    .getByLabel("Name (optional)", { exact: true })
+    .fill("Discarded name");
+  await dialog.getByRole("button", { name: "Cancel", exact: true }).click();
+  await expect(
+    rows.getByText("Hooriya Updated", { exact: true }),
+  ).toBeVisible();
+  await page
+    .getByRole("button", { name: "Edit customer Irshad", exact: true })
+    .click();
+  page.once("dialog", (d) => d.accept());
+  await dialog
+    .getByRole("button", { name: "Mark no-show", exact: true })
+    .click();
+  await expect(dialog.getByText("No-show", { exact: true })).toBeVisible();
+  await expect(dialog.locator(".customer-activity-summary")).toContainText(
+    "No-show: 1",
+  );
+  await dialog
+    .getByRole("button", { name: "Save changes", exact: true })
+    .click();
+  await page
+    .getByRole("button", { name: "Last 365 days", exact: false })
+    .click();
+  await dialog.getByRole("button", { name: "Yesterday", exact: true }).click();
+  await dialog.getByRole("button", { name: "Apply", exact: true }).click();
+  await expect(rows).toHaveCount(0);
+  await expect(
+    page.getByRole("heading", { name: "No customers match." }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Yesterday", exact: false }).click();
+  await dialog.getByLabel("Start date", { exact: true }).fill("2020-01-01");
+  await dialog.getByLabel("End date", { exact: true }).fill("2099-12-31");
+  await dialog.getByRole("button", { name: "Apply", exact: true }).click();
+  await expect(rows).toHaveCount(4);
+  await page
+    .getByRole("textbox", { name: "Search customers", exact: true })
+    .fill("15551234567");
+  await expect(rows).toHaveCount(1);
+  await expect(
+    rows.getByText("Hooriya Updated", { exact: true }),
+  ).toBeVisible();
+  await page
+    .getByRole("textbox", { name: "Search customers", exact: true })
+    .fill("");
+  await expect(rows).toHaveCount(4);
+  await page
+    .getByRole("button", { name: "2020-01-01 – 2099-12-31", exact: false })
+    .click();
+  await dialog
+    .getByRole("button", { name: "Last 365 days", exact: true })
+    .click();
+  await dialog.getByRole("button", { name: "Apply", exact: true }).click();
+  await page
+    .getByRole("combobox", { name: "Sort customers" })
+    .selectOption("last");
+  await page.screenshot({
+    path: "test-results/customer-reference-desktop.png",
+    fullPage: true,
+  });
+  await page
+    .getByRole("button", { name: "Edit customer Hooriya Updated", exact: true })
+    .click();
+  await page.screenshot({
+    path: "test-results/customer-reference-editor.png",
+    fullPage: true,
+  });
+  await page.keyboard.press("Escape");
+  await expect(dialog).toHaveCount(0);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await expect
+    .poll(() =>
+      page
+        .locator(".sidebar")
+        .evaluate((el) => el.getBoundingClientRect().right),
+    )
+    .toBeLessThanOrEqual(0);
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= window.innerWidth,
+    ),
+  ).toBe(true);
+  await page.screenshot({
+    path: "test-results/customer-reference-mobile.png",
+    animations: "disabled",
+    fullPage: true,
+  });
+  await page
+    .getByRole("button", { name: "Edit customer Hooriya Updated", exact: true })
+    .click();
+  await expect(
+    dialog.getByRole("button", { name: "Save changes", exact: true }),
+  ).toBeVisible();
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= window.innerWidth,
+    ),
+  ).toBe(true);
+  await page.keyboard.press("Escape");
+  const list = await (
+    await page.request.get("/api/customers?branch=" + branch.id)
+  ).json();
+  const customer = list.customers.find(
+    (c: { name: string }) => c.name === "Hooriya Updated",
+  );
+  expect(customer.history).toHaveLength(2);
+  expect(customer.history[0].consent).toBe(1);
+  expect(
+    (
+      await page.request.post("/api/staff", {
+        headers,
+        data: {
+          email: "customer-guardstaff@example.test",
+          password: "customer-password-12345",
+          branchIds: ["main"],
+        },
+      })
+    ).status(),
+  ).toBe(201);
+  const staffContext = await browser.newContext();
+  const staff = await staffContext.newPage();
+  await staff.goto("/login");
+  await staff
+    .getByLabel("Email address")
+    .fill("customer-guardstaff@example.test");
+  await staff
+    .getByLabel("Password", { exact: true })
+    .fill("customer-password-12345");
+  await staff.getByRole("button", { name: "Sign in", exact: true }).click();
+  await expect(
+    staff.getByRole("heading", { name: "A warm welcome starts here." }),
+  ).toBeVisible();
+  expect(
+    (await staff.request.get("/api/customers?branch=" + branch.id)).status(),
+  ).toBe(403);
+  expect(
+    (
+      await staff.request.patch(
+        `/api/customers/${customer.id}?branch=${branch.id}`,
+        {
+          headers,
+          data: {
+            name: "Forbidden",
+            phone: "",
+            email: "",
+            notes: "",
+            marketingConsent: true,
+          },
+        },
+      )
+    ).status(),
+  ).toBe(403);
+  await staffContext.close();
+  expect(errors).toEqual([]);
 });

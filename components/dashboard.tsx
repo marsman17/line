@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   ArrowDownToLine,
   ArrowLeft,
@@ -9,7 +9,6 @@ import {
   ChartNoAxesCombined,
   Check,
   CheckCheck,
-  ChevronDown,
   Clock,
   Ellipsis,
   ExternalLink,
@@ -31,6 +30,8 @@ import {
   X,
 } from "lucide-react";
 import { api, csv, type Restaurant } from "../lib/client";
+import Customers from "./customers";
+import { Modal } from "./modal";
 import BranchManagement from "./branches";
 import type { Branch, Manager, Ticket } from "../lib/db";
 type Tab = "overview" | "queue" | "customers" | "analytics";
@@ -92,7 +93,6 @@ export default function Dashboard() {
   const [toast, setToast] = useState("");
   const [busy, setBusy] = useState<string | null>(null);
   const [range, setRange] = useState("30");
-  const [customer, setCustomer] = useState<string | null>(null);
   const [receipt, setReceipt] = useState("");
   const refresh = useCallback(async () => {
     const version = ++requestVersion.current;
@@ -127,21 +127,19 @@ export default function Dashboard() {
     }
   }, [toast]);
   useEffect(() => {
-    if (!form && !qr && !confirm && !menu && !customer && !manageBranches)
-      return;
+    if (!form && !qr && !confirm && !menu && !manageBranches) return;
     const handler = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setForm(null);
         setQr(false);
         setConfirm(null);
         setMenu(false);
-        setCustomer(null);
         setManageBranches(false);
       }
     };
     document.addEventListener("keydown", handler);
     return () => document.removeEventListener("keydown", handler);
-  }, [form, qr, confirm, menu, customer, manageBranches]);
+  }, [form, qr, confirm, menu, manageBranches]);
   async function mutate(id: string, body: unknown) {
     setBusy(id);
     try {
@@ -188,51 +186,6 @@ export default function Dashboard() {
         .toLowerCase()
         .includes(search.toLowerCase()),
   );
-  const customers = useMemo(() => {
-    const map = new Map<
-      string,
-      {
-        key: string;
-        name: string;
-        email: string;
-        phone: string;
-        visits: number;
-        size: number;
-        last: string;
-        priority: boolean;
-        consent: boolean;
-        history: Ticket[];
-      }
-    >();
-    for (const t of all) {
-      const key = t.phone || t.email || t.name.toLowerCase();
-      const old = map.get(key);
-      if (old) {
-        old.visits++;
-        old.history.push(t);
-        old.priority ||= !!t.priority;
-        if (t.joined_at > old.last) {
-          old.last = t.joined_at;
-          old.name = t.name;
-          old.email = t.email;
-          old.phone = t.phone;
-        }
-      } else
-        map.set(key, {
-          key,
-          name: t.name,
-          email: t.email,
-          phone: t.phone,
-          visits: 1,
-          size: t.party_size,
-          last: t.joined_at,
-          priority: !!t.priority,
-          consent: !!t.consent,
-          history: [t],
-        });
-    }
-    return [...map.values()].sort((a, b) => b.last.localeCompare(a.last));
-  }, [all]);
   function selectBranch(id: string) {
     requestVersion.current++;
     setData(null);
@@ -245,7 +198,6 @@ export default function Dashboard() {
     setForm(null);
     setQr(false);
     setConfirm(null);
-    setCustomer(null);
     if (id === "all") setTab("analytics");
   }
   function exportQueue() {
@@ -453,7 +405,7 @@ export default function Dashboard() {
                   : tab === "queue"
                     ? "Your queue."
                     : tab === "customers"
-                      ? "Your guests."
+                      ? "Customers"
                       : "Understand every wait."}
               </h1>
               <p>
@@ -475,28 +427,12 @@ export default function Dashboard() {
                   <QrCode size={16} />
                   <span>Check-in QR</span>
                 </button>
-              ) : (
-                <button
-                  className="button secondary"
-                  onClick={() =>
-                    tab === "customers"
-                      ? csv("tableq-customers.csv", [
-                          ["Name", "Phone", "Email", "Visits", "Last visit"],
-                          ...customers.map((c) => [
-                            c.name,
-                            c.phone,
-                            c.email,
-                            c.visits,
-                            c.last,
-                          ]),
-                        ])
-                      : exportQueue()
-                  }
-                >
+              ) : tab !== "customers" ? (
+                <button className="button secondary" onClick={exportQueue}>
                   <ArrowDownToLine size={16} />
                   Export CSV
                 </button>
-              )}
+              ) : null}
               {(tab === "overview" || tab === "queue") && (
                 <button
                   className="button primary"
@@ -999,95 +935,11 @@ export default function Dashboard() {
             </>
           )}
           {tab === "customers" && (
-            <section className="panel">
-              <div className="panel-heading">
-                <div>
-                  <Users size={18} />
-                  <h2>Guest directory</h2>
-                  <span className="count-badge">{customers.length}</span>
-                </div>
-              </div>
-              <div className="customer-toolbar">
-                <div className="search-input">
-                  <Search size={16} />
-                  <input
-                    aria-label="Search customers"
-                    placeholder="Search by name, phone, or email…"
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                  />
-                </div>
-                <span className="muted">Sorted by most recent visit</span>
-              </div>
-              <div className="customer-grid">
-                {customers
-                  .filter((c) =>
-                    `${c.name} ${c.email} ${c.phone}`
-                      .toLowerCase()
-                      .includes(search.toLowerCase()),
-                  )
-                  .map((c) => (
-                    <button
-                      className="customer-card"
-                      key={c.key}
-                      onClick={() => setCustomer(c.key)}
-                    >
-                      <div className="customer-top">
-                        <span
-                          className={`avatar color-${c.name.charCodeAt(0) % 5}`}
-                        >
-                          {initials(c.name)}
-                        </span>
-                        <strong>{c.name}</strong>
-                        {c.priority && (
-                          <Star size={14} className="priority-star" />
-                        )}
-                        <ArrowRight size={16} />
-                      </div>
-                      <div className="customer-details">
-                        <div>
-                          <small>Total visits</small>
-                          <strong>{c.visits}</strong>
-                        </div>
-                        <div>
-                          <small>Visit updates</small>
-                          <span>
-                            {c.consent ? "✓ Opted in" : "Not opted in"}
-                          </span>
-                        </div>
-                      </div>
-                      <p>{c.phone || c.email || "Walk-in guest"}</p>
-                      <small>
-                        Last visit ·{" "}
-                        {new Date(c.last).toLocaleDateString([], {
-                          month: "short",
-                          day: "numeric",
-                          year: "numeric",
-                        })}
-                      </small>
-                    </button>
-                  ))}
-              </div>
-              {!customers.length && (
-                <div className="empty-state">
-                  <Users size={35} />
-                  <h3>Your next regular starts here.</h3>
-                  <p>Guests appear automatically after their first check-in.</p>
-                </div>
-              )}
-              {customers.length > 0 &&
-                !customers.some((c) =>
-                  `${c.name} ${c.email} ${c.phone}`
-                    .toLowerCase()
-                    .includes(search.toLowerCase()),
-                ) && (
-                  <div className="empty-state">
-                    <Search size={30} />
-                    <h3>No matching guests.</h3>
-                    <p>Try a different name or contact detail.</p>
-                  </div>
-                )}
-            </section>
+            <Customers
+              branches={data.branches}
+              branchId={data.branchId}
+              onBranchChange={selectBranch}
+            />
           )}
           {tab === "analytics" && (
             <>
@@ -1247,47 +1099,6 @@ export default function Dashboard() {
           </div>
         </Modal>
       )}
-      {customer &&
-        (() => {
-          const c = customers.find((c) => c.key === customer);
-          return c ? (
-            <Modal title={c.name} onClose={() => setCustomer(null)}>
-              <div className="customer-summary">
-                <p>{c.phone || "No phone recorded"}</p>
-                <p>{c.email || "No email recorded"}</p>
-                <span className="status-badge waiting">{c.visits} visits</span>
-              </div>
-              <h3 className="section-title">Visit history</h3>
-              {[...c.history]
-                .sort((a, b) => b.joined_at.localeCompare(a.joined_at))
-                .map((t) => (
-                  <div className="history-row" key={t.id}>
-                    <div>
-                      <strong>
-                        {new Date(t.joined_at).toLocaleDateString()}
-                      </strong>
-                      <small>
-                        {t.party_size} people · {time(t.joined_at)}
-                      </small>
-                    </div>
-                    <span className={`status-badge ${t.status}`}>
-                      {statusLabel[t.status]}
-                    </span>
-                    <button
-                      className="icon-button"
-                      aria-label="Edit visit"
-                      onClick={() => {
-                        setCustomer(null);
-                        setForm(t);
-                      }}
-                    >
-                      <Pencil size={15} />
-                    </button>
-                  </div>
-                ))}
-            </Modal>
-          ) : null;
-        })()}
     </div>
   );
 }
@@ -1322,75 +1133,6 @@ function Stat({
         <span className={`tiny-dot ${tone}`} />
         {note}
       </p>
-    </div>
-  );
-}
-export function Modal({
-  title,
-  onClose,
-  children,
-}: {
-  title: string;
-  onClose: () => void;
-  children: React.ReactNode;
-}) {
-  useEffect(() => {
-    const prior = document.activeElement as HTMLElement | null;
-    const old = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    const dialog = document.querySelector(
-      '[role="dialog"]',
-    ) as HTMLElement | null;
-    dialog?.focus();
-    const trap = (e: KeyboardEvent) => {
-      if (e.key !== "Tab") return;
-      const els = dialog?.querySelectorAll<HTMLElement>(
-        'button:not(:disabled),a[href],input,select,textarea,[tabindex="0"]',
-      );
-      if (!els?.length) return;
-      const first = els[0],
-        last = els[els.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
-      }
-    };
-    document.addEventListener("keydown", trap);
-    return () => {
-      document.body.style.overflow = old;
-      document.removeEventListener("keydown", trap);
-      prior?.focus();
-    };
-  }, []);
-  return (
-    <div
-      className="modal-backdrop"
-      onMouseDown={(e) => {
-        if (e.target === e.currentTarget) onClose();
-      }}
-    >
-      <section
-        className="modal"
-        role="dialog"
-        aria-modal="true"
-        aria-label={title}
-        tabIndex={-1}
-      >
-        <div className="modal-heading">
-          <h2>{title}</h2>
-          <button
-            className="icon-button"
-            onClick={onClose}
-            aria-label="Close dialog"
-          >
-            <X size={20} />
-          </button>
-        </div>
-        {children}
-      </section>
     </div>
   );
 }

@@ -25,6 +25,16 @@ Under **Staff access**, create staff accounts with passwords of at least 12 char
 
 Archive branches only after cancelling/finishing active visits and freeing occupied tables. Archived branches stop accepting check-ins but keep visit history and private guest links. Restore them by editing and clearing **Archived**. Opening hours are informational; this release does not automatically schedule check-in opening/closing or handle branch time zones. Notification messages name the guest's branch, while all branches share the configured Web Push/Twilio provider.
 
+## Customers
+
+The Customers page uses the supplied list and detail-dialog references. Filter by branch, name/phone/email, date presets or a custom calendar range, priority visits and marketing consent. Sort by customer, total visits, last visit, phone or email in either direction. CSV exports include every matching customer in the current filter, not only visible rows. Date boundaries use complete days in the browser's local time zone.
+
+Customer profiles have stable IDs, optional name/phone/email, private notes and an explicit marketing-consent flag. Existing visits migrate automatically into branch-scoped profiles. Marketing consent is separate from visit-update consent and defaults to **Not granted**, including for existing guests who agreed to queue alerts. Editing a profile preserves visit history; historical visit details and queue alert consent are retained. Future check-ins matching the profile's current phone or email attach to that profile. Editing a profile does not send marketing messages.
+
+Activity shows queue reference numbers, visit date/time, party size, priority and real status. Seated visits show **Showed**. A called guest can be explicitly marked **No-show** from their activity, cancelling the visit and releasing reserved seats. Ordinary cancellations are not counted as no-shows. Counts and priority filters reflect visits in the selected date range. **Next visit** sorting is disabled because reservations are not implemented.
+
+Deleting a visit also deletes its profile if it was that customer's final visit. Profiles with remaining visits retain their history and notes. Staff can access and edit profiles only within their assigned branches.
+
 ## Local development
 
 For a ready-to-run VS Code setup, follow [LOCAL_TESTING.md](LOCAL_TESTING.md): `npm ci` then `npm run local` starts the app and notification worker together.

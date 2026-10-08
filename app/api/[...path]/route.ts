@@ -1,3 +1,8 @@
+import {
+  customerDirectory,
+  customerProfile,
+  updateCustomer,
+} from "../../../lib/customers";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import QRCode from "qrcode";
@@ -419,6 +424,49 @@ async function handle(
     }
     if (!scope || !canAccessBranch(user, scope))
       return json({ error: "You do not have access to this branch." }, 403);
+    if (path[0] === "customers") {
+      const query = z
+        .object({
+          from: z.iso.datetime().optional(),
+          to: z.iso.datetime().optional(),
+          search: z.string().max(200).optional(),
+          priority: z.enum(["any", "yes", "no"]).optional(),
+          marketing: z.enum(["any", "granted", "not-granted"]).optional(),
+          sort: z.enum(["name", "visits", "last", "phone", "email"]).optional(),
+          direction: z.enum(["asc", "desc"]).optional(),
+        })
+        .parse(
+          Object.fromEntries(
+            [...req.nextUrl.searchParams].filter(([key]) => key !== "branch"),
+          ),
+        );
+      if (query.from && query.to && query.from >= query.to)
+        return json({ error: "Choose a valid date range." }, 400);
+      if (route === "customers" && method === "GET")
+        return json({ customers: customerDirectory(scope, query) });
+      if (path.length === 2 && method === "PATCH") {
+        if (!customerProfile(path[1], scope))
+          return json({ error: "Customer not found." }, 404);
+        const data = z
+          .object({
+            name: z.string().trim().max(80),
+            phone: z
+              .string()
+              .trim()
+              .max(20)
+              .refine(
+                (v) => !v || /^\+[1-9]\d{7,14}$/.test(v),
+                "Use a phone number with country code.",
+              ),
+            email: z.union([z.email(), z.literal("")]),
+            marketingConsent: z.boolean(),
+            notes: z.string().trim().max(1000),
+          })
+          .parse(await readBody(req));
+        return json(updateCustomer(path[1], scope, data));
+      }
+      return json({ error: "Not found." }, 404);
+    }
     if (route === "qr" && method === "GET") {
       const url = new URL(
         "/check-in",
@@ -479,7 +527,11 @@ async function handle(
           const status = z
             .enum(["waiting", "notified", "served", "cancelled"])
             .parse(raw.status);
-          const result = transition(id, status);
+          const result = transition(
+            id,
+            status,
+            z.boolean().default(false).parse(raw.noShow),
+          );
           await deliverNotifications();
           return json(result);
         }
@@ -518,7 +570,15 @@ async function handle(
         return json({ ok: true });
       }
       if (method === "DELETE") {
-        db.prepare("DELETE FROM tickets WHERE id=?").run(id);
+        transaction(() => {
+          const customerId = tickets(scope).find(
+            (t) => t.id === id,
+          )!.customer_id;
+          db.prepare("DELETE FROM tickets WHERE id=?").run(id);
+          db.prepare(
+            "DELETE FROM customers WHERE id=? AND NOT EXISTS(SELECT 1 FROM tickets WHERE customer_id=?)",
+          ).run(customerId, customerId);
+        });
         return json({ ok: true });
       }
     }
@@ -535,7 +595,7 @@ async function handle(
       return json({ error: "Invalid request." }, 400);
     if (
       error instanceof Error &&
-      /Cannot change|Guest not found|queue is full|Branch not found|not accepting check-ins|before archiving|reserved seats/.test(
+      /Cannot change|Cannot mark|Customer not found|contact belongs|Guest not found|queue is full|Branch not found|not accepting check-ins|before archiving|reserved seats/.test(
         error.message,
       )
     )
