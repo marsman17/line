@@ -34,6 +34,7 @@ import Customers from "./customers";
 import AccountMenu from "./account-menu";
 import { usePreferences } from "./preferences";
 import { Modal } from "./modal";
+import CompanyLogo from "./company-logo";
 import BranchManagement from "./branches";
 import type { Branch, Manager, Ticket } from "../lib/db";
 type Tab = "overview" | "queue" | "customers" | "analytics";
@@ -285,7 +286,13 @@ export default function Dashboard() {
         <span className="sidebar-label">{tx("YOUR RESTAURANT")}</span>
         <div className="restaurant-switch">
           <span className="restaurant-avatar">
-            <Leaf size={21} />
+            <CompanyLogo
+              branchId={data.branchId}
+              version={
+                data.branches.find((b) => b.id === data.branchId)?.logo_version
+              }
+              name={data.name}
+            />
           </span>
           <label className="branch-picker">
             {tx("Branch")}
@@ -1093,7 +1100,14 @@ export default function Dashboard() {
           </p>
           <div className="qr-display">
             <div className="qr-restaurant">
-              <Leaf size={21} />
+              <CompanyLogo
+                branchId={data.branchId}
+                version={
+                  data.branches.find((b) => b.id === data.branchId)
+                    ?.logo_version
+                }
+                name={data.name}
+              />
               <strong>{data.name}</strong>
             </div>
             <img

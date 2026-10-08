@@ -17,6 +17,7 @@ import {
   UtensilsCrossed,
   X,
 } from "lucide-react";
+import CompanyLogo from "./company-logo";
 import { api, type Restaurant } from "../lib/client";
 type GuestStatus = {
   id: string;
@@ -64,7 +65,11 @@ function GuestFrame({
             </span>
           </div>
           <span className="guest-logo">
-            <Leaf size={27} />
+            <CompanyLogo
+              branchId={restaurant?.branchId}
+              version={restaurant?.logoVersion}
+              name={restaurant?.name}
+            />
           </span>
           <span className="eyebrow">{tx("YOU’RE IN GOOD COMPANY")}</span>
           <h1>{restaurant?.name || tx("A seat at our table.")}</h1>

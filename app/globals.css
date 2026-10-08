@@ -4795,3 +4795,51 @@ select {
 .tiny-dot.amber {
   color: var(--amber);
 }
+
+.company-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.branch-logo-preview {
+  display: inline-flex;
+  width: 48px;
+  height: 48px;
+  padding: 5px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  vertical-align: middle;
+  margin-inline-end: 12px;
+  background: var(--panel-raised);
+}
+.branch-logo-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.branch-logo-actions .upload-picture {
+  margin: 0;
+}
+.restaurant-avatar {
+  overflow: hidden;
+  padding: 5px;
+}
+
+.account-submenu .theme-option {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr) 17px;
+  direction: ltr;
+  text-align: left;
+}
+.account-submenu .theme-option > svg {
+  margin-left: 0;
+}
+.theme-check {
+  width: 17px;
+  height: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

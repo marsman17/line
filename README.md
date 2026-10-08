@@ -149,3 +149,7 @@ The browser suite uses a separate database under `/tmp/tableq-e2e`, a production
 Language applies to Overview, Queue, Customers, Analytics, CMS and account screens. English, Spanish, Portuguese, German, French, Italian and Urdu are available; Urdu uses a right-to-left layout. Dates and display numbers follow the selected locale. Guest check-in and sign-in include a language selector. Customer names and entered data remain unchanged.
 
 Open **Account menu → Website color** (or **Profile**) to choose Amber, Blue, Teal, Purple, Rose or Green, or enter a custom hex color. Click **Save color**. The accent is saved per account, applies to light/dark/system themes, and adjusts text contrast automatically. Existing databases receive an additive settings migration; keep your database and `.env.local` when updating.
+
+### Company logos
+
+In **CMS → Branches** or **Manage branches & staff**, use **Upload company logo** beside a branch. Upload a PNG/JPG up to 2 MB; transparent PNGs keep their transparency. The logo appears in that branch’s manager workspace and guest check-in/status pages, including for all assigned managers. Upload again to replace it or select **Remove logo** to restore the leaf icon. Only administrators can change branch logos. Images are decoded, stripped of metadata and resized while preserving their proportions, then stored in SQLite. Create the branch first to upload its logo.

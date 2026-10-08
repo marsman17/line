@@ -150,7 +150,11 @@ export function ensureCustomer(
   ).run(id, branchId, input.name, input.phone, input.email);
   return id;
 }
+db.exec(
+  `CREATE TABLE IF NOT EXISTS branch_logos(branch_id TEXT PRIMARY KEY REFERENCES branches(id) ON DELETE CASCADE,image BLOB NOT NULL,version TEXT NOT NULL);`,
+);
 export type Branch = {
+  logo_version?: string | null;
   id: string;
   name: string;
   address: string;
@@ -164,15 +168,22 @@ export function branches(user?: Manager): Branch[] {
     user?.role === "staff"
       ? db
           .prepare(
-            "SELECT b.* FROM branches b JOIN manager_branches m ON m.branch_id=b.id WHERE m.manager_id=? ORDER BY b.archived,b.name,b.id",
+            "SELECT b.*,l.version AS logo_version FROM branches b LEFT JOIN branch_logos l ON l.branch_id=b.id JOIN manager_branches m ON m.branch_id=b.id WHERE m.manager_id=? ORDER BY b.archived,b.name,b.id",
           )
           .all(user.id)
-      : db.prepare("SELECT * FROM branches ORDER BY archived,name,id").all()
+      : db
+          .prepare(
+            "SELECT b.*,l.version AS logo_version FROM branches b LEFT JOIN branch_logos l ON l.branch_id=b.id ORDER BY b.archived,b.name,b.id",
+          )
+          .all()
   ) as Branch[];
 }
 export function branch(id = "main") {
-  return db.prepare("SELECT * FROM branches WHERE id=?").get(id) as
-    Branch | undefined;
+  return db
+    .prepare(
+      "SELECT b.*,l.version AS logo_version FROM branches b LEFT JOIN branch_logos l ON l.branch_id=b.id WHERE b.id=?",
+    )
+    .get(id) as Branch | undefined;
 }
 export function canAccessBranch(user: Manager, id: string) {
   return user.role === "admin"

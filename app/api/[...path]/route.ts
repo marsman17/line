@@ -1,4 +1,8 @@
 import {
+  saveCompanyLogo,
+  removeCompanyLogo,
+} from "../../../lib/company-logo.ts";
+import {
   managerDirectory,
   saveManager,
   removeManager,
@@ -118,6 +122,7 @@ function publicInfo(id = "main") {
   if (!location) throw Error("Branch not found.");
   return {
     branchId: location.id,
+    logoVersion: location.logo_version,
     name: location.name,
     address: location.address,
     capacity: location.capacity,
@@ -167,6 +172,25 @@ async function handle(
         { status: health() ? "ok" : "setup-required" },
         health() ? 200 : 503,
       );
+    if (
+      path[0] === "branches" &&
+      path[2] === "logo" &&
+      path.length === 3 &&
+      method === "GET"
+    ) {
+      const row = db
+        .prepare("SELECT image FROM branch_logos WHERE branch_id=?")
+        .get(path[1]) as { image: Uint8Array } | undefined;
+      return row
+        ? new NextResponse(new Uint8Array(row.image), {
+            headers: {
+              "Content-Type": "image/png",
+              "Cache-Control": "no-store",
+              "X-Content-Type-Options": "nosniff",
+            },
+          })
+        : json({ error: "No company logo." }, 404);
+    }
     if (route === "public" && method === "GET")
       return branch(req.nextUrl.searchParams.get("branch") || "main")
         ? json(publicInfo(req.nextUrl.searchParams.get("branch") || "main"))
@@ -416,6 +440,39 @@ async function handle(
         }
       }
       return json({ error: "Not found." }, 404);
+    }
+    if (path[0] === "branches" && path[2] === "logo" && path.length === 3) {
+      if (user.role !== "admin")
+        return json(
+          { error: "Only administrators can manage company logos." },
+          403,
+        );
+      if (method === "DELETE") return json(removeCompanyLogo(user, path[1]));
+      if (method === "POST") {
+        const reader = req.body?.getReader();
+        if (!reader) throw new AccountError("Choose a picture.");
+        const chunks: Uint8Array[] = [];
+        let size = 0;
+        while (true) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          size += value.length;
+          if (size > 2097152) {
+            await reader.cancel();
+            throw new AccountError("Picture must be no larger than 2 MB.", 413);
+          }
+          chunks.push(value);
+        }
+        return json(
+          await saveCompanyLogo(
+            user,
+            path[1],
+            Buffer.concat(chunks),
+            req.headers.get("content-type") || "",
+          ),
+        );
+      }
+      return json({ error: "Method not allowed." }, 405);
     }
     if (route === "branches" || path[0] === "branches") {
       if (route === "branches" && method === "GET")

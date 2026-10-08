@@ -2,6 +2,7 @@
 import { usePreferences } from "./preferences";
 import { useEffect, useState } from "react";
 import { api } from "../lib/client";
+import CompanyLogo from "./company-logo";
 import type { Branch } from "../lib/db";
 type Staff = { id: number; email: string; branchIds: string[] };
 const blankBranch = {
@@ -105,6 +106,13 @@ export default function BranchManagement({
             {branches.map((b) => (
               <div className="branch-item" key={b.id}>
                 <div>
+                  <span className="branch-logo-preview">
+                    <CompanyLogo
+                      branchId={b.id}
+                      version={b.logo_version}
+                      name={b.name}
+                    />
+                  </span>
                   <strong>{b.name}</strong>
                   <small>{b.address}</small>
                   <small>
@@ -112,24 +120,76 @@ export default function BranchManagement({
                     {b.archived ? tx("Archived") : tx("Active")}
                   </small>
                 </div>
-                <button
-                  className="button secondary"
-                  disabled={busy}
-                  onClick={() => {
-                    setBranchEdit(b.id);
-                    setBranchForm({
-                      name: b.name,
-                      address: b.address,
-                      capacity: b.capacity,
-                      openingHours: b.opening_hours,
-                      archived: !!b.archived,
-                    });
-                    setError("");
-                    setMessage("");
-                  }}
-                >
-                  {tx("Edit branch")}
-                </button>
+                <div className="branch-logo-actions">
+                  <label className="button secondary upload-picture">
+                    {tx("Upload company logo")}
+                    <input
+                      type="file"
+                      accept="image/png,image/jpeg"
+                      aria-label={tx("Upload company logo") + " — " + b.name}
+                      disabled={busy}
+                      onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        e.target.value = "";
+                        if (!file) return;
+                        if (file.size > 2097152) {
+                          setError("Picture must be no larger than 2 MB.");
+                          return;
+                        }
+                        await run(async () => {
+                          const response = await fetch(
+                            `/api/branches/${encodeURIComponent(b.id)}/logo`,
+                            {
+                              method: "POST",
+                              headers: { "Content-Type": file.type },
+                              body: file,
+                            },
+                          );
+                          const result = await response.json();
+                          if (!response.ok)
+                            throw Error(result.error || "Request failed.");
+                        }, "Company logo saved.");
+                      }}
+                    />
+                  </label>
+                  {b.logo_version && (
+                    <button
+                      type="button"
+                      className="button secondary"
+                      disabled={busy}
+                      onClick={() =>
+                        run(
+                          () =>
+                            api(
+                              `branches/${encodeURIComponent(b.id)}/logo`,
+                              "DELETE",
+                            ),
+                          "Company logo removed.",
+                        )
+                      }
+                    >
+                      {tx("Remove logo")}
+                    </button>
+                  )}
+                  <button
+                    className="button secondary"
+                    disabled={busy}
+                    onClick={() => {
+                      setBranchEdit(b.id);
+                      setBranchForm({
+                        name: b.name,
+                        address: b.address,
+                        capacity: b.capacity,
+                        openingHours: b.opening_hours,
+                        archived: !!b.archived,
+                      });
+                      setError("");
+                      setMessage("");
+                    }}
+                  >
+                    {tx("Edit branch")}
+                  </button>
+                </div>
               </div>
             ))}
           </div>

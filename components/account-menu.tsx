@@ -133,11 +133,15 @@ export default function AccountMenu() {
                   <button
                     disabled={busy}
                     key={mode}
+                    className="theme-option"
+                    aria-pressed={user.theme === mode}
                     onClick={() => void save({ theme: mode })}
                   >
                     <Icon size={18} />
-                    {t(name)}
-                    {user.theme === mode && <Check size={17} />}
+                    <span dir="auto">{t(name)}</span>
+                    <span className="theme-check" aria-hidden="true">
+                      {user.theme === mode && <Check size={17} />}
+                    </span>
                   </button>
                 ))}
               </div>

@@ -3673,5 +3673,45 @@
     "Accès révoqué.",
     "Accesso revocato.",
     "عملے کی رسائی ختم ہو گئی۔"
+  ],
+  "Company logo": [
+    "Logotipo de empresa",
+    "Logotipo da empresa",
+    "Firmenlogo",
+    "Logo de l’entreprise",
+    "Logo aziendale",
+    "کمپنی کا لوگو"
+  ],
+  "Upload company logo": [
+    "Subir logotipo de empresa",
+    "Enviar logotipo da empresa",
+    "Firmenlogo hochladen",
+    "Importer le logo de l’entreprise",
+    "Carica logo aziendale",
+    "کمپنی کا لوگو اپ لوڈ کریں"
+  ],
+  "Remove logo": [
+    "Eliminar logotipo",
+    "Remover logotipo",
+    "Logo entfernen",
+    "Supprimer le logo",
+    "Rimuovi logo",
+    "لوگو ہٹائیں"
+  ],
+  "Company logo saved.": [
+    "Logotipo guardado.",
+    "Logotipo salvo.",
+    "Firmenlogo gespeichert.",
+    "Logo enregistré.",
+    "Logo salvato.",
+    "کمپنی کا لوگو محفوظ ہو گیا۔"
+  ],
+  "Company logo removed.": [
+    "Logotipo eliminado.",
+    "Logotipo removido.",
+    "Firmenlogo entfernt.",
+    "Logo supprimé.",
+    "Logo rimosso.",
+    "کمپنی کا لوگو ہٹا دیا گیا۔"
   ]
 }
