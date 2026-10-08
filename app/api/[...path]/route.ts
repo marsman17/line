@@ -1,4 +1,15 @@
 import {
+  account,
+  updateAccount,
+  deleteAccount,
+  saveAvatar,
+  feedbackList,
+  submitFeedback,
+  sendPhoneCode,
+  verifyPhone,
+  AccountError,
+} from "../../../lib/account";
+import {
   customerDirectory,
   customerProfile,
   updateCustomer,
@@ -286,6 +297,95 @@ async function handle(
     }
     const user = manager(req);
     if (!user) return json({ error: "Please sign in." }, 401);
+    if (route === "account") {
+      if (method === "GET") return json(account(user));
+      if (method === "PATCH")
+        return json(updateAccount(user, await readBody(req)));
+      if (method === "DELETE") {
+        const { password } = z
+          .object({ password: z.string().min(1).max(200) })
+          .parse(await readBody(req));
+        deleteAccount(user, password);
+        const res = json({ ok: true });
+        res.cookies.delete("tableq_session");
+        return res;
+      }
+    }
+    if (route === "account/avatar") {
+      if (method === "GET") {
+        const row = db
+          .prepare("SELECT avatar FROM manager_settings WHERE manager_id=?")
+          .get(user.id) as { avatar: Uint8Array } | undefined;
+        return row?.avatar
+          ? new NextResponse(new Uint8Array(row.avatar), {
+              headers: {
+                "Content-Type": "image/jpeg",
+                "Cache-Control": "no-store",
+              },
+            })
+          : json({ error: "No profile picture." }, 404);
+      }
+      if (method === "POST") {
+        const reader = req.body?.getReader();
+        if (!reader) throw new AccountError("Choose a picture.");
+        let size = 0;
+        const chunks: Uint8Array[] = [];
+        while (true) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          size += value.length;
+          if (size > 2097152) {
+            await reader.cancel();
+            throw new AccountError("Picture must be no larger than 2 MB.", 413);
+          }
+          chunks.push(value);
+        }
+        return json(
+          await saveAvatar(
+            user,
+            Buffer.concat(chunks),
+            req.headers.get("content-type") || "",
+          ),
+        );
+      }
+    }
+    if (route === "account/phone/send" && method === "POST") {
+      const { phone } = z
+        .object({ phone: z.string().max(30) })
+        .parse(await readBody(req));
+      await sendPhoneCode(user, phone);
+      return json({ ok: true });
+    }
+    if (route === "account/phone/verify" && method === "POST") {
+      const { code } = z
+        .object({ code: z.string().length(6) })
+        .parse(await readBody(req));
+      return json(verifyPhone(user, code));
+    }
+    if (route === "feedback") {
+      if (method === "GET") return json({ items: feedbackList(user) });
+      if (method === "POST") {
+        submitFeedback(user, await readBody(req));
+        return json({ ok: true }, 201);
+      }
+    }
+    if (path[0] === "feedback" && path.length === 2 && method === "PATCH") {
+      if (user.role !== "admin")
+        return json({ error: "Administrator access required." }, 403);
+      const { resolved } = z
+        .object({ resolved: z.boolean() })
+        .parse(await readBody(req));
+      const result = db
+        .prepare("UPDATE feedback SET resolved=? WHERE id=?")
+        .run(
+          resolved ? 1 : 0,
+          z.coerce.number().int().positive().parse(path[1]),
+        );
+      return result.changes
+        ? json({ ok: true })
+        : json({ error: "Feedback not found." }, 404);
+    }
+
     if (route === "branches" || path[0] === "branches") {
       if (route === "branches" && method === "GET")
         return json({ branches: branches(user), user });
@@ -584,6 +684,8 @@ async function handle(
     }
     return json({ error: "Not found." }, 404);
   } catch (error) {
+    if (error instanceof AccountError)
+      return json({ error: error.message }, error.status);
     if (error instanceof z.ZodError)
       return json({ error: error.issues[0].message }, 400);
     if (

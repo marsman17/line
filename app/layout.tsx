@@ -1,3 +1,4 @@
+import { Preferences } from "../components/preferences";
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 export const metadata: Metadata = {
@@ -14,8 +15,10 @@ export const viewport: Viewport = {
 };
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <Preferences>{children}</Preferences>
+      </body>
     </html>
   );
 }

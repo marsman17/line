@@ -31,6 +31,8 @@ import {
 } from "lucide-react";
 import { api, csv, type Restaurant } from "../lib/client";
 import Customers from "./customers";
+import AccountMenu from "./account-menu";
+import { usePreferences } from "./preferences";
 import { Modal } from "./modal";
 import BranchManagement from "./branches";
 import type { Branch, Manager, Ticket } from "../lib/db";
@@ -72,6 +74,7 @@ const initials = (name: string) =>
     .join("")
     .toUpperCase();
 export default function Dashboard() {
+  const { t } = usePreferences();
   const [branchId, setBranchId] = useState("");
   const [manageBranches, setManageBranches] = useState(false);
   const requestVersion = useRef(0);
@@ -314,7 +317,7 @@ export default function Dashboard() {
               }}
             >
               <Icon size={18} />
-              {name}
+              {t(name)}
               {id === "queue" && waiting.length > 0 && (
                 <span className="nav-count">{waiting.length}</span>
               )}
@@ -335,27 +338,7 @@ export default function Dashboard() {
               Get your QR code <ArrowRight size={14} />
             </button>
           </div>
-          <div className="manager-profile">
-            <span className="avatar manager">M</span>
-            <div>
-              <strong>
-                {data.user.role === "admin"
-                  ? "Administrator"
-                  : "Branch manager"}
-              </strong>
-              <small>Front desk</small>
-            </div>
-            <button
-              title="Sign out"
-              aria-label="Sign out"
-              onClick={async () => {
-                await api("logout", "POST");
-                window.location.href = "/login";
-              }}
-            >
-              <LogOut size={17} />
-            </button>
-          </div>
+          <AccountMenu />
         </div>
       </aside>
       <div className="main-shell">

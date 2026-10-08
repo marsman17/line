@@ -218,6 +218,7 @@ test("API authorization, privacy, validation, origin protection, cancellation, a
   const download = page.waitForEvent("download");
   await page.getByRole("button", { name: "Export CSV" }).click();
   expect((await download).suggestedFilename()).toBe("tableq-customers.csv");
+  await page.getByRole("button", { name: "Account menu" }).click();
   await page.getByRole("button", { name: "Sign out" }).click();
   await expect(page).toHaveURL(/\/login/);
 });

@@ -1,6 +1,6 @@
 # TableQ
 
-A restaurant queue manager with a dark manager workspace and a light guest check-in experience, inspired by the supplied mobile reference. The responsive desktop interface uses the same workflows.
+A restaurant queue manager with a manager workspace with light, dark and system themes and a light guest check-in experience, inspired by the supplied mobile reference. The responsive desktop interface uses the same workflows.
 
 ## What works
 
@@ -13,7 +13,19 @@ A restaurant queue manager with a dark manager workspace and a light guest check
 - Searchable customer history, CSV exports protected against formula injection, date/status queue filters, and analytics calculated from actual visits.
 - Loading, empty, validation, disconnected, and error states. No fake restaurant metrics or prepopulated customer records.
 
-This release supports multiple branches, administrator accounts and staff assigned to specific branches. Billing/subscriptions, general account settings and self-service password recovery, reservations, email delivery, and exact replication of screens not supplied in the reference are outside this scope. Estimated waits use a simple five-minute-per-party heuristic and are clearly labeled estimates.
+This release supports multiple branches, administrator accounts and staff assigned to specific branches. Billing/subscriptions and self-service password recovery, reservations, email delivery, and exact replication of screens not supplied in the reference are outside this scope. Estimated waits use a simple five-minute-per-party heuristic and are clearly labeled estimates.
+
+## Account menu and profile
+
+Open your name at the bottom of the sidebar for **Language**, **Theme**, **Contact support**, **Profile**, or **Log out**. Preferences are saved per account. English, Spanish, Portuguese, German, French and Italian localize the account menu, profile, feedback form and main navigation; operational queue/customer screens and server validation messages currently remain in English. **System** follows your device appearance and responds when it changes.
+
+On **Profile**, edit your name and language and upload a PNG/JPG up to 2 MB. Images are decoded, stripped of metadata, cropped and stored as a 256px JPEG in the existing SQLite database. Your sign-in email is read-only. Avatar uploads and verified phone numbers save immediately; **Save changes** saves name and language.
+
+Phone verification requires the existing three `TWILIO_*` settings. Choose a country, enter your number, send the code and enter the six digits received by SMS. Codes expire after ten minutes, allow five attempts, and are single-use. Requests are limited per account and destination. Verification does not replace password sign-in and is not an account recovery mechanism. Without SMS configured, verification is visibly unavailable; codes are never simulated or returned to the browser.
+
+**Contact support** stores feedback durably for your own workspace administrators. It does not send email to an outside support team. Administrators can select **Workspace feedback** to review all messages and mark them resolved/reopen them. Staff see only **My messages**. Categories match the supplied reference; selecting a billing category does not add billing functionality.
+
+**Delete account** requires your password and deletes your own sessions, settings, picture and feedback while preserving restaurant/customer data. The final administrator cannot be deleted. If an additional administrator is required, run the documented `setup` command with a new `ADMIN_EMAIL` and password; it creates/updates that administrator. All profile migrations are additive and preserve existing queue data.
 
 ## Multiple branches and staff
 
