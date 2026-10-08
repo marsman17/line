@@ -60,8 +60,6 @@ const statusLabel = {
   served: "Seated",
   cancelled: "Cancelled",
 };
-const time = (date: string) =>
-  new Date(date).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 const today = (date: string) =>
   new Date(date).toLocaleDateString() === new Date().toLocaleDateString();
 const minutes = (date: string) =>
@@ -74,6 +72,13 @@ const initials = (name: string) =>
     .join("")
     .toUpperCase();
 export default function Dashboard() {
+  const { t: tx, locale, n } = usePreferences();
+  const time = (date: string) =>
+    new Date(date).toLocaleTimeString(locale, {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
   const { t } = usePreferences();
   const [branchId, setBranchId] = useState("");
   const [manageBranches, setManageBranches] = useState(false);
@@ -242,17 +247,20 @@ export default function Dashboard() {
     return (
       <main className="loading-screen">
         <span className="brand-icon">
-          T<span>Q</span>
+          {tx("T")}
+          <span>{tx("Q")}</span>
         </span>
-        <p>Getting your front desk ready…</p>
+        <p>{tx("Getting your front desk ready…")}</p>
       </main>
     );
   if (!data)
     return (
       <main className="loading-screen">
-        <p className="error">{error || "Unable to load your restaurant."}</p>
+        <p className="error">
+          {tx(error) || tx("Unable to load your restaurant.")}
+        </p>
         <button className="button primary" onClick={refresh}>
-          Try again
+          {tx("Try again")}
         </button>
       </main>
     );
@@ -262,35 +270,39 @@ export default function Dashboard() {
         <button
           className="sidebar-backdrop"
           onClick={() => setMenu(false)}
-          aria-label="Close navigation"
+          aria-label={tx("Close navigation")}
         />
       )}
       <aside className={`sidebar ${menu ? "open" : ""}`}>
         <a className="brand" href="/">
           <span className="brand-icon">
-            T<span>Q</span>
+            {tx("T")}
+            <span>{tx("Q")}</span>
           </span>
-          TableQ<span className="brand-dot">.</span>
+          {tx("TableQ")}
+          <span className="brand-dot">.</span>
         </a>
-        <span className="sidebar-label">YOUR RESTAURANT</span>
+        <span className="sidebar-label">{tx("YOUR RESTAURANT")}</span>
         <div className="restaurant-switch">
           <span className="restaurant-avatar">
             <Leaf size={21} />
           </span>
           <label className="branch-picker">
-            Branch
+            {tx("Branch")}
             <select
-              aria-label="Branch"
+              aria-label={tx("Branch")}
               value={data.branchId}
               onChange={(e) => selectBranch(e.target.value)}
             >
               {data.branches.map((b) => (
                 <option key={b.id} value={b.id}>
                   {b.name}
-                  {b.archived ? " (archived)" : ""}
+                  {b.archived ? tx(" (archived)") : ""}
                 </option>
               ))}
-              {tab === "analytics" && <option value="all">All branches</option>}
+              {tab === "analytics" && (
+                <option value="all">{tx("All branches")}</option>
+              )}
             </select>
           </label>
         </div>
@@ -299,16 +311,16 @@ export default function Dashboard() {
             className="button secondary branch-manage"
             onClick={() => setManageBranches(true)}
           >
-            Manage branches & staff
+            {tx("Manage branches & staff")}
           </button>
         )}
         {data.user.role === "admin" && (
           <a className="nav-item cms-nav" href="/cms">
             <SlidersHorizontal size={18} />
-            CMS administration
+            {tx("CMS administration")}
           </a>
         )}
-        <span className="sidebar-label">WORKSPACE</span>
+        <span className="sidebar-label">{tx("WORKSPACE")}</span>
         <nav>
           {tabs.map(({ id, name, icon: Icon }) => (
             <button
@@ -325,7 +337,7 @@ export default function Dashboard() {
               <Icon size={18} />
               {t(name)}
               {id === "queue" && waiting.length > 0 && (
-                <span className="nav-count">{waiting.length}</span>
+                <span className="nav-count">{n(waiting.length)}</span>
               )}
             </button>
           ))}
@@ -335,13 +347,14 @@ export default function Dashboard() {
             <span className="icon-tile">
               <QrCode size={22} />
             </span>
-            <strong>Let guests check in.</strong>
-            <p>One scan. A warmer welcome.</p>
+            <strong>{tx("Let guests check in.")}</strong>
+            <p>{tx("One scan. A warmer welcome.")}</p>
             <button
               disabled={data.branchId === "all"}
               onClick={() => setQr(true)}
             >
-              Get your QR code <ArrowRight size={14} />
+              {tx("Get your QR code")}
+              <ArrowRight size={14} />
             </button>
           </div>
           <AccountMenu />
@@ -352,28 +365,28 @@ export default function Dashboard() {
           <div className="breadcrumbs">
             <button
               className="mobile-menu icon-button"
-              aria-label="Open navigation"
+              aria-label={tx("Open navigation")}
               onClick={() => setMenu(true)}
             >
               <Menu size={21} />
             </button>
-            <span className="desktop-only">Workspace</span>
+            <span className="desktop-only">{tx("Workspace")}</span>
             <span className="desktop-only slash">/</span>
-            <span>{tabs.find((t) => t.id === tab)?.name}</span>
+            <span>{tx(tabs.find((t) => t.id === tab)?.name || "")}</span>
           </div>
           <div className="topbar-right">
             <span className="live-indicator">
-              <i /> Live updates
+              <i /> {tx("Live updates")}
             </span>
             <span className="topbar-divider" />
             <span className="topbar-date">
               <CalendarDays size={14} />
-              {new Date().toLocaleDateString("en-US", {
+              {new Date().toLocaleDateString(locale, {
                 month: "short",
                 day: "numeric",
               })}
             </span>
-            <span className="avatar small manager">M</span>
+            <span className="avatar small manager">{tx("M")}</span>
           </div>
         </header>
         <main className="dashboard-main">
@@ -381,30 +394,34 @@ export default function Dashboard() {
             <div>
               <span className="eyebrow">
                 {tab === "overview"
-                  ? "YOUR FRONT DESK, AT A GLANCE"
+                  ? tx("YOUR FRONT DESK, AT A GLANCE")
                   : tab === "queue"
-                    ? "A LITTLE LESS WAITING"
+                    ? tx("A LITTLE LESS WAITING")
                     : tab === "customers"
-                      ? "FAMILIAR FACES, BETTER HOSPITALITY"
-                      : "FROM BUSY NIGHTS TO BETTER INSIGHTS"}
+                      ? tx("FAMILIAR FACES, BETTER HOSPITALITY")
+                      : tx("FROM BUSY NIGHTS TO BETTER INSIGHTS")}
               </span>
               <h1>
                 {tab === "overview"
-                  ? "A warm welcome starts here."
+                  ? tx("A warm welcome starts here.")
                   : tab === "queue"
-                    ? "Your queue."
+                    ? tx("Your queue.")
                     : tab === "customers"
-                      ? "Customers"
-                      : "Understand every wait."}
+                      ? tx("Customers")
+                      : tx("Understand every wait.")}
               </h1>
               <p>
                 {tab === "overview"
-                  ? `Here’s what’s happening at ${data.name} today.`
+                  ? tx("Here’s what’s happening at {value0} today.", {
+                      value0: data.name,
+                    })
                   : tab === "queue"
-                    ? "Keep things moving. Make every guest feel looked after."
+                    ? tx(
+                        "Keep things moving. Make every guest feel looked after.",
+                      )
                     : tab === "customers"
-                      ? "Every visit is the beginning of a relationship."
-                      : "A closer look at your guest flow and service."}
+                      ? tx("Every visit is the beginning of a relationship.")
+                      : tx("A closer look at your guest flow and service.")}
               </p>
             </div>
             <div className="heading-actions">
@@ -414,12 +431,12 @@ export default function Dashboard() {
                   onClick={() => setQr(true)}
                 >
                   <QrCode size={16} />
-                  <span>Check-in QR</span>
+                  <span>{tx("Check-in QR")}</span>
                 </button>
               ) : tab !== "customers" ? (
                 <button className="button secondary" onClick={exportQueue}>
                   <ArrowDownToLine size={16} />
-                  Export CSV
+                  {tx("Export CSV")}
                 </button>
               ) : null}
               {(tab === "overview" || tab === "queue") && (
@@ -429,7 +446,7 @@ export default function Dashboard() {
                   onClick={() => setForm("new")}
                 >
                   <Plus size={17} />
-                  Add guest
+                  {tx("Add guest")}
                 </button>
               )}
               {tab === "analytics" && (
@@ -438,33 +455,35 @@ export default function Dashboard() {
                   value={range}
                   onChange={(e) => setRange(e.target.value)}
                 >
-                  <option value="7">Last 7 days</option>
-                  <option value="30">Last 30 days</option>
-                  <option value="90">Last 90 days</option>
+                  <option value="7">{tx("Last 7 days")}</option>
+                  <option value="30">{tx("Last 30 days")}</option>
+                  <option value="90">{tx("Last 90 days")}</option>
                 </select>
               )}
             </div>
           </div>
           {data.archived && (
             <p className="error">
-              This branch is archived. Its history is preserved and new
-              check-ins are closed. An administrator can restore it in Manage
-              branches & staff.
+              {tx(
+                "This branch is archived. Its history is preserved and new check-ins are closed. An administrator can restore it in Manage branches & staff.",
+              )}
             </p>
           )}
           {receipt && (
             <div className="receipt-banner">
               <Check size={17} />
               <span>
-                Guest added. Share their private status link to enable mobile
-                alerts.
+                {tx(
+                  "Guest added. Share their private status link to enable mobile alerts.",
+                )}
               </span>
               <a href={`/guest/${receipt}`} target="_blank" rel="noreferrer">
-                Open guest link <ExternalLink size={13} />
+                {tx("Open guest link")}
+                <ExternalLink size={13} />
               </a>
               <button
                 className="icon-button"
-                aria-label="Dismiss guest link"
+                aria-label={tx("Dismiss guest link")}
                 onClick={() => setReceipt("")}
               >
                 <X size={15} />
@@ -473,8 +492,11 @@ export default function Dashboard() {
           )}
           {error && (
             <div className="alert error" role="alert">
-              {error}
-              <button aria-label="Dismiss error" onClick={() => setError("")}>
+              {tx(error)}
+              <button
+                aria-label={tx("Dismiss error")}
+                onClick={() => setError("")}
+              >
                 <X size={16} />
               </button>
             </div>
@@ -483,15 +505,17 @@ export default function Dashboard() {
             <div className="setup-banner">
               <Bell size={17} />
               <span>
-                Live guest status is active. Configure Web Push or SMS to send
-                alerts when guests leave the page.
+                {tx(
+                  "Live guest status is active. Configure Web Push or SMS to send alerts when guests leave the page.",
+                )}
               </span>
               <a
                 href={`/check-in?branch=${encodeURIComponent(data.branchId)}`}
                 target="_blank"
                 rel="noreferrer"
               >
-                Guest view <ExternalLink size={13} />
+                {tx("Guest view")}
+                <ExternalLink size={13} />
               </a>
             </div>
           )}
@@ -499,45 +523,51 @@ export default function Dashboard() {
             <>
               <div className="stats-grid">
                 <Stat
-                  label="Waiting guests"
+                  label={tx("Waiting guests")}
                   value={waiting.reduce((s, t) => s + t.party_size, 0)}
-                  unit="people"
+                  unit={tx("people")}
                   icon={Users}
-                  note={`${waiting.length} ${waiting.length === 1 ? "party" : "parties"} in the queue`}
+                  note={tx("{value0} {value1} in the queue", {
+                    value0: waiting.length,
+                    value1: waiting.length === 1 ? tx("party") : tx("parties"),
+                  })}
                   tone="amber"
                 />
                 <Stat
-                  label="Estimated wait"
+                  label={tx("Estimated wait")}
                   value={waiting.length ? Math.max(5, waiting.length * 5) : 0}
-                  unit="min"
+                  unit={tx("min")}
                   icon={Clock}
                   note={
                     waiting.length
-                      ? "Estimate · 5 min per waiting party"
-                      : "Ready to welcome your next guest"
+                      ? tx("Estimate · 5 min per waiting party")
+                      : tx("Ready to welcome your next guest")
                   }
                   tone="purple"
                 />
                 <Stat
-                  label="Tables ready"
+                  label={tx("Tables ready")}
                   value={called.length}
-                  unit="parties"
+                  unit={tx("parties")}
                   icon={Bell}
                   note={
                     called.length
-                      ? "Notified and on their way"
-                      : "No guests currently called"
+                      ? tx("Notified and on their way")
+                      : tx("No guests currently called")
                   }
                   tone="blue"
                 />
                 <Stat
-                  label="Seated today"
+                  label={tx("Seated today")}
                   value={daily
                     .filter((t) => t.status === "served")
                     .reduce((s, t) => s + t.party_size, 0)}
-                  unit="people"
+                  unit={tx("people")}
                   icon={UtensilsCrossed}
-                  note={`${occupancy} / ${data.capacity} seats currently occupied`}
+                  note={tx("{value0} / {value1} seats currently occupied", {
+                    value0: occupancy,
+                    value1: data.capacity,
+                  })}
                   tone="green"
                 />
               </div>
@@ -548,17 +578,29 @@ export default function Dashboard() {
                       <Leaf size={22} />
                     </span>
                     <div>
-                      <strong>A little room for a great evening.</strong>
+                      <strong>
+                        {tx("A little room for a great evening.")}
+                      </strong>
                       <p>
                         {reservedSeats >= data.capacity
-                          ? "Your dining room is full. Free a table when guests leave."
-                          : `${Math.max(0, data.capacity - reservedSeats)} seats available in your dining room.`}
+                          ? tx(
+                              "Your dining room is full. Free a table when guests leave.",
+                            )
+                          : tx(
+                              "{value0} seats available in your dining room.",
+                              {
+                                value0: Math.max(
+                                  0,
+                                  data.capacity - reservedSeats,
+                                ),
+                              },
+                            )}
                       </p>
                     </div>
                   </div>
                   <div className="occupancy">
                     <span>
-                      Occupancy{" "}
+                      {tx("Occupancy")}{" "}
                       <strong>
                         {occupancy} / {data.capacity}
                       </strong>
@@ -577,18 +619,18 @@ export default function Dashboard() {
                 <div className="panel-heading">
                   <div>
                     <ListOrdered size={19} />
-                    <h2>Guest queue</h2>
+                    <h2>{tx("Guest queue")}</h2>
                     <span className="count-badge">
-                      {waiting.length + called.length}
+                      {n(waiting.length + called.length)}
                     </span>
                   </div>
                   <div>
                     <span className="live-indicator">
-                      <i /> Updated live
+                      <i /> {tx("Updated live")}
                     </span>
                     <button
                       className="icon-button"
-                      aria-label="Queue actions"
+                      aria-label={tx("Queue actions")}
                       onClick={exportQueue}
                     >
                       <ArrowDownToLine size={17} />
@@ -611,7 +653,7 @@ export default function Dashboard() {
                         className={filter === s ? "selected" : ""}
                         onClick={() => setFilter(s)}
                       >
-                        {s === "all" ? "All guests" : statusLabel[s]}
+                        {s === "all" ? tx("All guests") : tx(statusLabel[s])}
                         <span>
                           {s === "all"
                             ? all.length
@@ -624,31 +666,31 @@ export default function Dashboard() {
                     <div className="search-input">
                       <Search size={16} />
                       <input
-                        aria-label="Search guests"
-                        placeholder="Search guests…"
+                        aria-label={tx("Search guests")}
+                        placeholder={tx("Search guests…")}
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                       />
                     </div>
                     <select
                       className="select"
-                      aria-label="Queue date range"
+                      aria-label={tx("Queue date range")}
                       value={period}
                       onChange={(e) => setPeriod(e.target.value)}
                     >
-                      <option value="today">Today + active</option>
-                      <option value="all">All time</option>
+                      <option value="today">{tx("Today + active")}</option>
+                      <option value="all">{tx("All time")}</option>
                     </select>
                   </div>
                 </div>
                 {visible.length ? (
                   <>
                     <div className="table-header">
-                      <span>GUEST</span>
-                      <span>PARTY</span>
-                      <span>WAIT TIME</span>
-                      <span>STATUS</span>
-                      <span>ACTIONS</span>
+                      <span>{tx("GUEST")}</span>
+                      <span>{tx("PARTY")}</span>
+                      <span>{tx("WAIT TIME")}</span>
+                      <span>{tx("STATUS")}</span>
+                      <span>{tx("ACTIONS")}</span>
                     </div>
                     <div className="ticket-list">
                       {visible.map((t) => (
@@ -670,7 +712,7 @@ export default function Dashboard() {
                                 )}
                               </strong>
                               <small>
-                                {t.phone || t.email || "Walk-in guest"}
+                                {t.phone || t.email || tx("Walk-in guest")}
                                 <span className="mobile-joined">
                                   {" "}
                                   · {time(t.joined_at)}
@@ -683,8 +725,8 @@ export default function Dashboard() {
                           </div>
                           <div className="party-cell">
                             <Users size={15} />
-                            <strong>{t.party_size}</strong>
-                            <span className="mobile-only">people</span>
+                            <strong>{n(t.party_size)}</strong>
+                            <span className="mobile-only">{tx("people")}</span>
                           </div>
                           <div className="wait-cell">
                             <Clock size={14} />
@@ -699,16 +741,19 @@ export default function Dashboard() {
                                     ),
                                   )
                                 : minutes(t.joined_at)}{" "}
-                              min
+                              {tx("min")}
                             </strong>
-                            <small>Joined {time(t.joined_at)}</small>
+                            <small>
+                              {tx("Joined")}
+                              {time(t.joined_at)}
+                            </small>
                           </div>
                           <div className="status-cell">
                             <span className={`status-badge ${t.status}`}>
                               <i />
                               {t.status === "served" && t.released_at
-                                ? "Completed"
-                                : statusLabel[t.status]}
+                                ? tx("Completed")
+                                : tx(statusLabel[t.status])}
                             </span>
                             {t.status === "notified" && (
                               <small>
@@ -716,14 +761,14 @@ export default function Dashboard() {
                                   (n) =>
                                     n.ticket_id === t.id && n.status === "sent",
                                 )
-                                  ? "Alert sent"
+                                  ? tx("Alert sent")
                                   : data.notifications.some(
                                         (n) =>
                                           n.ticket_id === t.id &&
                                           n.status === "failed",
                                       )
-                                    ? "Delivery failed — contact guest"
-                                    : "Live status updated"}
+                                    ? tx("Delivery failed — contact guest")
+                                    : tx("Live status updated")}
                               </small>
                             )}
                           </div>
@@ -737,15 +782,15 @@ export default function Dashboard() {
                                 }
                                 title={
                                   reservedSeats + t.party_size > data.capacity
-                                    ? "Not enough free seats"
-                                    : "Call this guest"
+                                    ? tx("Not enough free seats")
+                                    : tx("Call this guest")
                                 }
                                 onClick={() =>
                                   mutate(t.id, { status: "notified" })
                                 }
                               >
                                 <Bell size={14} />
-                                Call guest
+                                {tx("Call guest")}
                               </button>
                             )}
                             {t.status === "notified" && (
@@ -761,12 +806,14 @@ export default function Dashboard() {
                                   }
                                 >
                                   <Check size={15} />
-                                  Seat guest
+                                  {tx("Seat guest")}
                                 </button>
                                 <button
                                   className="icon-button"
-                                  title="Return to waiting queue"
-                                  aria-label={`Return ${t.name} to waiting`}
+                                  title={tx("Return to waiting queue")}
+                                  aria-label={tx("Return {value0} to waiting", {
+                                    value0: t.name,
+                                  })}
                                   onClick={() =>
                                     mutate(t.id, { status: "waiting" })
                                   }
@@ -784,13 +831,15 @@ export default function Dashboard() {
                                 }
                               >
                                 <CheckCheck size={14} />
-                                Free table
+                                {tx("Free table")}
                               </button>
                             )}
                             <button
                               className="icon-button"
-                              title="Edit guest"
-                              aria-label={`Edit ${t.name}`}
+                              title={tx("Edit guest")}
+                              aria-label={tx("Edit {value0}", {
+                                value0: t.name,
+                              })}
                               onClick={() => setForm(t)}
                             >
                               <Pencil size={15} />
@@ -798,12 +847,17 @@ export default function Dashboard() {
                             {["waiting", "notified"].includes(t.status) ? (
                               <button
                                 className="icon-button danger"
-                                title="Cancel visit"
-                                aria-label={`Cancel ${t.name}`}
+                                title={tx("Cancel visit")}
+                                aria-label={tx("Cancel {value0}", {
+                                  value0: t.name,
+                                })}
                                 onClick={() =>
                                   setConfirm({
                                     title: "Cancel this visit?",
-                                    description: `${t.name} will be removed from the active queue. Their visit remains in your history.`,
+                                    description: tx(
+                                      "{name} will be removed from the active queue. Their visit remains in your history.",
+                                      { name: t.name },
+                                    ),
                                     action: async () => {
                                       await mutate(t.id, {
                                         status: "cancelled",
@@ -817,8 +871,10 @@ export default function Dashboard() {
                             ) : (
                               <button
                                 className="icon-button danger"
-                                title="Delete guest record"
-                                aria-label={`Delete ${t.name}`}
+                                title={tx("Delete guest record")}
+                                aria-label={tx("Delete {value0}", {
+                                  value0: t.name,
+                                })}
                                 onClick={() =>
                                   setConfirm({
                                     title: "Delete this guest record?",
@@ -854,17 +910,21 @@ export default function Dashboard() {
                     </div>
                     <h3>
                       {search
-                        ? "No guests found."
+                        ? tx("No guests found.")
                         : filter === "waiting"
-                          ? "A little calm before the good times."
-                          : "Nothing here just yet."}
+                          ? tx("A little calm before the good times.")
+                          : tx("Nothing here just yet.")}
                     </h3>
                     <p>
                       {search
-                        ? "Try another name, phone number, or email."
+                        ? tx("Try another name, phone number, or email.")
                         : filter === "waiting"
-                          ? "Your queue is clear. Add a guest or let them scan your QR code."
-                          : "Guest visits will appear here as your service moves along."}
+                          ? tx(
+                              "Your queue is clear. Add a guest or let them scan your QR code.",
+                            )
+                          : tx(
+                              "Guest visits will appear here as your service moves along.",
+                            )}
                     </p>
                     {filter === "waiting" && !search && (
                       <button
@@ -873,19 +933,20 @@ export default function Dashboard() {
                         onClick={() => setForm("new")}
                       >
                         <Plus size={16} />
-                        Add your first guest
+                        {tx("Add your first guest")}
                       </button>
                     )}
                   </div>
                 )}
                 <div className="panel-footer">
                   <span>
-                    {visible.length}{" "}
-                    {visible.length === 1 ? "party" : "parties"} shown
+                    {n(visible.length)}{" "}
+                    {visible.length === 1 ? tx("party") : tx("parties")}{" "}
+                    {tx("shown")}
                   </span>
                   <span>
-                    <span className="tiny-dot" /> A better wait starts with a
-                    little care.
+                    <span className="tiny-dot" />{" "}
+                    {tx("A better wait starts with a little care.")}
                   </span>
                 </div>
               </section>
@@ -896,12 +957,15 @@ export default function Dashboard() {
                       <QrCode size={24} />
                     </span>
                     <div>
-                      <h3>Skip the clipboard.</h3>
+                      <h3>{tx("Skip the clipboard.")}</h3>
                       <p>
-                        Guests scan, check in, and get on with their evening.
+                        {tx(
+                          "Guests scan, check in, and get on with their evening.",
+                        )}
                       </p>
                       <button onClick={() => setQr(true)}>
-                        View check-in QR <ArrowRight size={14} />
+                        {tx("View check-in QR")}
+                        <ArrowRight size={14} />
                       </button>
                     </div>
                   </div>
@@ -910,12 +974,15 @@ export default function Dashboard() {
                       <ChartNoAxesCombined size={24} />
                     </span>
                     <div>
-                      <h3>Every wait tells a story.</h3>
+                      <h3>{tx("Every wait tells a story.")}</h3>
                       <p>
-                        See your busy hours and make room for better service.
+                        {tx(
+                          "See your busy hours and make room for better service.",
+                        )}
                       </p>
                       <button onClick={() => setTab("analytics")}>
-                        Explore analytics <ArrowRight size={14} />
+                        {tx("Explore analytics")}
+                        <ArrowRight size={14} />
                       </button>
                     </div>
                   </div>
@@ -935,7 +1002,7 @@ export default function Dashboard() {
               <Analytics tickets={all} range={Number(range)} avg={avg} />
               {data.branchId === "all" && (
                 <section className="panel branch-comparison">
-                  <h2>Branch comparison</h2>
+                  <h2>{tx("Branch comparison")}</h2>
                   {data.branches.map((b) => {
                     const visits = all.filter(
                       (t) =>
@@ -947,10 +1014,13 @@ export default function Dashboard() {
                       <div className="branch-item" key={b.id}>
                         <strong>{b.name}</strong>
                         <small>
-                          {visits.length} parties ·{" "}
-                          {visits.reduce((n, t) => n + t.party_size, 0)} guests
-                          · {visits.filter((t) => t.status === "served").length}{" "}
-                          seated parties
+                          {n(visits.length)} {tx("parties ·")}{" "}
+                          {visits.reduce((n, t) => n + t.party_size, 0)}{" "}
+                          {tx("guests ·")}
+                          {
+                            visits.filter((t) => t.status === "served").length
+                          }{" "}
+                          {tx("seated parties")}
                         </small>
                       </div>
                     );
@@ -961,17 +1031,19 @@ export default function Dashboard() {
           )}
           <footer className="dashboard-footer">
             <span>
-              TableQ<span className="brand-dot">.</span> A better wait.
+              {tx("TableQ")}
+              <span className="brand-dot">.</span> {tx("A better wait.")}
             </span>
             <span>
-              Made for a warmer welcome <Leaf size={12} />
+              {tx("Made for a warmer welcome")}
+              <Leaf size={12} />
             </span>
           </footer>
         </main>
       </div>
       {manageBranches && (
         <Modal
-          title="Branches & staff"
+          title={tx("Branches & staff")}
           onClose={() => setManageBranches(false)}
         >
           <BranchManagement
@@ -985,7 +1057,7 @@ export default function Dashboard() {
       {toast && (
         <div className="toast" role="status">
           <Check size={17} />
-          {toast}
+          {tx(toast)}
         </div>
       )}
       {form && (
@@ -1011,12 +1083,13 @@ export default function Dashboard() {
       )}
       {qr && (
         <Modal
-          title="A warm welcome, one scan away."
+          title={tx("A warm welcome, one scan away.")}
           onClose={() => setQr(false)}
         >
           <p className="modal-description">
-            Place this QR code at your entrance. Guests can join your queue
-            straight from their phones.
+            {tx(
+              "Place this QR code at your entrance. Guests can join your queue straight from their phones.",
+            )}
           </p>
           <div className="qr-display">
             <div className="qr-restaurant">
@@ -1027,11 +1100,11 @@ export default function Dashboard() {
               src={`/api/qr?branch=${encodeURIComponent(data.branchId)}`}
               width="240"
               height="240"
-              alt="Scan to join the restaurant queue"
+              alt={tx("Scan to join the restaurant queue")}
             />
-            <h3>Scan. Join. Relax.</h3>
-            <p>We’ll let you know when your table is ready.</p>
-            <span className="qr-brand">Powered by TableQ.</span>
+            <h3>{tx("Scan. Join. Relax.")}</h3>
+            <p>{tx("We’ll let you know when your table is ready.")}</p>
+            <span className="qr-brand">{tx("Powered by TableQ.")}</span>
           </div>
           <div className="modal-actions">
             <a
@@ -1040,7 +1113,7 @@ export default function Dashboard() {
               download="tableq-check-in.svg"
             >
               <ArrowDownToLine size={16} />
-              Download QR
+              {tx("Download QR")}
             </a>
             <a
               className="button primary"
@@ -1048,25 +1121,28 @@ export default function Dashboard() {
               target="_blank"
               rel="noreferrer"
             >
-              Open check-in <ExternalLink size={15} />
+              {tx("Open check-in")}
+              <ExternalLink size={15} />
             </a>
           </div>
           <p className="helper">
             {data.appUrl
-              ? "Your QR uses the configured public app URL."
-              : "For deployment, set APP_URL to your public HTTPS address before printing."}
+              ? tx("Your QR uses the configured public app URL.")
+              : tx(
+                  "For deployment, set APP_URL to your public HTTPS address before printing.",
+                )}
           </p>
         </Modal>
       )}
       {confirm && (
-        <Modal title={confirm.title} onClose={() => setConfirm(null)}>
-          <p className="modal-description">{confirm.description}</p>
+        <Modal title={tx(confirm.title)} onClose={() => setConfirm(null)}>
+          <p className="modal-description">{tx(confirm.description)}</p>
           <div className="modal-actions">
             <button
               className="button secondary"
               onClick={() => setConfirm(null)}
             >
-              Keep guest
+              {tx("Keep guest")}
             </button>
             <button
               className="button danger-button"
@@ -1083,7 +1159,7 @@ export default function Dashboard() {
                 }
               }}
             >
-              {busy === "confirm" ? "Working…" : "Confirm"}
+              {busy === "confirm" ? tx("Working…") : tx("Confirm")}
             </button>
           </div>
         </Modal>
@@ -1106,21 +1182,23 @@ function Stat({
   note: string;
   tone: string;
 }) {
+  const { t: tx, locale, n } = usePreferences();
+
   return (
     <div className="stat-card">
       <div className="stat-top">
-        <span>{label}</span>
+        <span>{tx(label)}</span>
         <span className={`stat-icon ${tone}`}>
           <Icon size={18} />
         </span>
       </div>
       <div className="stat-value">
-        {value}
-        <span>{unit}</span>
+        {n(value)}
+        <span>{tx(unit)}</span>
       </div>
       <p>
         <span className={`tiny-dot ${tone}`} />
-        {note}
+        {tx(note)}
       </p>
     </div>
   );
@@ -1136,6 +1214,8 @@ function GuestForm({
   onClose: () => void;
   onSaved: (result: { token?: string }) => Promise<void>;
 }) {
+  const { t: tx, locale, n } = usePreferences();
+
   const initial = ticket === "new" ? null : ticket;
   const [name, setName] = useState(initial?.name || "");
   const [phone, setPhone] = useState(initial?.phone || "");
@@ -1147,7 +1227,10 @@ function GuestForm({
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
   return (
-    <Modal title={initial ? "Edit guest" : "Add to queue"} onClose={onClose}>
+    <Modal
+      title={initial ? tx("Edit guest") : tx("Add to queue")}
+      onClose={onClose}
+    >
       <form
         onSubmit={async (e) => {
           e.preventDefault();
@@ -1170,7 +1253,7 @@ function GuestForm({
       >
         <div className="form-top">
           <label>
-            Party size
+            {tx("Party size")}
             <div className="stepper">
               <Users size={17} />
               <strong>{size}</strong>
@@ -1178,7 +1261,7 @@ function GuestForm({
                 type="button"
                 disabled={size <= 1}
                 onClick={() => setSize(size - 1)}
-                aria-label="Decrease party size"
+                aria-label={tx("Decrease party size")}
               >
                 <Minus size={16} />
               </button>
@@ -1186,7 +1269,7 @@ function GuestForm({
                 type="button"
                 disabled={size >= 20}
                 onClick={() => setSize(size + 1)}
-                aria-label="Increase party size"
+                aria-label={tx("Increase party size")}
               >
                 <Plus size={16} />
               </button>
@@ -1199,22 +1282,23 @@ function GuestForm({
               onChange={(e) => setPriority(e.target.checked)}
             />
             <span className="switch" />
-            <Star size={16} /> Priority
+            <Star size={16} /> {tx("Priority")}
           </label>
         </div>
         <label>
-          Guest name
+          {tx("Guest name")}
           <input
             autoFocus
             required
             maxLength={80}
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Full name"
+            placeholder={tx("Full name")}
           />
         </label>
         <label>
-          Mobile number <span className="optional">optional</span>
+          {tx("Mobile number")}
+          <span className="optional">{tx("optional")}</span>
           <input
             type="tel"
             maxLength={20}
@@ -1223,26 +1307,30 @@ function GuestForm({
             placeholder="+1 555 123 4567"
           />
           <small className="helper">
-            Include the country code, without spaces.
+            {tx("Include the country code, without spaces.")}
           </small>
         </label>
         <label>
-          Email <span className="optional">optional</span>
+          {tx("Email")}
+          <span className="optional">{tx("optional")}</span>
           <input
             type="email"
             maxLength={200}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="name@example.com"
+            placeholder={tx("name@example.com")}
           />
         </label>
         <label>
-          Notes <span className="optional">private to your team</span>
+          {tx("Notes")}
+          <span className="optional">{tx("private to your team")}</span>
           <textarea
             value={notes}
             maxLength={500}
             onChange={(e) => setNotes(e.target.value)}
-            placeholder="High chair, accessibility needs, special occasion…"
+            placeholder={tx(
+              "High chair, accessibility needs, special occasion…",
+            )}
             rows={2}
           />
         </label>
@@ -1252,19 +1340,23 @@ function GuestForm({
             checked={consent}
             onChange={(e) => setConsent(e.target.checked)}
           />
-          Guest agrees to receive updates about this visit.
+          {tx("Guest agrees to receive updates about this visit.")}
         </label>
         {error && (
           <p className="error" role="alert">
-            {error}
+            {tx(error)}
           </p>
         )}
         <div className="modal-actions">
           <button type="button" className="button secondary" onClick={onClose}>
-            Cancel
+            {tx("Cancel")}
           </button>
           <button className="button primary" disabled={busy}>
-            {busy ? "Saving…" : initial ? "Save changes" : "Add to queue"}
+            {busy
+              ? tx("Saving…")
+              : initial
+                ? tx("Save changes")
+                : tx("Add to queue")}
             <ArrowRight size={16} />
           </button>
         </div>
@@ -1280,6 +1372,8 @@ function Analytics({
   range: number;
   avg: number;
 }) {
+  const { t: tx, locale, n } = usePreferences();
+
   const selected = tickets.filter(
     (t) => new Date(t.joined_at).getTime() >= Date.now() - range * 86400000,
   );
@@ -1295,14 +1389,18 @@ function Analytics({
     ? Math.round(waitValues.reduce((a, b) => a + b, 0) / waitValues.length)
     : 0;
   const hours = Array.from({ length: 12 }, (_, i) => ({
-    label: `${i + 10 > 12 ? i - 2 : i + 10}${i + 10 >= 12 ? "p" : "a"}`,
+    label: new Date(2024, 0, 1, i + 10).toLocaleTimeString(locale, {
+      hour: "numeric",
+    }),
     value: selected
       .filter((t) => new Date(t.joined_at).getHours() === i + 10)
       .reduce((s, t) => s + t.party_size, 0),
   }));
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(
     (label, i) => ({
-      label,
+      label: new Date(2024, 0, 7 + i).toLocaleDateString(locale, {
+        weekday: "short",
+      }),
       value: selected
         .filter((t) => new Date(t.joined_at).getDay() === i)
         .reduce((s, t) => s + t.party_size, 0),
@@ -1315,7 +1413,7 @@ function Analytics({
         : t.party_size >= i * 2 + 1 && t.party_size <= i * 2 + 2,
     );
     return {
-      label,
+      label: i === 3 ? n(7) + "+" : n(i * 2 + 1) + "–" + n(i * 2 + 2),
       value: group.length
         ? Math.round(
             group.reduce(
@@ -1334,23 +1432,23 @@ function Analytics({
     <>
       <div className="stats-grid">
         <Stat
-          label="Guests welcomed"
+          label={tx("Guests welcomed")}
           value={selected.reduce((s, t) => s + t.party_size, 0)}
-          unit="people"
+          unit={tx("people")}
           icon={Users}
-          note={`${selected.length} parties joined`}
+          note={tx("{value0} parties joined", { value0: selected.length })}
           tone="amber"
         />
         <Stat
-          label="Average wait"
+          label={tx("Average wait")}
           value={average}
-          unit="min"
+          unit={tx("min")}
           icon={Clock}
-          note="From check-in to table-ready"
+          note={tx("From check-in to table-ready")}
           tone="purple"
         />
         <Stat
-          label="Seating rate"
+          label={tx("Seating rate")}
           value={
             selected.length
               ? Math.round((served.length / selected.length) * 100)
@@ -1358,15 +1456,15 @@ function Analytics({
           }
           unit="%"
           icon={CheckCheck}
-          note={`${served.length} parties seated`}
+          note={tx("{value0} parties seated", { value0: served.length })}
           tone="green"
         />
         <Stat
-          label="Walk-aways"
+          label={tx("Walk-aways")}
           value={cancelled.length}
-          unit="parties"
+          unit={tx("parties")}
           icon={ArrowRight}
-          note="Cancelled visits in this period"
+          note={tx("Cancelled visits in this period")}
           tone="blue"
         />
       </div>
@@ -1374,12 +1472,12 @@ function Analytics({
         <section className="panel chart-panel">
           <div className="panel-heading">
             <div>
-              <h2>The guest journey</h2>
+              <h2>{tx("The guest journey")}</h2>
             </div>
-            <span className="muted">Parties</span>
+            <span className="muted">{tx("Parties")}</span>
           </div>
           <p className="chart-description">
-            From the first hello to a seat at the table.
+            {tx("From the first hello to a seat at the table.")}
           </p>
           <div className="funnel">
             {[
@@ -1388,8 +1486,8 @@ function Analytics({
               { label: "Seated", value: served.length },
             ].map((s, i) => (
               <div className="funnel-stage" key={s.label}>
-                <span>{s.label}</span>
-                <strong>{s.value}</strong>
+                <span>{tx(s.label)}</span>
+                <strong>{n(s.value)}</strong>
                 <div className="funnel-track">
                   <i
                     style={{
@@ -1404,57 +1502,61 @@ function Analytics({
           <div className="chart-note">
             <span className="tiny-dot green" />
             {notified.length
-              ? `${Math.round((served.length / notified.length) * 100)}% of notified parties were seated.`
-              : "Your guest journey will appear after your first check-in."}
+              ? tx("{value0}% of notified parties were seated.", {
+                  value0: Math.round((served.length / notified.length) * 100),
+                })
+              : tx("Your guest journey will appear after your first check-in.")}
           </div>
         </section>
         <section className="panel chart-panel">
           <div className="panel-heading">
             <div>
-              <h2>Demand by hour</h2>
+              <h2>{tx("Demand by hour")}</h2>
             </div>
             <Clock size={16} />
           </div>
           <p className="chart-description">
-            Find your busiest moments. Plan your warmest welcome.
+            {tx("Find your busiest moments. Plan your warmest welcome.")}
           </p>
-          <Bars values={hours} suffix=" guests" />
-          <div className="chart-note">Local time · 10 AM to 9 PM</div>
+          <Bars values={hours} suffix={" " + tx("guests")} />
+          <div className="chart-note">{tx("Local time · 10 AM to 9 PM")}</div>
         </section>
         <section className="panel chart-panel">
           <div className="panel-heading">
             <div>
-              <h2>Demand by weekday</h2>
+              <h2>{tx("Demand by weekday")}</h2>
             </div>
             <CalendarDays size={16} />
           </div>
-          <p className="chart-description">A rhythm to every week.</p>
-          <Bars values={days} suffix=" guests" />
+          <p className="chart-description">{tx("A rhythm to every week.")}</p>
+          <Bars values={days} suffix={" " + tx("guests")} />
           <div className="chart-note">
             <span className="tiny-dot amber" />
-            Total guests during the selected period
+            {tx("Total guests during the selected period")}
           </div>
         </section>
         <section className="panel chart-panel">
           <div className="panel-heading">
             <div>
-              <h2>Wait by party size</h2>
+              <h2>{tx("Wait by party size")}</h2>
             </div>
             <Users size={16} />
           </div>
           <p className="chart-description">
-            Average minutes from check-in to table-ready.
+            {tx("Average minutes from check-in to table-ready.")}
           </p>
-          <Bars values={sizes} suffix=" min" />
+          <Bars values={sizes} suffix={" " + tx("min")} />
           <div className="chart-note">
-            Party size · based on notified guests
+            {tx("Party size · based on notified guests")}
           </div>
         </section>
       </div>
       {!selected.length && (
         <p className="analytics-empty">
           <Sparkles size={16} />
-          Real insights will grow with your queue. No sample data is included.
+          {tx(
+            "Real insights will grow with your queue. No sample data is included.",
+          )}
         </p>
       )}
     </>
@@ -1467,19 +1569,20 @@ function Bars({
   values: { label: string; value: number }[];
   suffix: string;
 }) {
+  const { n } = usePreferences();
   const max = Math.max(...values.map((v) => v.value), 1);
   return (
     <div
       className="bar-chart"
       role="img"
       aria-label={values
-        .map((v) => `${v.label}: ${v.value}${suffix}`)
+        .map((v) => `${v.label}: ${n(v.value)}${suffix}`)
         .join(", ")}
     >
       <div className="chart-grid">
-        <span>{max}</span>
-        <span>{Math.round(max / 2)}</span>
-        <span>0</span>
+        <span>{n(max)}</span>
+        <span>{n(Math.round(max / 2))}</span>
+        <span>{n(0)}</span>
       </div>
       <div className="bars">
         {values.map((v, i) => (
@@ -1488,9 +1591,9 @@ function Bars({
               <div
                 className="bar"
                 style={{ height: `${(v.value / max) * 100}%` }}
-                title={`${v.value}${suffix}`}
+                title={`${n(v.value)}${suffix}`}
               >
-                <span>{v.value > 0 ? v.value : ""}</span>
+                <span>{v.value > 0 ? n(v.value) : ""}</span>
               </div>
             </div>
             <small>{v.label}</small>

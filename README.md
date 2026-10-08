@@ -30,7 +30,7 @@ Under **Branches**, create branches and edit address, capacity, displayed openin
 
 ## Account menu and profile
 
-Open your name at the bottom of the sidebar for **Language**, **Theme**, **Contact support**, **Profile**, or **Log out**. Preferences are saved per account. English, Spanish, Portuguese, German, French and Italian localize the account menu, profile, feedback form and main navigation; operational queue/customer screens and server validation messages currently remain in English. **System** follows your device appearance and responds when it changes.
+Open your name at the bottom of the sidebar for **Language**, **Theme**, **Contact support**, **Profile**, or **Log out**. Preferences are saved per account. English, Spanish, Portuguese, German, French, Italian and Urdu localize the workspace, account screens and forms. Urdu uses a right-to-left layout. **System** follows your device appearance and responds when it changes.
 
 On **Profile**, edit your name and language and upload a PNG/JPG up to 2 MB. Images are decoded, stripped of metadata, cropped and stored as a 256px JPEG in the existing SQLite database. Your sign-in email is read-only. Avatar uploads and verified phone numbers save immediately; **Save changes** saves name and language.
 
@@ -143,3 +143,9 @@ npm run test:e2e
 ```
 
 The browser suite uses a separate database under `/tmp/tableq-e2e`, a production server on port 3100, and a test-only account. It covers mobile QR check-in, guest live updates, manager login and CRUD, seating/table release, QR rendering, CSV download, responsive layout, private API access, and origin checks. Unit tests exercise branch isolation, additive database migration, archive/restore rules, capacity, queue order, transitions, consent, rate limiting, password verification, and mocked SMS delivery/retry behavior. Browser checks also cover branch administration, branch-specific QR/check-in, staff authorization, session revocation and combined analytics. Actual SMS and device push require the production phone smoke test above.
+
+### Language and website colors
+
+Language applies to Overview, Queue, Customers, Analytics, CMS and account screens. English, Spanish, Portuguese, German, French, Italian and Urdu are available; Urdu uses a right-to-left layout. Dates and display numbers follow the selected locale. Guest check-in and sign-in include a language selector. Customer names and entered data remain unchanged.
+
+Open **Account menu → Website color** (or **Profile**) to choose Amber, Blue, Teal, Purple, Rose or Green, or enter a custom hex color. Click **Save color**. The accent is saved per account, applies to light/dark/system themes, and adjusts text contrast automatically. Existing databases receive an additive settings migration; keep your database and `.env.local` when updating.

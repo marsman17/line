@@ -1,4 +1,5 @@
 "use client";
+import { LanguageSelector, usePreferences } from "./preferences";
 import { useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
@@ -37,51 +38,61 @@ function GuestFrame({
   restaurant: Restaurant | null;
   children: React.ReactNode;
 }) {
+  const { t: tx, locale, n } = usePreferences();
+
   return (
     <main className="guest-page">
       <div className="guest-top">
+        <LanguageSelector />
         <a href="/check-in" className="guest-brand">
           <span className="brand-icon">
-            T<span>Q</span>
+            {tx("T")}
+            <span>{tx("Q")}</span>
           </span>
-          TableQ.
+          {tx("TableQ.")}
         </a>
         <span>
-          <Leaf size={13} /> A better wait.
+          <Leaf size={13} /> {tx("A better wait.")}
         </span>
       </div>
       <div className="guest-layout">
         <section className="guest-intro">
           <div className="guest-art">
             <DiningArt />
-            <span className="art-caption">GOOD FOOD. GOOD COMPANY.</span>
+            <span className="art-caption">
+              {tx("GOOD FOOD. GOOD COMPANY.")}
+            </span>
           </div>
           <span className="guest-logo">
             <Leaf size={27} />
           </span>
-          <span className="eyebrow">YOU’RE IN GOOD COMPANY</span>
-          <h1>{restaurant?.name || "A seat at our table."}</h1>
-          <p>{restaurant?.address || "A warm welcome is waiting for you."}</p>
+          <span className="eyebrow">{tx("YOU’RE IN GOOD COMPANY")}</span>
+          <h1>{restaurant?.name || tx("A seat at our table.")}</h1>
+          <p>
+            {restaurant?.address || tx("A warm welcome is waiting for you.")}
+          </p>
           <div className="guest-promise">
             <Clock size={19} />
             <div>
-              <strong>Spend your wait your way.</strong>
-              <span>We’ll keep your place. You enjoy the moment.</span>
+              <strong>{tx("Spend your wait your way.")}</strong>
+              <span>{tx("We’ll keep your place. You enjoy the moment.")}</span>
             </div>
           </div>
         </section>
         <section className="guest-content">{children}</section>
       </div>
       <footer className="guest-footer">
-        <span>Hospitality starts before you sit down.</span>
+        <span>{tx("Hospitality starts before you sit down.")}</span>
         <span>
-          Powered by <strong>TableQ.</strong>
+          {tx("Powered by")} <strong>{tx("TableQ.")}</strong>
         </span>
       </footer>
     </main>
   );
 }
 export function CheckIn() {
+  const { t: tx, locale, n } = usePreferences();
+
   const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -123,25 +134,27 @@ export function CheckIn() {
           <span className="guest-open">
             <i />{" "}
             {restaurant?.archived
-              ? "Check-in is closed"
+              ? tx("Check-in is closed")
               : restaurant
-                ? "Check-in is open"
-                : "Loading restaurant…"}
+                ? tx("Check-in is open")
+                : tx("Loading restaurant…")}
           </span>
         </div>
-        <h2>A table is worth the wait.</h2>
+        <h2>{tx("A table is worth the wait.")}</h2>
         <p>
           {restaurant?.archived
-            ? "This branch is closed for check-in."
-            : "Join the queue. We’ll take care of the rest."}
+            ? tx("This branch is closed for check-in.")
+            : tx("Join the queue. We’ll take care of the rest.")}
         </p>
         {restaurant?.openingHours && (
-          <p>Opening hours: {restaurant.openingHours}</p>
+          <p>
+            {tx("Opening hours:")} {restaurant.openingHours}
+          </p>
         )}
         {resume && (
           <a className="resume-visit" href={`/guest/${resume}`}>
             <Clock size={17} />
-            You’re already in the queue. View your visit{" "}
+            {tx("You’re already in the queue. View your visit")}{" "}
             <ArrowRight size={16} />
           </a>
         )}
@@ -176,11 +189,11 @@ export function CheckIn() {
           }}
         >
           <label>
-            How many in your party?
+            {tx("How many in your party?")}
             <div className="guest-stepper">
               <button
                 type="button"
-                aria-label="Decrease party size"
+                aria-label={tx("Decrease party size")}
                 disabled={size <= 1}
                 onClick={() => setSize(size - 1)}
               >
@@ -189,11 +202,11 @@ export function CheckIn() {
               <span>
                 <Users size={20} />
                 <strong>{size}</strong>
-                <small>{size === 1 ? "guest" : "guests"}</small>
+                <small>{size === 1 ? tx("guest") : tx("guests")}</small>
               </span>
               <button
                 type="button"
-                aria-label="Increase party size"
+                aria-label={tx("Increase party size")}
                 disabled={size >= 20}
                 onClick={() => setSize(size + 1)}
               >
@@ -202,18 +215,19 @@ export function CheckIn() {
             </div>
           </label>
           <label>
-            Your name
+            {tx("Your name")}
             <input
               required
               autoComplete="name"
               maxLength={80}
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="What should we call you?"
+              placeholder={tx("What should we call you?")}
             />
           </label>
           <label>
-            Mobile number <span className="optional">with country code</span>
+            {tx("Mobile number")}
+            <span className="optional">{tx("with country code")}</span>
             <input
               type="tel"
               autoComplete="tel"
@@ -224,15 +238,17 @@ export function CheckIn() {
             />
           </label>
           <label>
-            Email{" "}
-            <span className="optional">optional if you provide a mobile</span>
+            {tx("Email")}{" "}
+            <span className="optional">
+              {tx("optional if you provide a mobile")}
+            </span>
             <input
               type="email"
               autoComplete="email"
               maxLength={200}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@example.com"
+              placeholder={tx("you@example.com")}
             />
           </label>
           <label className="checkbox-label">
@@ -242,39 +258,46 @@ export function CheckIn() {
               onChange={(e) => setConsent(e.target.checked)}
             />
             <span>
-              I agree to receive updates about this visit. No marketing
-              messages.
+              {tx(
+                "I agree to receive updates about this visit. No marketing messages.",
+              )}
             </span>
           </label>
           {error && (
             <p className="error" role="alert">
-              {error}
+              {tx(error)}
             </p>
           )}
           <button
             className="button guest-primary"
             disabled={busy || !restaurant || restaurant.archived}
           >
-            {busy ? "Saving your place…" : "Join the queue"}
+            {busy ? tx("Saving your place…") : tx("Join the queue")}
             <ArrowRight size={18} />
           </button>
           <div className="guest-estimate">
             <Clock size={14} />
             {restaurant?.waiting
-              ? `Estimated wait: about ${restaurant.waiting * 5} minutes`
-              : "Estimated wait: less than 5 minutes"}
+              ? tx("Estimated wait: about {value0} minutes", {
+                  value0: restaurant.waiting * 5,
+                })
+              : tx("Estimated wait: less than 5 minutes")}
           </div>
         </form>
         <div className="guest-safe">
           <ShieldCheck size={15} />
-          Your details are private and used for your visit.
+          {tx("Your details are private and used for your visit.")}
         </div>
       </div>
-      <p className="guest-help">Need a hand? Our host is happy to help.</p>
+      <p className="guest-help">
+        {tx("Need a hand? Our host is happy to help.")}
+      </p>
     </GuestFrame>
   );
 }
 export function GuestVisit({ token }: { token: string }) {
+  const { t: tx, locale, n } = usePreferences();
+
   const [status, setStatus] = useState<GuestStatus | null>(null);
   const [error, setError] = useState("");
   const [pushError, setPushError] = useState("");
@@ -378,15 +401,17 @@ export function GuestVisit({ token }: { token: string }) {
               <Clock size={38} />
             </div>
             <h2>
-              {error ? "We couldn’t find your visit." : "Finding your place…"}
+              {error
+                ? tx("We couldn’t find your visit.")
+                : tx("Finding your place…")}
             </h2>
             {error && (
               <p className="error" role="alert">
-                {error}
+                {tx(error)}
               </p>
             )}
             <a className="button guest-primary" href="/check-in">
-              Back to check-in
+              {tx("Back to check-in")}
             </a>
           </>
         ) : (
@@ -404,63 +429,79 @@ export function GuestVisit({ token }: { token: string }) {
             </div>
             <span className="eyebrow">
               {ready
-                ? "THE WAIT IS OVER"
+                ? tx("THE WAIT IS OVER")
                 : done
-                  ? "MAKE YOURSELF AT HOME"
+                  ? tx("MAKE YOURSELF AT HOME")
                   : cancelled
-                    ? "UNTIL NEXT TIME"
-                    : "YOUR PLACE IS SAVED"}
+                    ? tx("UNTIL NEXT TIME")
+                    : tx("YOUR PLACE IS SAVED")}
             </span>
             <h2>
               {ready
-                ? "Your table is ready."
+                ? tx("Your table is ready.")
                 : done
-                  ? "Enjoy your meal."
+                  ? tx("Enjoy your meal.")
                   : cancelled
-                    ? "You’ve left the queue."
-                    : `You’re on the list, ${status.name.split(" ")[0]}.`}
+                    ? tx("You’ve left the queue.")
+                    : tx("You’re on the list, {value0}.", {
+                        value0: status.name.split(" ")[0],
+                      })}
             </h2>
             <p>
               {ready
-                ? "Please head back to the restaurant and check in with our host. We can’t wait to welcome you."
+                ? tx(
+                    "Please head back to the restaurant and check in with our host. We can’t wait to welcome you.",
+                  )
                 : done
-                  ? "Thanks for spending a little of your day at our table. Here’s to good food and good company."
+                  ? tx(
+                      "Thanks for spending a little of your day at our table. Here’s to good food and good company.",
+                    )
                   : cancelled
-                    ? "Your visit has been cancelled. You’re always welcome to join again."
-                    : "Take a little stroll or catch up with your company. We’ll keep your place in line."}
+                    ? tx(
+                        "Your visit has been cancelled. You’re always welcome to join again.",
+                      )
+                    : tx(
+                        "Take a little stroll or catch up with your company. We’ll keep your place in line.",
+                      )}
             </p>
             {!done && !cancelled && (
               <>
                 <div className="guest-position">
                   <div>
-                    <span>{ready ? "YOUR STATUS" : "YOUR POSITION"}</span>
+                    <span>
+                      {ready ? tx("YOUR STATUS") : tx("YOUR POSITION")}
+                    </span>
                     <strong>
-                      {ready ? <Check size={37} /> : status.position}
+                      {ready ? <Check size={37} /> : n(status.position)}
                     </strong>
-                    <small>{ready ? "Table ready" : "in the queue"}</small>
+                    <small>
+                      {ready ? tx("Table ready") : tx("in the queue")}
+                    </small>
                   </div>
                   <div>
-                    <span>{ready ? "PARTY SIZE" : "ESTIMATED WAIT"}</span>
+                    <span>
+                      {ready ? tx("PARTY SIZE") : tx("ESTIMATED WAIT")}
+                    </span>
                     <strong>
                       {ready
-                        ? status.partySize
+                        ? n(status.partySize)
                         : status.estimatedMinutes < 5
-                          ? "< 5"
-                          : status.estimatedMinutes}
+                          ? "< " + n(5)
+                          : n(status.estimatedMinutes)}
                     </strong>
-                    <small>{ready ? "guests" : "minutes"}</small>
+                    <small>{ready ? tx("guests") : tx("minutes")}</small>
                   </div>
                 </div>
                 <div className="visit-details">
                   <span>
                     <Users size={16} />
-                    {status.partySize}{" "}
-                    {status.partySize === 1 ? "guest" : "guests"}
+                    {n(status.partySize)}{" "}
+                    {status.partySize === 1 ? tx("guest") : tx("guests")}
                   </span>
                   <span>
                     <Clock size={15} />
-                    Joined{" "}
-                    {new Date(status.joinedAt).toLocaleTimeString([], {
+                    {tx("Joined")}{" "}
+                    {new Date(status.joinedAt).toLocaleTimeString(locale, {
                       hour: "2-digit",
                       minute: "2-digit",
                     })}
@@ -470,7 +511,8 @@ export function GuestVisit({ token }: { token: string }) {
                   !ready &&
                   (status.pushEnabled ? (
                     <div className="push-enabled">
-                      <CheckCheck size={17} /> Mobile alerts are enabled.
+                      <CheckCheck size={17} />{" "}
+                      {tx("Mobile alerts are enabled.")}
                     </div>
                   ) : (
                     <button
@@ -480,8 +522,8 @@ export function GuestVisit({ token }: { token: string }) {
                     >
                       <Bell size={17} />
                       {pushBusy
-                        ? "Enabling alerts…"
-                        : "Notify me when it’s ready"}
+                        ? tx("Enabling alerts…")
+                        : tx("Notify me when it’s ready")}
                     </button>
                   ))}
                 {pushError && (
@@ -492,16 +534,24 @@ export function GuestVisit({ token }: { token: string }) {
                 {!ready && (
                   <div className="guest-live-note">
                     <span className="live-indicator">
-                      <i /> Updates live
+                      <i /> {tx("Updates live")}
                     </span>
                     <p>
                       {status.pushEnabled
-                        ? "You can leave this page. We’ll send a notification."
+                        ? tx(
+                            "You can leave this page. We’ll send a notification.",
+                          )
                         : status.restaurant.smsEnabled && status.smsEligible
-                          ? "We’ll text the mobile number you provided. Keep this page for live updates."
+                          ? tx(
+                              "We’ll text the mobile number you provided. Keep this page for live updates.",
+                            )
                           : status.restaurant.pushEnabled
-                            ? "Enable alerts above to get notified when this page is closed."
-                            : "Keep this page open for live updates, or check with our host."}
+                            ? tx(
+                                "Enable alerts above to get notified when this page is closed.",
+                              )
+                            : tx(
+                                "Keep this page open for live updates, or check with our host.",
+                              )}
                     </p>
                   </div>
                 )}
@@ -509,23 +559,24 @@ export function GuestVisit({ token }: { token: string }) {
                   className="leave-queue"
                   onClick={() => setConfirm(true)}
                 >
-                  Need to leave? Cancel this visit
+                  {tx("Need to leave? Cancel this visit")}
                 </button>
               </>
             )}
             {(done || cancelled) && (
               <a className="button guest-primary" href="/check-in">
-                Join a new visit <ArrowRight size={16} />
+                {tx("Join a new visit")}
+                <ArrowRight size={16} />
               </a>
             )}
             {offline && (
               <p className="error" role="alert">
-                Connection interrupted. Retrying automatically…
+                {tx("Connection interrupted. Retrying automatically…")}
               </p>
             )}
             <div className="guest-safe">
               <ShieldCheck size={15} />
-              This is your private visit link. Keep it handy.
+              {tx("This is your private visit link. Keep it handy.")}
             </div>
           </>
         )}
@@ -536,18 +587,20 @@ export function GuestVisit({ token }: { token: string }) {
             className="modal light-modal"
             role="dialog"
             aria-modal="true"
-            aria-label="Leave the queue?"
+            aria-label={tx("Leave the queue?")}
           >
-            <h2>Leave the queue?</h2>
+            <h2>{tx("Leave the queue?")}</h2>
             <p>
-              You’ll lose your current place. You can join again at any time.
+              {tx(
+                "You’ll lose your current place. You can join again at any time.",
+              )}
             </p>
             <div className="modal-actions">
               <button
                 className="button secondary"
                 onClick={() => setConfirm(false)}
               >
-                Keep my place
+                {tx("Keep my place")}
               </button>
               <button
                 className="button danger-button"
@@ -565,7 +618,7 @@ export function GuestVisit({ token }: { token: string }) {
                   }
                 }}
               >
-                {cancelling ? "Leaving…" : "Leave queue"}
+                {cancelling ? tx("Leaving…") : tx("Leave queue")}
               </button>
             </div>
           </section>
@@ -589,11 +642,13 @@ function ListIcon() {
   );
 }
 function DiningArt() {
+  const { t: tx, locale, n } = usePreferences();
+
   return (
     <svg
       viewBox="0 0 600 320"
       role="img"
-      aria-label="An inviting table with plates, leaves, and fresh food"
+      aria-label={tx("An inviting table with plates, leaves, and fresh food")}
     >
       <defs>
         <pattern

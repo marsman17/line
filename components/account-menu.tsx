@@ -23,6 +23,8 @@ const categories = {
   performance: "Performance Problems",
 };
 export default function AccountMenu() {
+  const { t: tx, locale, n } = usePreferences();
+
   const { user, update, t } = usePreferences();
   const [open, setOpen] = useState(false);
   const [submenu, setSubmenu] = useState("");
@@ -154,15 +156,19 @@ export default function AccountMenu() {
             {user.role === "admin" && (
               <a href="/cms">
                 <User size={19} />
-                CMS administration
+                {tx("CMS administration")}
               </a>
             )}
+            <a href="/profile#appearance">
+              <Sun size={19} />
+              {t("Website color")}
+            </a>
             <a href="/profile">
               <User size={19} />
               {t("Profile")}
             </a>
             <button
-              aria-label="Sign out"
+              aria-label={tx("Sign out")}
               onClick={async () => {
                 try {
                   await api("logout", "POST");
@@ -177,7 +183,7 @@ export default function AccountMenu() {
             </button>
             {error && (
               <p role="alert" className="account-error">
-                {error}
+                {tx(error)}
               </p>
             )}
           </div>
@@ -188,6 +194,8 @@ export default function AccountMenu() {
   );
 }
 function Support({ onClose }: { onClose: () => void }) {
+  const { t: tx, locale, n } = usePreferences();
+
   const { user, t } = usePreferences();
   const [category, setCategory] = useState("general");
   const [comment, setComment] = useState("");
@@ -304,7 +312,7 @@ function Support({ onClose }: { onClose: () => void }) {
                 onChange={(e) => setComment(e.target.value)}
               />
             </label>
-            {message && <p role="status">{message}</p>}
+            {message && <p role="status">{tx(message)}</p>}
           </div>
           <footer className="account-actions">
             <button
@@ -325,7 +333,7 @@ function Support({ onClose }: { onClose: () => void }) {
       )}
       {error && (
         <p role="alert" className="account-error">
-          {error}
+          {tx(error)}
         </p>
       )}
     </Modal>

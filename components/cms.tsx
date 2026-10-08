@@ -1,4 +1,5 @@
 "use client";
+import { usePreferences } from "./preferences";
 import { useState, useEffect, useCallback } from "react";
 import {
   ArrowLeft,
@@ -25,6 +26,8 @@ const blank = {
   branchIds: [] as string[],
 };
 export default function CMS() {
+  const { t: tx, locale, n } = usePreferences();
+
   const [data, setData] = useState<Data | null>(null);
   const [tab, setTab] = useState("accounts");
   const [search, setSearch] = useState("");
@@ -75,26 +78,27 @@ export default function CMS() {
     return (
       <main className="cms-page">
         <ShieldCheck size={40} />
-        <h1>Administrator access required</h1>
+        <h1>{tx("Administrator access required")}</h1>
         <p>
-          Your account can manage assigned restaurant branches. A CMS
-          administrator must grant administration access.
+          {tx(
+            "Your account can manage assigned restaurant branches. A CMS administrator must grant administration access.",
+          )}
         </p>
         <a className="button primary" href="/">
-          Back to workspace
+          {tx("Back to workspace")}
         </a>
       </main>
     );
   if (!data)
     return (
       <main className="cms-page">
-        <h1>TableQ CMS</h1>
+        <h1>{tx("TableQ CMS")}</h1>
         <p role={error ? "alert" : "status"}>
-          {error || "Loading administration…"}
+          {error || tx("Loading administration…")}
         </p>
         {error && (
           <button className="button secondary" onClick={() => void load()}>
-            Retry
+            {tx("Retry")}
           </button>
         )}
       </main>
@@ -107,48 +111,50 @@ export default function CMS() {
       <header className="profile-header">
         <a className="brand" href="/cms">
           <ShieldCheck size={26} />
-          TableQ CMS
+          {tx("TableQ CMS")}
         </a>
         <a className="button secondary" href="/">
           <ArrowLeft size={16} />
-          Restaurant workspace
+          {tx("Restaurant workspace")}
         </a>
         <AccountMenu />
       </header>
       <main className="cms-page">
         <div className="cms-title">
           <div>
-            <span className="eyebrow">ADMINISTRATION</span>
-            <h1>Your workspace, managed.</h1>
+            <span className="eyebrow">{tx("ADMINISTRATION")}</span>
+            <h1>{tx("Your workspace, managed.")}</h1>
             <p>
-              Create accounts, assign access, and set up restaurant branches.
+              {tx(
+                "Create accounts, assign access, and set up restaurant branches.",
+              )}
             </p>
           </div>
           <span className="cms-role">
             <ShieldCheck size={17} />
-            CMS administrator
+            {tx("CMS administrator")}
           </span>
         </div>
         <div className="cms-stats">
           <div>
             <Users size={20} />
             <strong>{data.managers.length}</strong>
-            <span>Accounts</span>
+            <span>{tx("Accounts")}</span>
           </div>
           <div>
             <ShieldCheck size={20} />
             <strong>
               {data.managers.filter((u) => u.role === "admin").length}
             </strong>
-            <span>CMS administrators</span>
+            <span>{tx("CMS administrators")}</span>
           </div>
           <div>
             <Building2 size={20} />
             <strong>{data.branches.filter((b) => !b.archived).length}</strong>
-            <span>Active branches</span>
+            <span>{tx("Active branches")}</span>
           </div>
         </div>
-        <nav className="cms-tabs" aria-label="CMS sections">
+        <nav className="cms-tabs" aria-label={tx("CMS sections")}>
           <button
             className={tab === "accounts" ? "active" : ""}
             onClick={() => {
@@ -157,7 +163,7 @@ export default function CMS() {
             }}
           >
             <Users size={18} />
-            Manager accounts
+            {tx("Manager accounts")}
           </button>
           <button
             className={tab === "branches" ? "active" : ""}
@@ -167,22 +173,22 @@ export default function CMS() {
             }}
           >
             <Building2 size={18} />
-            Branches
+            {tx("Branches")}
           </button>
         </nav>
         {message && (
           <p role="status" className="cms-success">
-            {message}
+            {tx(message)}
           </p>
         )}
         {error && !editor && !removing && (
           <p role="alert" className="account-error">
-            {error}
+            {tx(error)}
           </p>
         )}
         {tab === "branches" ? (
           <section className="cms-panel">
-            <h2>Restaurant branches</h2>
+            <h2>{tx("Restaurant branches")}</h2>
             <BranchManagement
               currentBranch={data.branches[0]?.id || "main"}
               branchesOnly
@@ -195,8 +201,8 @@ export default function CMS() {
               <label className="cms-search">
                 <Search size={18} />
                 <input
-                  aria-label="Search accounts"
-                  placeholder="Search by name or email"
+                  aria-label={tx("Search accounts")}
+                  placeholder={tx("Search by name or email")}
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                 />
@@ -211,12 +217,13 @@ export default function CMS() {
                 }}
               >
                 <Plus size={17} />
-                Add manager account
+                {tx("Add manager account")}
               </button>
             </div>
             <p className="cms-help">
-              Branch managers work only in assigned branches. CMS administrators
-              can manage all accounts and every branch.
+              {tx(
+                "Branch managers work only in assigned branches. CMS administrators can manage all accounts and every branch.",
+              )}
             </p>
             <div className="cms-account-list">
               {matches.map((u) => (
@@ -232,36 +239,36 @@ export default function CMS() {
                   <div className="cms-account-identity">
                     <strong>
                       {u.name}
-                      {u.id === data.user.id && <small> · You</small>}
+                      {u.id === data.user.id && <small> {tx("· You")}</small>}
                     </strong>
                     <span>{u.email}</span>
                     <small>
                       {u.role === "admin"
-                        ? "All branches"
+                        ? tx("All branches")
                         : u.branchIds
                             .map(
                               (id) =>
                                 data.branches.find((b) => b.id === id)?.name ||
                                 id,
                             )
-                            .join(", ") || "No assigned branches"}
+                            .join(", ") || tx("No assigned branches")}
                     </small>
                   </div>
                   <span className={`cms-account-role ${u.role}`}>
                     {u.role === "admin"
-                      ? "CMS administrator"
-                      : "Branch manager"}
+                      ? tx("CMS administrator")
+                      : tx("Branch manager")}
                   </span>
                   <div className="cms-row-actions">
                     {u.id === data.user.id ? (
                       <a href="/profile" className="button secondary">
-                        Your profile
+                        {tx("Your profile")}
                       </a>
                     ) : (
                       <>
                         <button
                           className="button secondary"
-                          aria-label={`Edit ${u.email}`}
+                          aria-label={tx("Edit {value0}", { value0: u.email })}
                           onClick={() => {
                             setEditor(u);
                             setForm({
@@ -275,11 +282,13 @@ export default function CMS() {
                           }}
                         >
                           <Pencil size={15} />
-                          Edit
+                          {tx("Edit")}
                         </button>
                         <button
                           className="button danger"
-                          aria-label={`Remove ${u.email}`}
+                          aria-label={tx("Remove {value0}", {
+                            value0: u.email,
+                          })}
                           onClick={() => {
                             setRemoving(u);
                             setError("");
@@ -294,7 +303,7 @@ export default function CMS() {
               ))}
             </div>
             {!matches.length && (
-              <p className="cms-help">No accounts match your search.</p>
+              <p className="cms-help">{tx("No accounts match your search.")}</p>
             )}
           </section>
         )}
@@ -302,7 +311,9 @@ export default function CMS() {
       {editor && (
         <Modal
           title={
-            editor === "new" ? "Create manager account" : "Edit manager account"
+            editor === "new"
+              ? tx("Create manager account")
+              : tx("Edit manager account")
           }
           onClose={close}
           className="cms-account-dialog"
@@ -336,7 +347,7 @@ export default function CMS() {
             }}
           >
             <label className="profile-field">
-              Manager name
+              {tx("Manager name")}
               <input
                 required
                 maxLength={80}
@@ -345,7 +356,7 @@ export default function CMS() {
               />
             </label>
             <label className="profile-field">
-              Manager email
+              {tx("Manager email")}
               <input
                 type="email"
                 required
@@ -356,7 +367,7 @@ export default function CMS() {
               />
             </label>
             <label className="profile-field">
-              Account role
+              {tx("Account role")}
               <select
                 value={form.role}
                 onChange={(e) =>
@@ -366,24 +377,26 @@ export default function CMS() {
                   })
                 }
               >
-                <option value="staff">Branch manager</option>
-                <option value="admin">CMS administrator</option>
+                <option value="staff">{tx("Branch manager")}</option>
+                <option value="admin">{tx("CMS administrator")}</option>
               </select>
             </label>
             <p className="cms-help">
               {form.role === "admin"
-                ? "Full access to the CMS and all branches, including future branches."
-                : "Access limited to the branches selected below."}
+                ? tx(
+                    "Full access to the CMS and all branches, including future branches.",
+                  )
+                : tx("Access limited to the branches selected below.")}
             </p>
             <label className="profile-field">
               {editor === "new"
-                ? "Initial password"
-                : "New password (leave blank to keep current)"}
+                ? tx("Initial password")
+                : tx("New password (leave blank to keep current)")}
               <input
                 aria-label={
                   editor === "new"
-                    ? "Initial password"
-                    : "New password (leave blank to keep current)"
+                    ? tx("Initial password")
+                    : tx("New password (leave blank to keep current)")
                 }
                 type="password"
                 required={editor === "new"}
@@ -393,11 +406,11 @@ export default function CMS() {
                 value={form.password}
                 onChange={(e) => setForm({ ...form, password: e.target.value })}
               />
-              <small>At least 12 characters.</small>
+              <small>{tx("At least 12 characters.")}</small>
             </label>
             {form.role === "staff" && (
               <fieldset className="cms-assignments">
-                <legend>Assigned branches · choose at least one</legend>
+                <legend>{tx("Assigned branches · choose at least one")}</legend>
                 {data.branches.map((b) => (
                   <label className="checkbox-label" key={b.id}>
                     <input
@@ -413,14 +426,14 @@ export default function CMS() {
                       }
                     />
                     {b.name}
-                    {b.archived ? " (archived)" : ""}
+                    {b.archived ? tx(" (archived)") : ""}
                   </label>
                 ))}
               </fieldset>
             )}
             {error && (
               <p role="alert" className="account-error">
-                {error}
+                {tx(error)}
               </p>
             )}
             <div className="modal-actions">
@@ -430,7 +443,7 @@ export default function CMS() {
                 disabled={busy}
                 onClick={close}
               >
-                Cancel
+                {tx("Cancel")}
               </button>
               <button
                 className="button primary"
@@ -439,25 +452,27 @@ export default function CMS() {
                 }
               >
                 {busy
-                  ? "Saving…"
+                  ? tx("Saving…")
                   : editor === "new"
-                    ? "Create account"
-                    : "Save account"}
+                    ? tx("Create account")
+                    : tx("Save account")}
               </button>
             </div>
           </form>
         </Modal>
       )}
       {removing && (
-        <Modal title="Remove manager account" onClose={close}>
+        <Modal title={tx("Remove manager account")} onClose={close}>
           <p>
-            Remove <strong>{removing.email}</strong> and revoke every active
-            session? Their personal settings and feedback will be deleted.
-            Restaurant branches, queues, and customers will remain.
+            {tx("Remove")}
+            <strong>{removing.email}</strong>{" "}
+            {tx(
+              "and revoke every active session? Their personal settings and feedback will be deleted. Restaurant branches, queues, and customers will remain.",
+            )}
           </p>
           {error && (
             <p role="alert" className="account-error">
-              {error}
+              {tx(error)}
             </p>
           )}
           <div className="modal-actions">
@@ -466,7 +481,7 @@ export default function CMS() {
               disabled={busy}
               onClick={close}
             >
-              Cancel
+              {tx("Cancel")}
             </button>
             <button
               className="button danger"
@@ -481,7 +496,7 @@ export default function CMS() {
                   setRemoving(null);
               }}
             >
-              Remove account
+              {tx("Remove account")}
             </button>
           </div>
         </Modal>

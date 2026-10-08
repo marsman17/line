@@ -147,3 +147,10 @@ test("account deletion requires reauthentication, protects the final administrat
   );
   assert.equal(feedbackList(admin).length, 1);
 });
+test("accent and Urdu preferences persist with validation", () => {
+  updateAccount(admin, { accent: "#3b82f6", language: "ur" });
+  assert.equal(account(admin).accent, "#3b82f6");
+  assert.equal(account(admin).language, "ur");
+  assert.throws(() => updateAccount(admin, { accent: "red" }));
+  assert.equal(account(admin).accent, "#3b82f6");
+});

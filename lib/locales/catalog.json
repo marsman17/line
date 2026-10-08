@@ -1,0 +1,3677 @@
+{
+  "Overview": [
+    "Resumen",
+    "Visão geral",
+    "Übersicht",
+    "Vue d’ensemble",
+    "Panoramica",
+    "جائزہ"
+  ],
+  "Queue": ["Cola", "Fila", "Warteschlange", "File d’attente", "Coda", "قطار"],
+  "Customers": ["Clientes", "Clientes", "Kunden", "Clients", "Clienti", "گاہک"],
+  "Analytics": [
+    "Estadísticas",
+    "Estatísticas",
+    "Statistiken",
+    "Statistiques",
+    "Statistiche",
+    "تجزیات"
+  ],
+  "Language": ["Idioma", "Idioma", "Sprache", "Langue", "Lingua", "زبان"],
+  "Theme": ["Tema", "Tema", "Design", "Thème", "Tema", "تھیم"],
+  "Light": ["Claro", "Claro", "Hell", "Clair", "Chiaro", "روشن"],
+  "Dark": ["Oscuro", "Escuro", "Dunkel", "Sombre", "Scuro", "تاریک"],
+  "System": ["Sistema", "Sistema", "System", "Système", "Sistema", "سسٹم"],
+  "Profile": ["Perfil", "Perfil", "Profil", "Profil", "Profilo", "پروفائل"],
+  "Contact support": [
+    "Contactar soporte",
+    "Contatar suporte",
+    "Support kontaktieren",
+    "Contacter le support",
+    "Contatta assistenza",
+    "مدد کے لیے رابطہ"
+  ],
+  "Log out": [
+    "Cerrar sesión",
+    "Sair",
+    "Abmelden",
+    "Se déconnecter",
+    "Esci",
+    "لاگ آؤٹ"
+  ],
+  "Sign out": [
+    "Cerrar sesión",
+    "Sair",
+    "Abmelden",
+    "Se déconnecter",
+    "Esci",
+    "لاگ آؤٹ"
+  ],
+  "Sign in": [
+    "Iniciar sesión",
+    "Entrar",
+    "Anmelden",
+    "Se connecter",
+    "Accedi",
+    "لاگ اِن"
+  ],
+  "Signing in…": [
+    "Iniciando sesión…",
+    "Entrando…",
+    "Anmeldung…",
+    "Connexion…",
+    "Accesso…",
+    "لاگ اِن ہو رہا ہے…"
+  ],
+  "Workspace": [
+    "Espacio de trabajo",
+    "Espaço de trabalho",
+    "Arbeitsbereich",
+    "Espace de travail",
+    "Spazio di lavoro",
+    "ورک اسپیس"
+  ],
+  "Branch": [
+    "Sucursal",
+    "Unidade",
+    "Filiale",
+    "Établissement",
+    "Sede",
+    "برانچ"
+  ],
+  "Branches": [
+    "Sucursales",
+    "Unidades",
+    "Filialen",
+    "Établissements",
+    "Sedi",
+    "برانچیں"
+  ],
+  "All branches": [
+    "Todas las sucursales",
+    "Todas as unidades",
+    "Alle Filialen",
+    "Tous les établissements",
+    "Tutte le sedi",
+    "تمام برانچیں"
+  ],
+  "Branch name": [
+    "Nombre de sucursal",
+    "Nome da unidade",
+    "Filialname",
+    "Nom de l’établissement",
+    "Nome della sede",
+    "برانچ کا نام"
+  ],
+  "Branch address": [
+    "Dirección de sucursal",
+    "Endereço da unidade",
+    "Filialadresse",
+    "Adresse de l’établissement",
+    "Indirizzo della sede",
+    "برانچ کا پتہ"
+  ],
+  "Branch manager": [
+    "Gerente de sucursal",
+    "Gerente da unidade",
+    "Filialleiter",
+    "Responsable d’établissement",
+    "Responsabile della sede",
+    "برانچ مینیجر"
+  ],
+  "Branch comparison": [
+    "Comparación de sucursales",
+    "Comparação de unidades",
+    "Filialvergleich",
+    "Comparaison des établissements",
+    "Confronto delle sedi",
+    "برانچوں کا موازنہ"
+  ],
+  "Opening hours": [
+    "Horario de apertura",
+    "Horário de funcionamento",
+    "Öffnungszeiten",
+    "Horaires d’ouverture",
+    "Orari di apertura",
+    "کھلنے کے اوقات"
+  ],
+  "Seating capacity": [
+    "Capacidad de asientos",
+    "Capacidade de lugares",
+    "Sitzplatzkapazität",
+    "Nombre de places",
+    "Capacità di posti",
+    "نشستوں کی گنجائش"
+  ],
+  "Active": ["Activa", "Ativa", "Aktiv", "Actif", "Attiva", "فعال"],
+  "Archived": [
+    "Archivada",
+    "Arquivada",
+    "Archiviert",
+    "Archivé",
+    "Archiviata",
+    "محفوظ شدہ"
+  ],
+  "Accounts": ["Cuentas", "Contas", "Konten", "Comptes", "Account", "اکاؤنٹس"],
+  "Account role": [
+    "Rol de cuenta",
+    "Função da conta",
+    "Kontorolle",
+    "Rôle du compte",
+    "Ruolo dell’account",
+    "اکاؤنٹ کا کردار"
+  ],
+  "Account menu": [
+    "Menú de cuenta",
+    "Menu da conta",
+    "Kontomenü",
+    "Menu du compte",
+    "Menu account",
+    "اکاؤنٹ مینو"
+  ],
+  "CMS administration": [
+    "Administración CMS",
+    "Administração CMS",
+    "CMS-Verwaltung",
+    "Administration CMS",
+    "Amministrazione CMS",
+    "سی ایم ایس انتظام"
+  ],
+  "CMS administrator": [
+    "Administrador CMS",
+    "Administrador CMS",
+    "CMS-Administrator",
+    "Administrateur CMS",
+    "Amministratore CMS",
+    "سی ایم ایس منتظم"
+  ],
+  "CMS administrators": [
+    "Administradores CMS",
+    "Administradores CMS",
+    "CMS-Administratoren",
+    "Administrateurs CMS",
+    "Amministratori CMS",
+    "سی ایم ایس منتظمین"
+  ],
+  "CMS sections": [
+    "Secciones CMS",
+    "Seções CMS",
+    "CMS-Bereiche",
+    "Sections CMS",
+    "Sezioni CMS",
+    "سی ایم ایس حصے"
+  ],
+  "CMS sign in": [
+    "Acceso CMS",
+    "Entrar no CMS",
+    "CMS-Anmeldung",
+    "Connexion CMS",
+    "Accesso CMS",
+    "سی ایم ایس لاگ اِن"
+  ],
+  "Administrator access required": [
+    "Se requiere acceso de administrador",
+    "Acesso de administrador necessário",
+    "Administratorzugriff erforderlich",
+    "Accès administrateur requis",
+    "Accesso amministratore richiesto",
+    "منتظم کی رسائی درکار ہے"
+  ],
+  "Active branches": [
+    "Sucursales activas",
+    "Unidades ativas",
+    "Aktive Filialen",
+    "Établissements actifs",
+    "Sedi attive",
+    "فعال برانچیں"
+  ],
+  "Manager accounts": [
+    "Cuentas de gerentes",
+    "Contas de gerentes",
+    "Managerkonten",
+    "Comptes des responsables",
+    "Account dei responsabili",
+    "مینیجر اکاؤنٹس"
+  ],
+  "Manager name": [
+    "Nombre del gerente",
+    "Nome do gerente",
+    "Name des Managers",
+    "Nom du responsable",
+    "Nome del responsabile",
+    "مینیجر کا نام"
+  ],
+  "Manager email": [
+    "Correo del gerente",
+    "E-mail do gerente",
+    "E-Mail des Managers",
+    "E-mail du responsable",
+    "Email del responsabile",
+    "مینیجر کی ای میل"
+  ],
+  "Staff access": [
+    "Acceso del personal",
+    "Acesso da equipe",
+    "Mitarbeiterzugriff",
+    "Accès du personnel",
+    "Accesso del personale",
+    "عملے کی رسائی"
+  ],
+  "Staff email": [
+    "Correo del personal",
+    "E-mail da equipe",
+    "Mitarbeiter-E-Mail",
+    "E-mail du personnel",
+    "Email del personale",
+    "عملے کی ای میل"
+  ],
+  "Initial password": [
+    "Contraseña inicial",
+    "Senha inicial",
+    "Anfangspasswort",
+    "Mot de passe initial",
+    "Password iniziale",
+    "ابتدائی پاس ورڈ"
+  ],
+  "New password (leave blank to keep current)": [
+    "Nueva contraseña (dejar vacío para conservar)",
+    "Nova senha (deixe vazio para manter)",
+    "Neues Passwort (leer lassen zum Beibehalten)",
+    "Nouveau mot de passe (laisser vide pour conserver)",
+    "Nuova password (lascia vuoto per mantenere)",
+    "نیا پاس ورڈ (موجودہ رکھنے کے لیے خالی چھوڑیں)"
+  ],
+  "Assigned branches · choose at least one": [
+    "Sucursales asignadas · elige al menos una",
+    "Unidades atribuídas · escolha ao menos uma",
+    "Zugewiesene Filialen · mindestens eine wählen",
+    "Établissements attribués · choisissez-en au moins un",
+    "Sedi assegnate · scegline almeno una",
+    "مقررہ برانچیں · کم از کم ایک منتخب کریں"
+  ],
+  "Add a branch": [
+    "Añadir sucursal",
+    "Adicionar unidade",
+    "Filiale hinzufügen",
+    "Ajouter un établissement",
+    "Aggiungi sede",
+    "برانچ شامل کریں"
+  ],
+  "Add manager account": [
+    "Añadir cuenta de gerente",
+    "Adicionar conta de gerente",
+    "Managerkonto hinzufügen",
+    "Ajouter un compte responsable",
+    "Aggiungi account responsabile",
+    "مینیجر اکاؤنٹ شامل کریں"
+  ],
+  "Add staff": [
+    "Añadir personal",
+    "Adicionar funcionário",
+    "Mitarbeiter hinzufügen",
+    "Ajouter un membre du personnel",
+    "Aggiungi personale",
+    "عملہ شامل کریں"
+  ],
+  "Create account": [
+    "Crear cuenta",
+    "Criar conta",
+    "Konto erstellen",
+    "Créer un compte",
+    "Crea account",
+    "اکاؤنٹ بنائیں"
+  ],
+  "Create branch": [
+    "Crear sucursal",
+    "Criar unidade",
+    "Filiale erstellen",
+    "Créer un établissement",
+    "Crea sede",
+    "برانچ بنائیں"
+  ],
+  "Create manager account": [
+    "Crear cuenta de gerente",
+    "Criar conta de gerente",
+    "Managerkonto erstellen",
+    "Créer un compte responsable",
+    "Crea account responsabile",
+    "مینیجر اکاؤنٹ بنائیں"
+  ],
+  "Create staff account": [
+    "Crear cuenta de personal",
+    "Criar conta de funcionário",
+    "Mitarbeiterkonto erstellen",
+    "Créer un compte personnel",
+    "Crea account personale",
+    "عملے کا اکاؤنٹ بنائیں"
+  ],
+  "Edit": ["Editar", "Editar", "Bearbeiten", "Modifier", "Modifica", "ترمیم"],
+  "Edit branch": [
+    "Editar sucursal",
+    "Editar unidade",
+    "Filiale bearbeiten",
+    "Modifier l’établissement",
+    "Modifica sede",
+    "برانچ میں ترمیم"
+  ],
+  "Edit manager account": [
+    "Editar cuenta de gerente",
+    "Editar conta de gerente",
+    "Managerkonto bearbeiten",
+    "Modifier le compte responsable",
+    "Modifica account responsabile",
+    "مینیجر اکاؤنٹ میں ترمیم"
+  ],
+  "Edit staff": [
+    "Editar personal",
+    "Editar funcionário",
+    "Mitarbeiter bearbeiten",
+    "Modifier le personnel",
+    "Modifica personale",
+    "عملے میں ترمیم"
+  ],
+  "Edit staff access": [
+    "Editar acceso del personal",
+    "Editar acesso da equipe",
+    "Mitarbeiterzugriff bearbeiten",
+    "Modifier l’accès du personnel",
+    "Modifica accesso personale",
+    "عملے کی رسائی میں ترمیم"
+  ],
+  "Save account": [
+    "Guardar cuenta",
+    "Salvar conta",
+    "Konto speichern",
+    "Enregistrer le compte",
+    "Salva account",
+    "اکاؤنٹ محفوظ کریں"
+  ],
+  "Save branch": [
+    "Guardar sucursal",
+    "Salvar unidade",
+    "Filiale speichern",
+    "Enregistrer l’établissement",
+    "Salva sede",
+    "برانچ محفوظ کریں"
+  ],
+  "Save staff": [
+    "Guardar personal",
+    "Salvar funcionário",
+    "Mitarbeiter speichern",
+    "Enregistrer le personnel",
+    "Salva personale",
+    "عملہ محفوظ کریں"
+  ],
+  "Save changes": [
+    "Guardar cambios",
+    "Salvar alterações",
+    "Änderungen speichern",
+    "Enregistrer",
+    "Salva modifiche",
+    "تبدیلیاں محفوظ کریں"
+  ],
+  "Saving…": [
+    "Guardando…",
+    "Salvando…",
+    "Speichern…",
+    "Enregistrement…",
+    "Salvataggio…",
+    "محفوظ ہو رہا ہے…"
+  ],
+  "Remove": [
+    "Eliminar",
+    "Remover",
+    "Entfernen",
+    "Retirer",
+    "Rimuovi",
+    "ہٹائیں"
+  ],
+  "Remove account": [
+    "Eliminar cuenta",
+    "Remover conta",
+    "Konto entfernen",
+    "Retirer le compte",
+    "Rimuovi account",
+    "اکاؤنٹ ہٹائیں"
+  ],
+  "Remove manager account": [
+    "Eliminar cuenta de gerente",
+    "Remover conta de gerente",
+    "Managerkonto entfernen",
+    "Retirer le compte responsable",
+    "Rimuovi account responsabile",
+    "مینیجر اکاؤنٹ ہٹائیں"
+  ],
+  "Delete account": [
+    "Eliminar cuenta",
+    "Excluir conta",
+    "Konto löschen",
+    "Supprimer le compte",
+    "Elimina account",
+    "اکاؤنٹ حذف کریں"
+  ],
+  "Cancel": [
+    "Cancelar",
+    "Cancelar",
+    "Abbrechen",
+    "Annuler",
+    "Annulla",
+    "منسوخ کریں"
+  ],
+  "Cancel edit": [
+    "Cancelar edición",
+    "Cancelar edição",
+    "Bearbeitung abbrechen",
+    "Annuler la modification",
+    "Annulla modifica",
+    "ترمیم منسوخ کریں"
+  ],
+  "Confirm": [
+    "Confirmar",
+    "Confirmar",
+    "Bestätigen",
+    "Confirmer",
+    "Conferma",
+    "تصدیق کریں"
+  ],
+  "Retry": [
+    "Reintentar",
+    "Tentar novamente",
+    "Erneut versuchen",
+    "Réessayer",
+    "Riprova",
+    "دوبارہ کوشش کریں"
+  ],
+  "Try again": [
+    "Reintentar",
+    "Tentar novamente",
+    "Erneut versuchen",
+    "Réessayer",
+    "Riprova",
+    "دوبارہ کوشش کریں"
+  ],
+  "Apply": [
+    "Aplicar",
+    "Aplicar",
+    "Anwenden",
+    "Appliquer",
+    "Applica",
+    "لاگو کریں"
+  ],
+  "Loading administration…": [
+    "Cargando administración…",
+    "Carregando administração…",
+    "Verwaltung wird geladen…",
+    "Chargement de l’administration…",
+    "Caricamento amministrazione…",
+    "انتظام لوڈ ہو رہا ہے…"
+  ],
+  "Loading branches and staff…": [
+    "Cargando sucursales y personal…",
+    "Carregando unidades e equipe…",
+    "Filialen und Mitarbeiter werden geladen…",
+    "Chargement des établissements et du personnel…",
+    "Caricamento sedi e personale…",
+    "برانچیں اور عملہ لوڈ ہو رہے ہیں…"
+  ],
+  "Loading customers…": [
+    "Cargando clientes…",
+    "Carregando clientes…",
+    "Kunden werden geladen…",
+    "Chargement des clients…",
+    "Caricamento clienti…",
+    "گاہک لوڈ ہو رہے ہیں…"
+  ],
+  "Loading profile…": [
+    "Cargando perfil…",
+    "Carregando perfil…",
+    "Profil wird geladen…",
+    "Chargement du profil…",
+    "Caricamento profilo…",
+    "پروفائل لوڈ ہو رہا ہے…"
+  ],
+  "Loading restaurant…": [
+    "Cargando restaurante…",
+    "Carregando restaurante…",
+    "Restaurant wird geladen…",
+    "Chargement du restaurant…",
+    "Caricamento ristorante…",
+    "ریستوران لوڈ ہو رہا ہے…"
+  ],
+  "Search accounts": [
+    "Buscar cuentas",
+    "Buscar contas",
+    "Konten suchen",
+    "Rechercher des comptes",
+    "Cerca account",
+    "اکاؤنٹس تلاش کریں"
+  ],
+  "Search by name or email": [
+    "Buscar por nombre o correo",
+    "Buscar por nome ou e-mail",
+    "Nach Name oder E-Mail suchen",
+    "Rechercher par nom ou e-mail",
+    "Cerca per nome o email",
+    "نام یا ای میل سے تلاش کریں"
+  ],
+  "Search by name or phone": [
+    "Buscar por nombre o teléfono",
+    "Buscar por nome ou telefone",
+    "Nach Name oder Telefon suchen",
+    "Rechercher par nom ou téléphone",
+    "Cerca per nome o telefono",
+    "نام یا فون سے تلاش کریں"
+  ],
+  "Search customers": [
+    "Buscar clientes",
+    "Buscar clientes",
+    "Kunden suchen",
+    "Rechercher des clients",
+    "Cerca clienti",
+    "گاہک تلاش کریں"
+  ],
+  "Search guests": [
+    "Buscar invitados",
+    "Buscar convidados",
+    "Gäste suchen",
+    "Rechercher des clients",
+    "Cerca ospiti",
+    "مہمان تلاش کریں"
+  ],
+  "Search guests…": [
+    "Buscar invitados…",
+    "Buscar convidados…",
+    "Gäste suchen…",
+    "Rechercher des clients…",
+    "Cerca ospiti…",
+    "مہمان تلاش کریں…"
+  ],
+  "No accounts match your search.": [
+    "No hay cuentas que coincidan.",
+    "Nenhuma conta encontrada.",
+    "Keine passenden Konten.",
+    "Aucun compte correspondant.",
+    "Nessun account trovato.",
+    "کوئی اکاؤنٹ نہیں ملا۔"
+  ],
+  "No assigned branches": [
+    "Sin sucursales asignadas",
+    "Sem unidades atribuídas",
+    "Keine Filialen zugewiesen",
+    "Aucun établissement attribué",
+    "Nessuna sede assegnata",
+    "کوئی برانچ مقرر نہیں"
+  ],
+  "No staff accounts yet.": [
+    "Aún no hay cuentas de personal.",
+    "Nenhuma conta da equipe ainda.",
+    "Noch keine Mitarbeiterkonten.",
+    "Aucun compte personnel.",
+    "Nessun account del personale.",
+    "ابھی عملے کے اکاؤنٹس نہیں ہیں۔"
+  ],
+  "Your profile": [
+    "Tu perfil",
+    "Seu perfil",
+    "Ihr Profil",
+    "Votre profil",
+    "Il tuo profilo",
+    "آپ کی پروفائل"
+  ],
+  "Your name": [
+    "Tu nombre",
+    "Seu nome",
+    "Ihr Name",
+    "Votre nom",
+    "Il tuo nome",
+    "آپ کا نام"
+  ],
+  "Name": ["Nombre", "Nome", "Name", "Nom", "Nome", "نام"],
+  "Name (optional)": [
+    "Nombre (opcional)",
+    "Nome (opcional)",
+    "Name (optional)",
+    "Nom (facultatif)",
+    "Nome (facoltativo)",
+    "نام (اختیاری)"
+  ],
+  "Full name": [
+    "Nombre completo",
+    "Nome completo",
+    "Vollständiger Name",
+    "Nom complet",
+    "Nome completo",
+    "پورا نام"
+  ],
+  "Email": [
+    "Correo electrónico",
+    "E-mail",
+    "E-Mail",
+    "E-mail",
+    "Email",
+    "ای میل"
+  ],
+  "Email (optional)": [
+    "Correo (opcional)",
+    "E-mail (opcional)",
+    "E-Mail (optional)",
+    "E-mail (facultatif)",
+    "Email (facoltativa)",
+    "ای میل (اختیاری)"
+  ],
+  "Email address": [
+    "Dirección de correo",
+    "Endereço de e-mail",
+    "E-Mail-Adresse",
+    "Adresse e-mail",
+    "Indirizzo email",
+    "ای میل پتہ"
+  ],
+  "Password": [
+    "Contraseña",
+    "Senha",
+    "Passwort",
+    "Mot de passe",
+    "Password",
+    "پاس ورڈ"
+  ],
+  "Your password": [
+    "Tu contraseña",
+    "Sua senha",
+    "Ihr Passwort",
+    "Votre mot de passe",
+    "La tua password",
+    "آپ کا پاس ورڈ"
+  ],
+  "Phone": ["Teléfono", "Telefone", "Telefon", "Téléphone", "Telefono", "فون"],
+  "Phone (optional)": [
+    "Teléfono (opcional)",
+    "Telefone (opcional)",
+    "Telefon (optional)",
+    "Téléphone (facultatif)",
+    "Telefono (facoltativo)",
+    "فون (اختیاری)"
+  ],
+  "Phone number": [
+    "Número de teléfono",
+    "Número de telefone",
+    "Telefonnummer",
+    "Numéro de téléphone",
+    "Numero di telefono",
+    "فون نمبر"
+  ],
+  "Mobile number": [
+    "Número de móvil",
+    "Número de celular",
+    "Mobilnummer",
+    "Numéro de portable",
+    "Numero di cellulare",
+    "موبائل نمبر"
+  ],
+  "Country": ["País", "País", "Land", "Pays", "Paese", "ملک"],
+  "Notes": ["Notas", "Notas", "Notizen", "Notes", "Note", "نوٹس"],
+  "Notes (optional)": [
+    "Notas (opcional)",
+    "Notas (opcional)",
+    "Notizen (optional)",
+    "Notes (facultatif)",
+    "Note (facoltative)",
+    "نوٹس (اختیاری)"
+  ],
+  "Internal customer notes": [
+    "Notas internas del cliente",
+    "Notas internas do cliente",
+    "Interne Kundennotizen",
+    "Notes internes du client",
+    "Note interne cliente",
+    "گاہک کے اندرونی نوٹس"
+  ],
+  "optional": [
+    "opcional",
+    "opcional",
+    "optional",
+    "facultatif",
+    "facoltativo",
+    "اختیاری"
+  ],
+  "optional if you provide a mobile": [
+    "opcional si indicas un móvil",
+    "opcional se informar celular",
+    "optional bei Angabe einer Mobilnummer",
+    "facultatif si un portable est fourni",
+    "facoltativa se fornisci un cellulare",
+    "موبائل نمبر دینے پر اختیاری"
+  ],
+  "with country code": [
+    "con código de país",
+    "com código do país",
+    "mit Ländervorwahl",
+    "avec indicatif pays",
+    "con prefisso internazionale",
+    "ملکی کوڈ کے ساتھ"
+  ],
+  "private to your team": [
+    "privado para tu equipo",
+    "privado para sua equipe",
+    "nur für Ihr Team",
+    "privé pour votre équipe",
+    "privato per il tuo team",
+    "صرف آپ کی ٹیم کے لیے"
+  ],
+  "Profile picture": [
+    "Foto de perfil",
+    "Foto de perfil",
+    "Profilbild",
+    "Photo de profil",
+    "Foto del profilo",
+    "پروفائل تصویر"
+  ],
+  "Upload picture": [
+    "Subir imagen",
+    "Enviar imagem",
+    "Bild hochladen",
+    "Importer une photo",
+    "Carica foto",
+    "تصویر اپ لوڈ کریں"
+  ],
+  "Verified": [
+    "Verificado",
+    "Verificado",
+    "Bestätigt",
+    "Vérifié",
+    "Verificato",
+    "تصدیق شدہ"
+  ],
+  "Verify": [
+    "Verificar",
+    "Verificar",
+    "Bestätigen",
+    "Vérifier",
+    "Verifica",
+    "تصدیق کریں"
+  ],
+  "Send verification code": [
+    "Enviar código",
+    "Enviar código",
+    "Code senden",
+    "Envoyer le code",
+    "Invia codice",
+    "تصدیقی کوڈ بھیجیں"
+  ],
+  "Verification code": [
+    "Código de verificación",
+    "Código de verificação",
+    "Bestätigungscode",
+    "Code de vérification",
+    "Codice di verifica",
+    "تصدیقی کوڈ"
+  ],
+  "Today": ["Hoy", "Hoje", "Heute", "Aujourd’hui", "Oggi", "آج"],
+  "Yesterday": ["Ayer", "Ontem", "Gestern", "Hier", "Ieri", "گزشتہ روز"],
+  "Last 7 days": [
+    "Últimos 7 días",
+    "Últimos 7 dias",
+    "Letzte 7 Tage",
+    "7 derniers jours",
+    "Ultimi 7 giorni",
+    "گزشتہ ۷ دن"
+  ],
+  "Last 30 days": [
+    "Últimos 30 días",
+    "Últimos 30 dias",
+    "Letzte 30 Tage",
+    "30 derniers jours",
+    "Ultimi 30 giorni",
+    "گزشتہ ۳۰ دن"
+  ],
+  "Last 60 days": [
+    "Últimos 60 días",
+    "Últimos 60 dias",
+    "Letzte 60 Tage",
+    "60 derniers jours",
+    "Ultimi 60 giorni",
+    "گزشتہ ۶۰ دن"
+  ],
+  "Last 90 days": [
+    "Últimos 90 días",
+    "Últimos 90 dias",
+    "Letzte 90 Tage",
+    "90 derniers jours",
+    "Ultimi 90 giorni",
+    "گزشتہ ۹۰ دن"
+  ],
+  "Last 365 days": [
+    "Últimos 365 días",
+    "Últimos 365 dias",
+    "Letzte 365 Tage",
+    "365 derniers jours",
+    "Ultimi 365 giorni",
+    "گزشتہ ۳۶۵ دن"
+  ],
+  "Last visit": [
+    "Última visita",
+    "Última visita",
+    "Letzter Besuch",
+    "Dernière visite",
+    "Ultima visita",
+    "آخری آمد"
+  ],
+  "All time": [
+    "Todo el tiempo",
+    "Todo o período",
+    "Gesamter Zeitraum",
+    "Toute la période",
+    "Tutto il periodo",
+    "تمام وقت"
+  ],
+  "Today + active": [
+    "Hoy + activos",
+    "Hoje + ativos",
+    "Heute + aktive",
+    "Aujourd’hui + actifs",
+    "Oggi + attivi",
+    "آج اور فعال"
+  ],
+  "Start date": [
+    "Fecha inicial",
+    "Data inicial",
+    "Startdatum",
+    "Date de début",
+    "Data iniziale",
+    "شروع کی تاریخ"
+  ],
+  "End date": [
+    "Fecha final",
+    "Data final",
+    "Enddatum",
+    "Date de fin",
+    "Data finale",
+    "اختتام کی تاریخ"
+  ],
+  "Custom dates": [
+    "Fechas personalizadas",
+    "Datas personalizadas",
+    "Eigene Daten",
+    "Dates personnalisées",
+    "Date personalizzate",
+    "اپنی تاریخیں"
+  ],
+  "Previous month": [
+    "Mes anterior",
+    "Mês anterior",
+    "Vorheriger Monat",
+    "Mois précédent",
+    "Mese precedente",
+    "پچھلا مہینہ"
+  ],
+  "Next month": [
+    "Mes siguiente",
+    "Próximo mês",
+    "Nächster Monat",
+    "Mois suivant",
+    "Mese successivo",
+    "اگلا مہینہ"
+  ],
+  "Select date range": [
+    "Seleccionar fechas",
+    "Selecionar período",
+    "Zeitraum wählen",
+    "Choisir la période",
+    "Seleziona periodo",
+    "تاریخوں کی حد منتخب کریں"
+  ],
+  "Customer": ["Cliente", "Cliente", "Kunde", "Client", "Cliente", "گاہک"],
+  "Customer branch": [
+    "Sucursal del cliente",
+    "Unidade do cliente",
+    "Kundenfiliale",
+    "Établissement du client",
+    "Sede cliente",
+    "گاہک کی برانچ"
+  ],
+  "Customer directory": [
+    "Directorio de clientes",
+    "Diretório de clientes",
+    "Kundenverzeichnis",
+    "Répertoire des clients",
+    "Elenco clienti",
+    "گاہکوں کی فہرست"
+  ],
+  "Customer details": [
+    "Datos del cliente",
+    "Detalhes do cliente",
+    "Kundendetails",
+    "Détails du client",
+    "Dettagli cliente",
+    "گاہک کی تفصیلات"
+  ],
+  "Customer date range": [
+    "Fechas de clientes",
+    "Período dos clientes",
+    "Kundenzeitraum",
+    "Période des clients",
+    "Periodo clienti",
+    "گاہکوں کی تاریخوں کی حد"
+  ],
+  "Customer visit source": [
+    "Origen de visitas",
+    "Origem das visitas",
+    "Besuchsquelle",
+    "Origine des visites",
+    "Origine delle visite",
+    "گاہک کی آمد کا ذریعہ"
+  ],
+  "Activity": [
+    "Actividad",
+    "Atividade",
+    "Aktivität",
+    "Activité",
+    "Attività",
+    "سرگرمی"
+  ],
+  "Total visits": [
+    "Visitas totales",
+    "Total de visitas",
+    "Besuche insgesamt",
+    "Total des visites",
+    "Visite totali",
+    "کل آمد"
+  ],
+  "No-show": [
+    "Ausente",
+    "Não compareceu",
+    "Nicht erschienen",
+    "Absent",
+    "Assente",
+    "نہ آنے والا"
+  ],
+  "Showed": [
+    "Asistió",
+    "Compareceu",
+    "Erschienen",
+    "Présent",
+    "Presente",
+    "آ گیا"
+  ],
+  "Mark no-show": [
+    "Marcar ausente",
+    "Marcar ausência",
+    "Als nicht erschienen markieren",
+    "Marquer absent",
+    "Segna assente",
+    "نہ آنے والا نشان زد کریں"
+  ],
+  "Sort": ["Ordenar", "Ordenar", "Sortieren", "Trier", "Ordina", "ترتیب"],
+  "Sort customers": [
+    "Ordenar clientes",
+    "Ordenar clientes",
+    "Kunden sortieren",
+    "Trier les clients",
+    "Ordina clienti",
+    "گاہکوں کو ترتیب دیں"
+  ],
+  "Sort ascending": [
+    "Orden ascendente",
+    "Ordem crescente",
+    "Aufsteigend sortieren",
+    "Ordre croissant",
+    "Ordine crescente",
+    "بڑھتی ترتیب"
+  ],
+  "Sort descending": [
+    "Orden descendente",
+    "Ordem decrescente",
+    "Absteigend sortieren",
+    "Ordre décroissant",
+    "Ordine decrescente",
+    "گھٹتی ترتیب"
+  ],
+  "Next visit (no bookings)": [
+    "Próxima visita (sin reservas)",
+    "Próxima visita (sem reservas)",
+    "Nächster Besuch (keine Buchungen)",
+    "Prochaine visite (sans réservations)",
+    "Prossima visita (senza prenotazioni)",
+    "اگلی آمد (کوئی بکنگ نہیں)"
+  ],
+  "Priority": [
+    "Prioridad",
+    "Prioridade",
+    "Priorität",
+    "Priorité",
+    "Priorità",
+    "ترجیح"
+  ],
+  "Priority filter": [
+    "Filtro de prioridad",
+    "Filtro de prioridade",
+    "Prioritätsfilter",
+    "Filtre de priorité",
+    "Filtro priorità",
+    "ترجیح کا فلٹر"
+  ],
+  "Had a priority visit": [
+    "Tuvo visita prioritaria",
+    "Teve visita prioritária",
+    "Mit Prioritätsbesuch",
+    "Avec visite prioritaire",
+    "Con visita prioritaria",
+    "ترجیحی آمد ہوئی"
+  ],
+  "No priority visits": [
+    "Sin visitas prioritarias",
+    "Sem visitas prioritárias",
+    "Keine Prioritätsbesuche",
+    "Sans visites prioritaires",
+    "Nessuna visita prioritaria",
+    "ترجیحی آمد نہیں ہوئی"
+  ],
+  "Any": ["Cualquiera", "Qualquer", "Alle", "Tous", "Qualsiasi", "کوئی بھی"],
+  "Marketing": [
+    "Marketing",
+    "Marketing",
+    "Marketing",
+    "Marketing",
+    "Marketing",
+    "تشہیر"
+  ],
+  "Marketing consent": [
+    "Consentimiento de marketing",
+    "Consentimento de marketing",
+    "Marketingeinwilligung",
+    "Consentement marketing",
+    "Consenso marketing",
+    "تشہیر کی اجازت"
+  ],
+  "Marketing consent filter": [
+    "Filtro de consentimiento",
+    "Filtro de consentimento",
+    "Einwilligungsfilter",
+    "Filtre de consentement",
+    "Filtro consenso",
+    "تشہیری اجازت کا فلٹر"
+  ],
+  "Granted": [
+    "Concedido",
+    "Concedido",
+    "Erteilt",
+    "Accordé",
+    "Concesso",
+    "اجازت دی گئی"
+  ],
+  "Not granted": [
+    "No concedido",
+    "Não concedido",
+    "Nicht erteilt",
+    "Non accordé",
+    "Non concesso",
+    "اجازت نہیں دی گئی"
+  ],
+  "Export CSV": [
+    "Exportar CSV",
+    "Exportar CSV",
+    "CSV exportieren",
+    "Exporter CSV",
+    "Esporta CSV",
+    "سی ایس وی برآمد کریں"
+  ],
+  "Exporting…": [
+    "Exportando…",
+    "Exportando…",
+    "Exportieren…",
+    "Exportation…",
+    "Esportazione…",
+    "برآمد ہو رہا ہے…"
+  ],
+  "No customers match.": [
+    "No hay clientes coincidentes.",
+    "Nenhum cliente encontrado.",
+    "Keine passenden Kunden.",
+    "Aucun client correspondant.",
+    "Nessun cliente trovato.",
+    "کوئی گاہک نہیں ملا۔"
+  ],
+  "Unnamed customer": [
+    "Cliente sin nombre",
+    "Cliente sem nome",
+    "Unbenannter Kunde",
+    "Client sans nom",
+    "Cliente senza nome",
+    "بے نام گاہک"
+  ],
+  "Guest name": [
+    "Nombre del invitado",
+    "Nome do convidado",
+    "Gastname",
+    "Nom du client",
+    "Nome ospite",
+    "مہمان کا نام"
+  ],
+  "Guest queue": [
+    "Cola de invitados",
+    "Fila de convidados",
+    "Gästewarteschlange",
+    "File des clients",
+    "Coda ospiti",
+    "مہمانوں کی قطار"
+  ],
+  "Guest view": [
+    "Vista del invitado",
+    "Visão do convidado",
+    "Gastansicht",
+    "Vue du client",
+    "Vista ospite",
+    "مہمان کا منظر"
+  ],
+  "Add guest": [
+    "Añadir invitado",
+    "Adicionar convidado",
+    "Gast hinzufügen",
+    "Ajouter un client",
+    "Aggiungi ospite",
+    "مہمان شامل کریں"
+  ],
+  "Add to queue": [
+    "Añadir a la cola",
+    "Adicionar à fila",
+    "Zur Warteschlange hinzufügen",
+    "Ajouter à la file",
+    "Aggiungi alla coda",
+    "قطار میں شامل کریں"
+  ],
+  "Add your first guest": [
+    "Añadir tu primer invitado",
+    "Adicionar seu primeiro convidado",
+    "Ersten Gast hinzufügen",
+    "Ajouter votre premier client",
+    "Aggiungi il primo ospite",
+    "پہلا مہمان شامل کریں"
+  ],
+  "Edit guest": [
+    "Editar invitado",
+    "Editar convidado",
+    "Gast bearbeiten",
+    "Modifier le client",
+    "Modifica ospite",
+    "مہمان میں ترمیم"
+  ],
+  "Call guest": [
+    "Avisar al invitado",
+    "Chamar convidado",
+    "Gast aufrufen",
+    "Appeler le client",
+    "Chiama ospite",
+    "مہمان کو بلائیں"
+  ],
+  "Call this guest": [
+    "Avisar a este invitado",
+    "Chamar este convidado",
+    "Diesen Gast aufrufen",
+    "Appeler ce client",
+    "Chiama questo ospite",
+    "اس مہمان کو بلائیں"
+  ],
+  "Seat guest": [
+    "Sentar al invitado",
+    "Acomodar convidado",
+    "Gast platzieren",
+    "Installer le client",
+    "Accompagna al tavolo",
+    "مہمان کو بٹھائیں"
+  ],
+  "Free table": [
+    "Liberar mesa",
+    "Liberar mesa",
+    "Tisch freigeben",
+    "Libérer la table",
+    "Libera tavolo",
+    "میز خالی کریں"
+  ],
+  "Cancel visit": [
+    "Cancelar visita",
+    "Cancelar visita",
+    "Besuch stornieren",
+    "Annuler la visite",
+    "Annulla visita",
+    "آمد منسوخ کریں"
+  ],
+  "Delete guest record": [
+    "Eliminar registro del invitado",
+    "Excluir registro do convidado",
+    "Gastdatensatz löschen",
+    "Supprimer la fiche client",
+    "Elimina scheda ospite",
+    "مہمان کا ریکارڈ حذف کریں"
+  ],
+  "Keep guest": [
+    "Conservar invitado",
+    "Manter convidado",
+    "Gast behalten",
+    "Garder le client",
+    "Mantieni ospite",
+    "مہمان کو برقرار رکھیں"
+  ],
+  "Return to waiting queue": [
+    "Volver a la cola",
+    "Voltar à fila",
+    "Zur Warteschlange zurück",
+    "Retourner dans la file",
+    "Torna in coda",
+    "واپس قطار میں بھیجیں"
+  ],
+  "Waiting": [
+    "Esperando",
+    "Aguardando",
+    "Wartend",
+    "En attente",
+    "In attesa",
+    "منتظر"
+  ],
+  "Notified": [
+    "Avisado",
+    "Notificado",
+    "Benachrichtigt",
+    "Prévenu",
+    "Avvisato",
+    "مطلع کیا گیا"
+  ],
+  "Table ready": [
+    "Mesa lista",
+    "Mesa pronta",
+    "Tisch bereit",
+    "Table prête",
+    "Tavolo pronto",
+    "میز تیار ہے"
+  ],
+  "Seated": [
+    "Sentado",
+    "Acomodado",
+    "Platziert",
+    "Installé",
+    "Al tavolo",
+    "بیٹھ گیا"
+  ],
+  "Cancelled": [
+    "Cancelado",
+    "Cancelado",
+    "Storniert",
+    "Annulé",
+    "Annullato",
+    "منسوخ شدہ"
+  ],
+  "All guests": [
+    "Todos los invitados",
+    "Todos os convidados",
+    "Alle Gäste",
+    "Tous les clients",
+    "Tutti gli ospiti",
+    "تمام مہمان"
+  ],
+  "Completed": [
+    "Completado",
+    "Concluído",
+    "Abgeschlossen",
+    "Terminé",
+    "Completato",
+    "مکمل"
+  ],
+  "Joined": [
+    "Inscrito",
+    "Entrou",
+    "Angemeldet",
+    "Inscrit",
+    "Iscritto",
+    "شامل ہوا"
+  ],
+  "Waiting guests": [
+    "Invitados esperando",
+    "Convidados aguardando",
+    "Wartende Gäste",
+    "Clients en attente",
+    "Ospiti in attesa",
+    "منتظر مہمان"
+  ],
+  "Estimated wait": [
+    "Espera estimada",
+    "Espera estimada",
+    "Geschätzte Wartezeit",
+    "Attente estimée",
+    "Attesa stimata",
+    "متوقع انتظار"
+  ],
+  "Tables ready": [
+    "Mesas listas",
+    "Mesas prontas",
+    "Bereite Tische",
+    "Tables prêtes",
+    "Tavoli pronti",
+    "تیار میزیں"
+  ],
+  "Seated today": [
+    "Sentados hoy",
+    "Acomodados hoje",
+    "Heute platziert",
+    "Installés aujourd’hui",
+    "Al tavolo oggi",
+    "آج بٹھائے گئے"
+  ],
+  "Occupancy": [
+    "Ocupación",
+    "Ocupação",
+    "Auslastung",
+    "Occupation",
+    "Occupazione",
+    "استعمال شدہ نشستیں"
+  ],
+  "Guest": ["Invitado", "Convidado", "Gast", "Client", "Ospite", "مہمان"],
+  "Party size": [
+    "Tamaño del grupo",
+    "Tamanho do grupo",
+    "Gruppengröße",
+    "Taille du groupe",
+    "Dimensione del gruppo",
+    "گروپ کا حجم"
+  ],
+  "Increase party size": [
+    "Aumentar grupo",
+    "Aumentar grupo",
+    "Gruppengröße erhöhen",
+    "Augmenter le groupe",
+    "Aumenta gruppo",
+    "گروپ کا حجم بڑھائیں"
+  ],
+  "Decrease party size": [
+    "Reducir grupo",
+    "Diminuir grupo",
+    "Gruppengröße verringern",
+    "Réduire le groupe",
+    "Riduci gruppo",
+    "گروپ کا حجم کم کریں"
+  ],
+  "Walk-in guest": [
+    "Invitado sin reserva",
+    "Convidado sem reserva",
+    "Gast ohne Reservierung",
+    "Client sans réservation",
+    "Ospite senza prenotazione",
+    "بغیر بکنگ مہمان"
+  ],
+  "Alert sent": [
+    "Aviso enviado",
+    "Aviso enviado",
+    "Benachrichtigung gesendet",
+    "Alerte envoyée",
+    "Avviso inviato",
+    "اطلاع بھیج دی گئی"
+  ],
+  "Delivery failed — contact guest": [
+    "Envío fallido — contacta al invitado",
+    "Falha no envio — contate o convidado",
+    "Versand fehlgeschlagen — Gast kontaktieren",
+    "Échec d’envoi — contactez le client",
+    "Invio fallito — contatta ospite",
+    "اطلاع نہیں پہنچی — مہمان سے رابطہ کریں"
+  ],
+  "Not enough free seats": [
+    "No hay asientos suficientes",
+    "Não há lugares suficientes",
+    "Nicht genug freie Plätze",
+    "Pas assez de places libres",
+    "Posti liberi insufficienti",
+    "خالی نشستیں کافی نہیں"
+  ],
+  "No guests found.": [
+    "No se encontraron invitados.",
+    "Nenhum convidado encontrado.",
+    "Keine Gäste gefunden.",
+    "Aucun client trouvé.",
+    "Nessun ospite trovato.",
+    "کوئی مہمان نہیں ملا۔"
+  ],
+  "Nothing here just yet.": [
+    "Aún no hay registros.",
+    "Ainda não há registros.",
+    "Noch keine Einträge.",
+    "Aucune entrée pour l’instant.",
+    "Nessun dato ancora.",
+    "ابھی کوئی ریکارڈ نہیں۔"
+  ],
+  "Updated live": [
+    "Actualizado en vivo",
+    "Atualizado ao vivo",
+    "Live aktualisiert",
+    "Mis à jour en direct",
+    "Aggiornato in tempo reale",
+    "براہ راست تازہ کاری"
+  ],
+  "Updates live": [
+    "Se actualiza en vivo",
+    "Atualiza ao vivo",
+    "Live-Aktualisierung",
+    "Actualisation en direct",
+    "Aggiornamenti in tempo reale",
+    "براہ راست تازہ کاری"
+  ],
+  "Live updates": [
+    "Actualizaciones en vivo",
+    "Atualizações ao vivo",
+    "Live-Aktualisierungen",
+    "Mises à jour en direct",
+    "Aggiornamenti in tempo reale",
+    "براہ راست تازہ کاریاں"
+  ],
+  "Live status updated": [
+    "Estado actualizado",
+    "Status atualizado",
+    "Status aktualisiert",
+    "Statut actualisé",
+    "Stato aggiornato",
+    "حیثیت تازہ کر دی گئی"
+  ],
+  "Dismiss error": [
+    "Cerrar error",
+    "Fechar erro",
+    "Fehler schließen",
+    "Fermer l’erreur",
+    "Chiudi errore",
+    "خرابی کا پیغام ہٹائیں"
+  ],
+  "Dismiss guest link": [
+    "Cerrar enlace del invitado",
+    "Fechar link do convidado",
+    "Gastlink schließen",
+    "Fermer le lien client",
+    "Chiudi link ospite",
+    "مہمان کا لنک ہٹائیں"
+  ],
+  "Close dialog": [
+    "Cerrar ventana",
+    "Fechar janela",
+    "Dialog schließen",
+    "Fermer la fenêtre",
+    "Chiudi finestra",
+    "مکالمہ بند کریں"
+  ],
+  "Open navigation": [
+    "Abrir navegación",
+    "Abrir navegação",
+    "Navigation öffnen",
+    "Ouvrir la navigation",
+    "Apri navigazione",
+    "نیویگیشن کھولیں"
+  ],
+  "Close navigation": [
+    "Cerrar navegación",
+    "Fechar navegação",
+    "Navigation schließen",
+    "Fermer la navigation",
+    "Chiudi navigazione",
+    "نیویگیشن بند کریں"
+  ],
+  "Queue actions": [
+    "Acciones de cola",
+    "Ações da fila",
+    "Warteschlangenaktionen",
+    "Actions de la file",
+    "Azioni della coda",
+    "قطار کی کارروائیاں"
+  ],
+  "Queue date range": [
+    "Fechas de la cola",
+    "Período da fila",
+    "Warteschlangenzeitraum",
+    "Période de la file",
+    "Periodo coda",
+    "قطار کی تاریخوں کی حد"
+  ],
+  "Check-in QR": [
+    "QR de registro",
+    "QR de entrada",
+    "Check-in-QR",
+    "QR d’inscription",
+    "QR di registrazione",
+    "اندراج کا کیو آر"
+  ],
+  "View check-in QR": [
+    "Ver QR de registro",
+    "Ver QR de entrada",
+    "Check-in-QR anzeigen",
+    "Voir le QR d’inscription",
+    "Vedi QR di registrazione",
+    "اندراج کا کیو آر دیکھیں"
+  ],
+  "Get your QR code": [
+    "Obtener código QR",
+    "Obter código QR",
+    "QR-Code erhalten",
+    "Obtenir le code QR",
+    "Ottieni codice QR",
+    "اپنا کیو آر کوڈ حاصل کریں"
+  ],
+  "Download QR": [
+    "Descargar QR",
+    "Baixar QR",
+    "QR herunterladen",
+    "Télécharger le QR",
+    "Scarica QR",
+    "کیو آر ڈاؤن لوڈ کریں"
+  ],
+  "Open check-in": [
+    "Abrir registro",
+    "Abrir entrada",
+    "Check-in öffnen",
+    "Ouvrir l’inscription",
+    "Apri registrazione",
+    "اندراج کھولیں"
+  ],
+  "Open guest link": [
+    "Abrir enlace del invitado",
+    "Abrir link do convidado",
+    "Gastlink öffnen",
+    "Ouvrir le lien client",
+    "Apri link ospite",
+    "مہمان کا لنک کھولیں"
+  ],
+  "Back to check-in": [
+    "Volver al registro",
+    "Voltar à entrada",
+    "Zurück zum Check-in",
+    "Retour à l’inscription",
+    "Torna alla registrazione",
+    "واپس اندراج پر جائیں"
+  ],
+  "Back to workspace": [
+    "Volver al espacio",
+    "Voltar ao espaço",
+    "Zurück zum Arbeitsbereich",
+    "Retour à l’espace",
+    "Torna allo spazio",
+    "واپس ورک اسپیس پر جائیں"
+  ],
+  "Back to TableQ": [
+    "Volver a TableQ",
+    "Voltar ao TableQ",
+    "Zurück zu TableQ",
+    "Retour à TableQ",
+    "Torna a TableQ",
+    "واپس TableQ پر جائیں"
+  ],
+  "Restaurant workspace": [
+    "Espacio del restaurante",
+    "Espaço do restaurante",
+    "Restaurant-Arbeitsbereich",
+    "Espace du restaurant",
+    "Spazio ristorante",
+    "ریستوران کی ورک اسپیس"
+  ],
+  "Restaurant branches": [
+    "Sucursales del restaurante",
+    "Unidades do restaurante",
+    "Restaurantfilialen",
+    "Établissements du restaurant",
+    "Sedi del ristorante",
+    "ریستوران کی برانچیں"
+  ],
+  "Guests welcomed": [
+    "Invitados recibidos",
+    "Convidados recebidos",
+    "Begrüßte Gäste",
+    "Clients accueillis",
+    "Ospiti accolti",
+    "خوش آمدید کیے گئے مہمان"
+  ],
+  "Average wait": [
+    "Espera media",
+    "Espera média",
+    "Durchschnittliche Wartezeit",
+    "Attente moyenne",
+    "Attesa media",
+    "اوسط انتظار"
+  ],
+  "Seating rate": [
+    "Tasa de ocupación",
+    "Taxa de acomodação",
+    "Platzierungsquote",
+    "Taux d’installation",
+    "Tasso di accomodamento",
+    "بٹھانے کی شرح"
+  ],
+  "Walk-aways": [
+    "Abandonos",
+    "Desistências",
+    "Abgänge",
+    "Départs",
+    "Abbandoni",
+    "واپس جانے والے"
+  ],
+  "The guest journey": [
+    "Recorrido del invitado",
+    "Jornada do convidado",
+    "Gastverlauf",
+    "Parcours du client",
+    "Percorso ospite",
+    "مہمان کا سفر"
+  ],
+  "Demand by hour": [
+    "Demanda por hora",
+    "Demanda por hora",
+    "Nachfrage pro Stunde",
+    "Affluence par heure",
+    "Affluenza per ora",
+    "گھنٹے کے لحاظ سے آمد"
+  ],
+  "Demand by weekday": [
+    "Demanda por día",
+    "Demanda por dia",
+    "Nachfrage pro Wochentag",
+    "Affluence par jour",
+    "Affluenza per giorno",
+    "ہفتے کے دن کے لحاظ سے آمد"
+  ],
+  "Wait by party size": [
+    "Espera por tamaño de grupo",
+    "Espera por tamanho do grupo",
+    "Wartezeit nach Gruppengröße",
+    "Attente selon le groupe",
+    "Attesa per dimensione gruppo",
+    "گروپ کے حجم کے لحاظ سے انتظار"
+  ],
+  "Cancelled visits in this period": [
+    "Visitas canceladas en este período",
+    "Visitas canceladas no período",
+    "Stornierte Besuche im Zeitraum",
+    "Visites annulées sur la période",
+    "Visite annullate nel periodo",
+    "اس مدت کی منسوخ آمد"
+  ],
+  "From check-in to table-ready": [
+    "Del registro a la mesa lista",
+    "Da entrada à mesa pronta",
+    "Vom Check-in zum bereiten Tisch",
+    "De l’inscription à la table prête",
+    "Dalla registrazione al tavolo pronto",
+    "اندراج سے میز تیار ہونے تک"
+  ],
+  "Local time · 10 AM to 9 PM": [
+    "Hora local · 10:00 a 21:00",
+    "Horário local · 10h às 21h",
+    "Ortszeit · 10 bis 21 Uhr",
+    "Heure locale · 10 h à 21 h",
+    "Ora locale · 10:00–21:00",
+    "مقامی وقت · صبح ۱۰ سے رات ۹ تک"
+  ],
+  "Total guests during the selected period": [
+    "Invitados en el período seleccionado",
+    "Convidados no período selecionado",
+    "Gäste im ausgewählten Zeitraum",
+    "Clients sur la période choisie",
+    "Ospiti nel periodo selezionato",
+    "منتخب مدت میں کل مہمان"
+  ],
+  "Party size · based on notified guests": [
+    "Tamaño del grupo · invitados avisados",
+    "Tamanho do grupo · convidados notificados",
+    "Gruppengröße · benachrichtigte Gäste",
+    "Taille du groupe · clients prévenus",
+    "Dimensione gruppo · ospiti avvisati",
+    "گروپ کا حجم · مطلع مہمانوں کی بنیاد پر"
+  ],
+  "Average minutes from check-in to table-ready.": [
+    "Minutos medios del registro a la mesa.",
+    "Minutos médios da entrada à mesa.",
+    "Durchschnittliche Minuten vom Check-in bis zum Tisch.",
+    "Minutes moyennes de l’inscription à la table.",
+    "Minuti medi dalla registrazione al tavolo.",
+    "اندراج سے میز تیار ہونے تک اوسط منٹ۔"
+  ],
+  "{value0} parties joined": [
+    "{value0} grupos inscritos",
+    "{value0} grupos entraram",
+    "{value0} Gruppen angemeldet",
+    "{value0} groupes inscrits",
+    "{value0} gruppi iscritti",
+    "{value0} گروپ شامل ہوئے"
+  ],
+  "{value0} parties seated": [
+    "{value0} grupos sentados",
+    "{value0} grupos acomodados",
+    "{value0} Gruppen platziert",
+    "{value0} groupes installés",
+    "{value0} gruppi al tavolo",
+    "{value0} گروپ بٹھائے گئے"
+  ],
+  "{value0}% of notified parties were seated.": [
+    "Se sentó al {value0}% de los grupos avisados.",
+    "{value0}% dos grupos notificados foram acomodados.",
+    "{value0}% der benachrichtigten Gruppen wurden platziert.",
+    "{value0}% des groupes prévenus ont été installés.",
+    "Il {value0}% dei gruppi avvisati è stato accomodato.",
+    "مطلع گروپوں میں سے {value0}٪ کو بٹھایا گیا۔"
+  ],
+  "{value0} / {value1} seats currently occupied": [
+    "{value0} / {value1} asientos ocupados",
+    "{value0} / {value1} lugares ocupados",
+    "{value0} / {value1} Plätze belegt",
+    "{value0} / {value1} places occupées",
+    "{value0} / {value1} posti occupati",
+    "{value0} / {value1} نشستیں استعمال میں ہیں"
+  ],
+  "{value0} seats available in your dining room.": [
+    "{value0} asientos disponibles.",
+    "{value0} lugares disponíveis.",
+    "{value0} Plätze verfügbar.",
+    "{value0} places disponibles.",
+    "{value0} posti disponibili.",
+    "{value0} نشستیں دستیاب ہیں۔"
+  ],
+  "{value0} {value1} in the queue": [
+    "{value0} {value1} en la cola",
+    "{value0} {value1} na fila",
+    "{value0} {value1} in der Warteschlange",
+    "{value0} {value1} dans la file",
+    "{value0} {value1} in coda",
+    "قطار میں {value0} {value1}"
+  ],
+  "Edit {value0}": [
+    "Editar {value0}",
+    "Editar {value0}",
+    "{value0} bearbeiten",
+    "Modifier {value0}",
+    "Modifica {value0}",
+    "{value0} میں ترمیم"
+  ],
+  "Remove {value0}": [
+    "Eliminar {value0}",
+    "Remover {value0}",
+    "{value0} entfernen",
+    "Retirer {value0}",
+    "Rimuovi {value0}",
+    "{value0} ہٹائیں"
+  ],
+  "Cancel {value0}": [
+    "Cancelar {value0}",
+    "Cancelar {value0}",
+    "{value0} stornieren",
+    "Annuler {value0}",
+    "Annulla {value0}",
+    "{value0} منسوخ کریں"
+  ],
+  "Delete {value0}": [
+    "Eliminar {value0}",
+    "Excluir {value0}",
+    "{value0} löschen",
+    "Supprimer {value0}",
+    "Elimina {value0}",
+    "{value0} حذف کریں"
+  ],
+  "Return {value0} to waiting": [
+    "Devolver {value0} a la cola",
+    "Voltar {value0} à fila",
+    "{value0} zurück in die Warteschlange",
+    "Remettre {value0} en attente",
+    "Rimetti {value0} in attesa",
+    "{value0} کو واپس قطار میں بھیجیں"
+  ],
+  "Customer {value0}": [
+    "Cliente {value0}",
+    "Cliente {value0}",
+    "Kunde {value0}",
+    "Client {value0}",
+    "Cliente {value0}",
+    "گاہک {value0}"
+  ],
+  "View customer {value0}": [
+    "Ver cliente {value0}",
+    "Ver cliente {value0}",
+    "Kunde {value0} anzeigen",
+    "Voir le client {value0}",
+    "Vedi cliente {value0}",
+    "گاہک {value0} دیکھیں"
+  ],
+  "Edit customer {value0}": [
+    "Editar cliente {value0}",
+    "Editar cliente {value0}",
+    "Kunde {value0} bearbeiten",
+    "Modifier le client {value0}",
+    "Modifica cliente {value0}",
+    "گاہک {value0} میں ترمیم"
+  ],
+  "{count} customers match": [
+    "{count} clientes coinciden",
+    "{count} clientes correspondem",
+    "{count} Kunden gefunden",
+    "{count} clients correspondent",
+    "{count} clienti corrispondono",
+    "{count} گاہک ملے"
+  ],
+  "{count} customer matches": [
+    "{count} cliente coincide",
+    "{count} cliente corresponde",
+    "{count} Kunde gefunden",
+    "{count} client correspond",
+    "{count} cliente corrisponde",
+    "{count} گاہک ملا"
+  ],
+  "{count} parties shown": [
+    "{count} grupos mostrados",
+    "{count} grupos exibidos",
+    "{count} Gruppen angezeigt",
+    "{count} groupes affichés",
+    "{count} gruppi mostrati",
+    "{count} گروپ دکھائے گئے"
+  ],
+  "{count} party shown": [
+    "{count} grupo mostrado",
+    "{count} grupo exibido",
+    "{count} Gruppe angezeigt",
+    "{count} groupe affiché",
+    "{count} gruppo mostrato",
+    "{count} گروپ دکھایا گیا"
+  ],
+  "{count} parties": [
+    "{count} grupos",
+    "{count} grupos",
+    "{count} Gruppen",
+    "{count} groupes",
+    "{count} gruppi",
+    "{count} گروپ"
+  ],
+  "{count} party": [
+    "{count} grupo",
+    "{count} grupo",
+    "{count} Gruppe",
+    "{count} groupe",
+    "{count} gruppo",
+    "{count} گروپ"
+  ],
+  "people": [
+    "personas",
+    "pessoas",
+    "Personen",
+    "personnes",
+    "persone",
+    "افراد"
+  ],
+  "parties": ["grupos", "grupos", "Gruppen", "groupes", "gruppi", "گروپ"],
+  "party": ["grupo", "grupo", "Gruppe", "groupe", "gruppo", "گروپ"],
+  "guest": ["invitado", "convidado", "Gast", "client", "ospite", "مہمان"],
+  "guests": ["invitados", "convidados", "Gäste", "clients", "ospiti", "مہمان"],
+  "min": ["min", "min", "Min.", "min", "min", "منٹ"],
+  "minutes": ["minutos", "minutos", "Minuten", "minutes", "minuti", "منٹ"],
+  "shown": [
+    "mostrados",
+    "exibidos",
+    "angezeigt",
+    "affichés",
+    "mostrati",
+    "دکھائے گئے"
+  ],
+  "in the queue": [
+    "en la cola",
+    "na fila",
+    "in der Warteschlange",
+    "dans la file",
+    "in coda",
+    "قطار میں"
+  ],
+  "seated parties": [
+    "grupos sentados",
+    "grupos acomodados",
+    "platzierte Gruppen",
+    "groupes installés",
+    "gruppi al tavolo",
+    "بٹھائے گئے گروپ"
+  ],
+  "seats ·": [
+    "asientos ·",
+    "lugares ·",
+    "Plätze ·",
+    "places ·",
+    "posti ·",
+    "نشستیں ·"
+  ],
+  "parties ·": [
+    "grupos ·",
+    "grupos ·",
+    "Gruppen ·",
+    "groupes ·",
+    "gruppi ·",
+    "گروپ ·"
+  ],
+  "guests ·": [
+    "invitados ·",
+    "convidados ·",
+    "Gäste ·",
+    "clients ·",
+    "ospiti ·",
+    "مہمان ·"
+  ],
+  "Check-in is closed": [
+    "Registro cerrado",
+    "Entrada fechada",
+    "Check-in geschlossen",
+    "Inscription fermée",
+    "Registrazione chiusa",
+    "اندراج بند ہے"
+  ],
+  "Check-in is open": [
+    "Registro abierto",
+    "Entrada aberta",
+    "Check-in geöffnet",
+    "Inscription ouverte",
+    "Registrazione aperta",
+    "اندراج کھلا ہے"
+  ],
+  "Join the queue": [
+    "Unirse a la cola",
+    "Entrar na fila",
+    "In die Warteschlange eintragen",
+    "Rejoindre la file",
+    "Entra in coda",
+    "قطار میں شامل ہوں"
+  ],
+  "Join a new visit": [
+    "Registrar nueva visita",
+    "Registrar nova visita",
+    "Neuen Besuch starten",
+    "Nouvelle inscription",
+    "Inizia nuova visita",
+    "نئی آمد درج کریں"
+  ],
+  "How many in your party?": [
+    "¿Cuántos son en tu grupo?",
+    "Quantos no seu grupo?",
+    "Wie viele Personen sind Sie?",
+    "Combien de personnes êtes-vous ?",
+    "Quanti siete nel gruppo?",
+    "آپ کے گروپ میں کتنے افراد ہیں؟"
+  ],
+  "What should we call you?": [
+    "¿Cómo te llamas?",
+    "Como devemos chamar você?",
+    "Wie heißen Sie?",
+    "Comment vous appelez-vous ?",
+    "Come ti chiami?",
+    "آپ کا نام کیا ہے؟"
+  ],
+  "Your position": [
+    "Tu posición",
+    "Sua posição",
+    "Ihre Position",
+    "Votre position",
+    "La tua posizione",
+    "آپ کی باری"
+  ],
+  "Your status": [
+    "Tu estado",
+    "Seu status",
+    "Ihr Status",
+    "Votre statut",
+    "Il tuo stato",
+    "آپ کی حیثیت"
+  ],
+  "Your table is ready.": [
+    "Tu mesa está lista.",
+    "Sua mesa está pronta.",
+    "Ihr Tisch ist bereit.",
+    "Votre table est prête.",
+    "Il tuo tavolo è pronto.",
+    "آپ کی میز تیار ہے۔"
+  ],
+  "You’re on the list, {value0}.": [
+    "Estás en la lista, {value0}.",
+    "Você está na lista, {value0}.",
+    "Sie stehen auf der Liste, {value0}.",
+    "Vous êtes inscrit, {value0}.",
+    "Sei in lista, {value0}.",
+    "{value0}، آپ قطار میں شامل ہیں۔"
+  ],
+  "You’ve left the queue.": [
+    "Has salido de la cola.",
+    "Você saiu da fila.",
+    "Sie haben die Warteschlange verlassen.",
+    "Vous avez quitté la file.",
+    "Hai lasciato la coda.",
+    "آپ قطار سے نکل گئے ہیں۔"
+  ],
+  "Estimated wait: about {value0} minutes": [
+    "Espera estimada: unos {value0} minutos",
+    "Espera estimada: cerca de {value0} minutos",
+    "Geschätzte Wartezeit: etwa {value0} Minuten",
+    "Attente estimée : environ {value0} minutes",
+    "Attesa stimata: circa {value0} minuti",
+    "متوقع انتظار: تقریباً {value0} منٹ"
+  ],
+  "Estimated wait: less than 5 minutes": [
+    "Espera estimada: menos de 5 minutos",
+    "Espera estimada: menos de 5 minutos",
+    "Geschätzte Wartezeit: unter 5 Minuten",
+    "Attente estimée : moins de 5 minutes",
+    "Attesa stimata: meno di 5 minuti",
+    "متوقع انتظار: ۵ منٹ سے کم"
+  ],
+  "Notify me when it’s ready": [
+    "Avísame cuando esté lista",
+    "Avise quando estiver pronta",
+    "Benachrichtigen, wenn bereit",
+    "Prévenez-moi quand c’est prêt",
+    "Avvisami quando è pronto",
+    "میز تیار ہونے پر مطلع کریں"
+  ],
+  "Enabling alerts…": [
+    "Activando avisos…",
+    "Ativando avisos…",
+    "Benachrichtigungen aktivieren…",
+    "Activation des alertes…",
+    "Attivazione avvisi…",
+    "اطلاعات فعال ہو رہی ہیں…"
+  ],
+  "Leave queue": [
+    "Salir de la cola",
+    "Sair da fila",
+    "Warteschlange verlassen",
+    "Quitter la file",
+    "Esci dalla coda",
+    "قطار چھوڑ دیں"
+  ],
+  "Leave the queue?": [
+    "¿Salir de la cola?",
+    "Sair da fila?",
+    "Warteschlange verlassen?",
+    "Quitter la file ?",
+    "Uscire dalla coda?",
+    "قطار چھوڑ دیں؟"
+  ],
+  "Leaving…": [
+    "Saliendo…",
+    "Saindo…",
+    "Verlassen…",
+    "Sortie…",
+    "Uscita…",
+    "قطار چھوڑی جا رہی ہے…"
+  ],
+  "Keep my place": [
+    "Conservar mi lugar",
+    "Manter meu lugar",
+    "Meinen Platz behalten",
+    "Garder ma place",
+    "Mantieni il mio posto",
+    "میری باری برقرار رکھیں"
+  ],
+  "Need to leave? Cancel this visit": [
+    "¿Debes irte? Cancela esta visita",
+    "Precisa sair? Cancele esta visita",
+    "Müssen Sie gehen? Besuch stornieren",
+    "Vous devez partir ? Annulez cette visite",
+    "Devi andare? Annulla la visita",
+    "جانا ہے؟ یہ آمد منسوخ کریں"
+  ],
+  "Saving your place…": [
+    "Guardando tu lugar…",
+    "Salvando seu lugar…",
+    "Platz wird gespeichert…",
+    "Réservation de votre place…",
+    "Salvataggio del posto…",
+    "آپ کی باری محفوظ ہو رہی ہے…"
+  ],
+  "Finding your place…": [
+    "Buscando tu lugar…",
+    "Buscando seu lugar…",
+    "Platz wird gesucht…",
+    "Recherche de votre place…",
+    "Ricerca del posto…",
+    "آپ کی باری تلاش ہو رہی ہے…"
+  ],
+  "Mobile alerts are enabled.": [
+    "Avisos móviles activados.",
+    "Avisos móveis ativados.",
+    "Mobile Benachrichtigungen sind aktiv.",
+    "Alertes mobiles activées.",
+    "Avvisi mobili attivati.",
+    "موبائل اطلاعات فعال ہیں۔"
+  ],
+  "Enjoy your meal.": [
+    "Buen provecho.",
+    "Bom apetite.",
+    "Guten Appetit.",
+    "Bon appétit.",
+    "Buon appetito.",
+    "کھانے سے لطف اندوز ہوں۔"
+  ],
+  "Submit feedback": [
+    "Enviar comentarios",
+    "Enviar feedback",
+    "Feedback senden",
+    "Envoyer un commentaire",
+    "Invia feedback",
+    "رائے بھیجیں"
+  ],
+  "Category": [
+    "Categoría",
+    "Categoria",
+    "Kategorie",
+    "Catégorie",
+    "Categoria",
+    "زمرہ"
+  ],
+  "General feedback or support": [
+    "Comentarios o soporte",
+    "Feedback geral ou suporte",
+    "Allgemeines Feedback oder Support",
+    "Commentaire général ou assistance",
+    "Feedback generale o assistenza",
+    "عام رائے یا مدد"
+  ],
+  "Feature Request": [
+    "Solicitud de función",
+    "Pedido de recurso",
+    "Funktionswunsch",
+    "Demande de fonctionnalité",
+    "Richiesta funzionalità",
+    "نئی سہولت کی درخواست"
+  ],
+  "Billing/Payment issue": [
+    "Problema de facturación/pago",
+    "Problema de cobrança/pagamento",
+    "Abrechnungs-/Zahlungsproblem",
+    "Problème de facturation/paiement",
+    "Problema di fatturazione/pagamento",
+    "بل یا ادائیگی کا مسئلہ"
+  ],
+  "Performance Problems": [
+    "Problemas de rendimiento",
+    "Problemas de desempenho",
+    "Leistungsprobleme",
+    "Problèmes de performance",
+    "Problemi di prestazioni",
+    "کارکردگی کے مسائل"
+  ],
+  "Comment": [
+    "Comentario",
+    "Comentário",
+    "Kommentar",
+    "Commentaire",
+    "Commento",
+    "تبصرہ"
+  ],
+  "Tell us more…": [
+    "Cuéntanos más…",
+    "Conte-nos mais…",
+    "Erzählen Sie mehr…",
+    "Dites-nous en plus…",
+    "Raccontaci di più…",
+    "مزید بتائیں…"
+  ],
+  "Send message": [
+    "Enviar mensaje",
+    "Enviar mensagem",
+    "Nachricht senden",
+    "Envoyer le message",
+    "Invia messaggio",
+    "پیغام بھیجیں"
+  ],
+  "Workspace feedback": [
+    "Comentarios del espacio",
+    "Feedback do espaço",
+    "Workspace-Feedback",
+    "Commentaires de l’espace",
+    "Feedback dello spazio",
+    "ورک اسپیس کی آرا"
+  ],
+  "My messages": [
+    "Mis mensajes",
+    "Minhas mensagens",
+    "Meine Nachrichten",
+    "Mes messages",
+    "I miei messaggi",
+    "میرے پیغامات"
+  ],
+  "Resolved": [
+    "Resuelto",
+    "Resolvido",
+    "Erledigt",
+    "Résolu",
+    "Risolto",
+    "حل شدہ"
+  ],
+  "Open": ["Abierto", "Aberto", "Offen", "Ouvert", "Aperto", "کھلا"],
+  "Mark resolved": [
+    "Marcar resuelto",
+    "Marcar resolvido",
+    "Als erledigt markieren",
+    "Marquer comme résolu",
+    "Segna risolto",
+    "حل شدہ نشان زد کریں"
+  ],
+  "Reopen": [
+    "Reabrir",
+    "Reabrir",
+    "Wieder öffnen",
+    "Rouvrir",
+    "Riapri",
+    "دوبارہ کھولیں"
+  ],
+  "No messages yet.": [
+    "Aún no hay mensajes.",
+    "Nenhuma mensagem ainda.",
+    "Noch keine Nachrichten.",
+    "Aucun message.",
+    "Nessun messaggio.",
+    "ابھی کوئی پیغام نہیں۔"
+  ],
+  "Changes saved.": [
+    "Cambios guardados.",
+    "Alterações salvas.",
+    "Änderungen gespeichert.",
+    "Modifications enregistrées.",
+    "Modifiche salvate.",
+    "تبدیلیاں محفوظ ہو گئیں۔"
+  ],
+  "Picture saved.": [
+    "Imagen guardada.",
+    "Imagem salva.",
+    "Bild gespeichert.",
+    "Photo enregistrée.",
+    "Foto salvata.",
+    "تصویر محفوظ ہو گئی۔"
+  ],
+  "Code sent. It expires in 10 minutes.": [
+    "Código enviado. Caduca en 10 minutos.",
+    "Código enviado. Expira em 10 minutos.",
+    "Code gesendet. Er gilt 10 Minuten.",
+    "Code envoyé. Il expire dans 10 minutes.",
+    "Codice inviato. Scade tra 10 minuti.",
+    "کوڈ بھیج دیا گیا۔ یہ ۱۰ منٹ تک درست ہے۔"
+  ],
+  "Phone verified.": [
+    "Teléfono verificado.",
+    "Telefone verificado.",
+    "Telefon bestätigt.",
+    "Téléphone vérifié.",
+    "Telefono verificato.",
+    "فون کی تصدیق ہو گئی۔"
+  ],
+  "Your email address cannot be changed.": [
+    "Tu correo no se puede cambiar.",
+    "Seu e-mail não pode ser alterado.",
+    "Ihre E-Mail-Adresse kann nicht geändert werden.",
+    "Votre adresse e-mail ne peut pas être modifiée.",
+    "Il tuo indirizzo email non può essere modificato.",
+    "آپ کی ای میل تبدیل نہیں کی جا سکتی۔"
+  ],
+  "PNG/JPG, square recommended. Max 2 MB.": [
+    "PNG/JPG, se recomienda cuadrada. Máx. 2 MB.",
+    "PNG/JPG, quadrada recomendada. Máx. 2 MB.",
+    "PNG/JPG, quadratisch empfohlen. Max. 2 MB.",
+    "PNG/JPG, format carré conseillé. Max. 2 Mo.",
+    "PNG/JPG, formato quadrato consigliato. Max 2 MB.",
+    "پی این جی یا جے پی جی، مربع بہتر ہے۔ زیادہ سے زیادہ ۲ ایم بی۔"
+  ],
+  "Verify a new number before it can be saved.": [
+    "Verifica un número nuevo antes de guardarlo.",
+    "Verifique um novo número antes de salvá-lo.",
+    "Bestätigen Sie eine neue Nummer vor dem Speichern.",
+    "Vérifiez un nouveau numéro avant de l’enregistrer.",
+    "Verifica un nuovo numero prima di salvarlo.",
+    "نیا نمبر محفوظ کرنے سے پہلے اس کی تصدیق کریں۔"
+  ],
+  "Phone verification is unavailable until SMS delivery is configured.": [
+    "La verificación requiere configurar SMS.",
+    "A verificação requer configurar SMS.",
+    "Die Telefonbestätigung erfordert eine SMS-Konfiguration.",
+    "La vérification nécessite la configuration des SMS.",
+    "La verifica richiede la configurazione degli SMS.",
+    "ایس ایم ایس کی ترتیب مکمل ہونے تک فون کی تصدیق دستیاب نہیں۔"
+  ],
+  "Feedback saved for workspace administrators.": [
+    "Comentarios guardados para los administradores.",
+    "Feedback salvo para os administradores.",
+    "Feedback für die Administratoren gespeichert.",
+    "Commentaire enregistré pour les administrateurs.",
+    "Feedback salvato per gli amministratori.",
+    "ورک اسپیس کے منتظمین کے لیے رائے محفوظ ہو گئی۔"
+  ],
+  "Create another administrator before deleting this account.": [
+    "Crea otro administrador antes de eliminar esta cuenta.",
+    "Crie outro administrador antes de excluir esta conta.",
+    "Erstellen Sie vor dem Löschen einen weiteren Administrator.",
+    "Créez un autre administrateur avant de supprimer ce compte.",
+    "Crea un altro amministratore prima di eliminare questo account.",
+    "یہ اکاؤنٹ حذف کرنے سے پہلے دوسرا منتظم بنائیں۔"
+  ],
+  "A warm welcome starts here.": [
+    "Una cálida bienvenida empieza aquí.",
+    "Uma recepção calorosa começa aqui.",
+    "Hier beginnt ein herzlicher Empfang.",
+    "Un accueil chaleureux commence ici.",
+    "Un caloroso benvenuto inizia qui.",
+    "پرتپاک استقبال یہاں سے شروع ہوتا ہے۔"
+  ],
+  "A warm welcome, one scan away.": [
+    "Una cálida bienvenida con un escaneo.",
+    "Uma recepção calorosa com uma leitura.",
+    "Ein Scan für einen herzlichen Empfang.",
+    "Un accueil chaleureux en un scan.",
+    "Un caloroso benvenuto con una scansione.",
+    "ایک اسکین سے پرتپاک استقبال۔"
+  ],
+  "A better wait.": [
+    "Una espera mejor.",
+    "Uma espera melhor.",
+    "Angenehmer warten.",
+    "Une attente plus agréable.",
+    "Un’attesa migliore.",
+    "بہتر انتظار۔"
+  ],
+  "A better wait starts with a little care.": [
+    "Una espera mejor comienza con atención.",
+    "Uma espera melhor começa com cuidado.",
+    "Eine bessere Wartezeit beginnt mit Fürsorge.",
+    "Une meilleure attente commence par l’attention.",
+    "Un’attesa migliore inizia con attenzione.",
+    "تھوڑی توجہ انتظار بہتر بناتی ہے۔"
+  ],
+  "A closer look at your guest flow and service.": [
+    "Analiza el flujo de invitados y el servicio.",
+    "Analise o fluxo de convidados e o serviço.",
+    "Gastaufkommen und Service im Detail.",
+    "Analysez l’affluence et le service.",
+    "Analizza flusso ospiti e servizio.",
+    "مہمانوں کی آمد اور خدمت کا تفصیلی جائزہ۔"
+  ],
+  "A little calm before the good times.": [
+    "Un poco de calma antes de disfrutar.",
+    "Um pouco de calma antes de aproveitar.",
+    "Etwas Ruhe vor den schönen Momenten.",
+    "Un peu de calme avant les bons moments.",
+    "Un po’ di calma prima dei bei momenti.",
+    "خوشگوار لمحوں سے پہلے تھوڑا سکون۔"
+  ],
+  "A little less waiting.": [
+    "Un poco menos de espera.",
+    "Um pouco menos de espera.",
+    "Etwas weniger warten.",
+    "Un peu moins d’attente.",
+    "Un po’ meno attesa.",
+    "انتظار کچھ کم۔"
+  ],
+  "A little room for a great evening.": [
+    "Espacio para una gran velada.",
+    "Espaço para uma ótima noite.",
+    "Platz für einen schönen Abend.",
+    "De la place pour une belle soirée.",
+    "Spazio per una bella serata.",
+    "خوشگوار شام کے لیے جگہ۔"
+  ],
+  "A lot more hospitality.": [
+    "Mucha más hospitalidad.",
+    "Muito mais hospitalidade.",
+    "Viel mehr Gastfreundschaft.",
+    "Beaucoup plus d’hospitalité.",
+    "Molta più ospitalità.",
+    "مہمان نوازی بہت زیادہ۔"
+  ],
+  "A rhythm to every week.": [
+    "El ritmo de cada semana.",
+    "O ritmo de cada semana.",
+    "Der Rhythmus jeder Woche.",
+    "Le rythme de chaque semaine.",
+    "Il ritmo di ogni settimana.",
+    "ہر ہفتے کا اپنا انداز۔"
+  ],
+  "A seat at our table.": [
+    "Un lugar en nuestra mesa.",
+    "Um lugar à nossa mesa.",
+    "Ein Platz an unserem Tisch.",
+    "Une place à notre table.",
+    "Un posto al nostro tavolo.",
+    "ہماری میز پر آپ کی جگہ۔"
+  ],
+  "A table is worth the wait.": [
+    "Una mesa que vale la espera.",
+    "Uma mesa que vale a espera.",
+    "Dieser Tisch ist das Warten wert.",
+    "Une table qui vaut l’attente.",
+    "Un tavolo che vale l’attesa.",
+    "یہ میز انتظار کے قابل ہے۔"
+  ],
+  "A warm welcome is waiting for you.": [
+    "Te espera una cálida bienvenida.",
+    "Uma recepção calorosa espera você.",
+    "Ein herzlicher Empfang erwartet Sie.",
+    "Un accueil chaleureux vous attend.",
+    "Ti aspetta un caloroso benvenuto.",
+    "آپ کے لیے پرتپاک استقبال منتظر ہے۔"
+  ],
+  "Access limited to the branches selected below.": [
+    "Acceso limitado a las sucursales seleccionadas.",
+    "Acesso limitado às unidades selecionadas.",
+    "Zugriff nur auf die ausgewählten Filialen.",
+    "Accès limité aux établissements sélectionnés.",
+    "Accesso limitato alle sedi selezionate.",
+    "رسائی صرف نیچے منتخب برانچوں تک ہے۔"
+  ],
+  "Administrators access every branch. Staff can manage only their assigned branches. Share initial credentials privately; updating an account revokes its existing sessions.": [
+    "Los administradores acceden a todas las sucursales; el personal solo a las asignadas. Comparte las credenciales en privado. Las actualizaciones cierran las sesiones anteriores.",
+    "Administradores acessam todas as unidades; funcionários apenas as atribuídas. Compartilhe credenciais em particular. Atualizações encerram sessões anteriores.",
+    "Administratoren haben Zugriff auf alle Filialen, Mitarbeiter nur auf zugewiesene. Zugangsdaten vertraulich weitergeben. Änderungen beenden vorhandene Sitzungen.",
+    "Les administrateurs accèdent à tous les établissements, le personnel aux établissements attribués. Partagez les identifiants en privé. Les modifications révoquent les sessions.",
+    "Gli amministratori accedono a tutte le sedi, il personale solo a quelle assegnate. Condividi le credenziali in privato. Le modifiche revocano le sessioni.",
+    "منتظمین کی رسائی تمام برانچوں تک اور عملے کی صرف مقررہ برانچوں تک ہے۔ معلومات نجی طور پر دیں؛ تبدیلی سے سابقہ سیشن ختم ہو جاتے ہیں۔"
+  ],
+  "An inviting table with plates, leaves, and fresh food": [
+    "Una mesa con platos y comida fresca",
+    "Uma mesa com pratos e comida fresca",
+    "Ein Tisch mit Tellern und frischem Essen",
+    "Une table avec assiettes et produits frais",
+    "Un tavolo con piatti e cibo fresco",
+    "پلیٹوں اور تازہ کھانے سے سجی میز"
+  ],
+  "Archived · close check-in and preserve history": [
+    "Archivada · cerrar registro y conservar historial",
+    "Arquivada · fechar entrada e manter histórico",
+    "Archiviert · Check-in schließen und Verlauf behalten",
+    "Archivé · fermer l’inscription et conserver l’historique",
+    "Archiviata · chiudi registrazione e conserva storico",
+    "محفوظ شدہ · اندراج بند کریں اور سابقہ ریکارڈ رکھیں"
+  ],
+  "At least 12 characters.": [
+    "Al menos 12 caracteres.",
+    "Pelo menos 12 caracteres.",
+    "Mindestens 12 Zeichen.",
+    "Au moins 12 caractères.",
+    "Almeno 12 caratteri.",
+    "کم از کم ۱۲ حروف۔"
+  ],
+  "Branch managers work only in assigned branches. CMS administrators can manage all accounts and every branch.": [
+    "Los gerentes solo acceden a sus sucursales. Los administradores CMS gestionan todas las cuentas y sucursales.",
+    "Gerentes acessam apenas suas unidades. Administradores CMS gerenciam todas as contas e unidades.",
+    "Filialleiter arbeiten nur in zugewiesenen Filialen. CMS-Administratoren verwalten alle Konten und Filialen.",
+    "Les responsables accèdent aux établissements attribués. Les administrateurs CMS gèrent tous les comptes et établissements.",
+    "I responsabili accedono alle sedi assegnate. Gli amministratori CMS gestiscono tutti gli account e sedi.",
+    "برانچ مینیجر صرف مقررہ برانچوں میں کام کرتے ہیں۔ سی ایم ایس منتظم تمام اکاؤنٹس اور برانچیں سنبھالتے ہیں۔"
+  ],
+  "Branches & staff": [
+    "Sucursales y personal",
+    "Unidades e equipe",
+    "Filialen und Mitarbeiter",
+    "Établissements et personnel",
+    "Sedi e personale",
+    "برانچیں اور عملہ"
+  ],
+  "Built for the people behind every great table.": [
+    "Para quienes hacen posible cada gran mesa.",
+    "Para quem faz cada boa mesa acontecer.",
+    "Für die Menschen hinter jedem guten Tisch.",
+    "Pour ceux qui rendent chaque table accueillante.",
+    "Per chi rende ogni tavolo speciale.",
+    "ہر عمدہ میز کے پیچھے کام کرنے والوں کے لیے۔"
+  ],
+  "Choose a preset or select a start and end date.": [
+    "Elige un período o las fechas inicial y final.",
+    "Escolha um período ou as datas inicial e final.",
+    "Zeitraum oder Start- und Enddatum auswählen.",
+    "Choisissez une période ou les dates de début et fin.",
+    "Scegli un periodo o le date iniziale e finale.",
+    "مدت یا شروع اور اختتام کی تاریخ منتخب کریں۔"
+  ],
+  "Choose the end date.": [
+    "Elige la fecha final.",
+    "Escolha a data final.",
+    "Enddatum auswählen.",
+    "Choisissez la date de fin.",
+    "Scegli la data finale.",
+    "اختتام کی تاریخ منتخب کریں۔"
+  ],
+  "Connection interrupted. Retrying automatically…": [
+    "Conexión interrumpida. Reintentando…",
+    "Conexão interrompida. Tentando novamente…",
+    "Verbindung unterbrochen. Neuer Versuch…",
+    "Connexion interrompue. Nouvelle tentative…",
+    "Connessione interrotta. Nuovo tentativo…",
+    "رابطہ منقطع ہے۔ دوبارہ کوشش ہو رہی ہے…"
+  ],
+  "Create accounts, assign access, and set up restaurant branches.": [
+    "Crea cuentas, asigna acceso y configura sucursales.",
+    "Crie contas, atribua acesso e configure unidades.",
+    "Konten erstellen, Zugriff zuweisen und Filialen einrichten.",
+    "Créez des comptes, attribuez l’accès et configurez les établissements.",
+    "Crea account, assegna accessi e configura sedi.",
+    "اکاؤنٹس بنائیں، رسائی دیں اور ریستوران کی برانچیں ترتیب دیں۔"
+  ],
+  "Each branch has its own queue, capacity, guest check-in link and QR. Archiving preserves visit history.": [
+    "Cada sucursal tiene su cola, capacidad, enlace y QR. Archivar conserva el historial.",
+    "Cada unidade tem fila, capacidade, link e QR próprios. Arquivar mantém o histórico.",
+    "Jede Filiale hat eigene Warteschlange, Kapazität, Link und QR. Archivieren erhält den Besuchsverlauf.",
+    "Chaque établissement a sa file, sa capacité, son lien et son QR. L’archivage conserve l’historique.",
+    "Ogni sede ha coda, capacità, link e QR propri. L’archiviazione conserva lo storico.",
+    "ہر برانچ کی اپنی قطار، گنجائش، اندراج کا لنک اور کیو آر ہے۔ محفوظ کرنے سے سابقہ آمد برقرار رہتی ہے۔"
+  ],
+  "Enable alerts above to get notified when this page is closed.": [
+    "Activa los avisos para recibirlos con la página cerrada.",
+    "Ative avisos para recebê-los com a página fechada.",
+    "Benachrichtigungen aktivieren, auch bei geschlossener Seite.",
+    "Activez les alertes pour être prévenu après fermeture.",
+    "Attiva gli avvisi per riceverli a pagina chiusa.",
+    "صفحہ بند ہونے پر اطلاع کے لیے اوپر اطلاعات فعال کریں۔"
+  ],
+  "Estimate · 5 min per waiting party": [
+    "Estimación · 5 min por grupo",
+    "Estimativa · 5 min por grupo",
+    "Schätzung · 5 Min. pro Gruppe",
+    "Estimation · 5 min par groupe",
+    "Stima · 5 min per gruppo",
+    "تخمینہ · ہر منتظر گروپ کے لیے ۵ منٹ"
+  ],
+  "Every visit is the beginning of a relationship.": [
+    "Cada visita inicia una relación.",
+    "Cada visita inicia um relacionamento.",
+    "Jeder Besuch beginnt eine Beziehung.",
+    "Chaque visite commence une relation.",
+    "Ogni visita inizia una relazione.",
+    "ہر آمد نئے تعلق کی ابتدا ہے۔"
+  ],
+  "Every wait tells a story.": [
+    "Cada espera cuenta una historia.",
+    "Cada espera conta uma história.",
+    "Jede Wartezeit erzählt eine Geschichte.",
+    "Chaque attente raconte une histoire.",
+    "Ogni attesa racconta una storia.",
+    "ہر انتظار ایک کہانی کہتا ہے۔"
+  ],
+  "Explore analytics": [
+    "Explorar estadísticas",
+    "Explorar estatísticas",
+    "Statistiken erkunden",
+    "Explorer les statistiques",
+    "Esplora statistiche",
+    "تجزیات دیکھیں"
+  ],
+  "Find your busiest moments. Plan your warmest welcome.": [
+    "Encuentra las horas más ocupadas y planifica el servicio.",
+    "Encontre horários movimentados e planeje o atendimento.",
+    "Stoßzeiten erkennen und den Empfang planen.",
+    "Identifiez les heures chargées et préparez l’accueil.",
+    "Individua gli orari di punta e prepara l’accoglienza.",
+    "مصروف اوقات پہچانیں اور استقبال کی منصوبہ بندی کریں۔"
+  ],
+  "For deployment, set APP_URL to your public HTTPS address before printing.": [
+    "Antes de imprimir, configura APP_URL con la dirección HTTPS pública.",
+    "Antes de imprimir, configure APP_URL com o endereço HTTPS público.",
+    "Vor dem Drucken APP_URL auf die öffentliche HTTPS-Adresse setzen.",
+    "Avant impression, définissez APP_URL sur l’adresse HTTPS publique.",
+    "Prima di stampare, configura APP_URL con l’indirizzo HTTPS pubblico.",
+    "چھاپنے سے پہلے APP_URL میں اپنی عوامی ایچ ٹی ٹی پی ایس ویب سائٹ درج کریں۔"
+  ],
+  "From the first hello to a seat at the table.": [
+    "Del primer saludo al asiento en la mesa.",
+    "Do primeiro olá ao lugar à mesa.",
+    "Vom ersten Hallo zum Platz am Tisch.",
+    "Du premier bonjour à la place à table.",
+    "Dal primo saluto al posto a tavola.",
+    "پہلے سلام سے میز پر بیٹھنے تک۔"
+  ],
+  "Full access to the CMS and all branches, including future branches.": [
+    "Acceso completo al CMS y a todas las sucursales, incluidas las futuras.",
+    "Acesso total ao CMS e a todas as unidades, inclusive futuras.",
+    "Voller CMS-Zugriff auf alle Filialen, auch zukünftige.",
+    "Accès complet au CMS et à tous les établissements, y compris futurs.",
+    "Accesso completo al CMS e a tutte le sedi, anche future.",
+    "سی ایم ایس اور موجودہ و آئندہ تمام برانچوں تک مکمل رسائی۔"
+  ],
+  "Good food. Good company.": [
+    "Buena comida. Buena compañía.",
+    "Boa comida. Boa companhia.",
+    "Gutes Essen. Gute Gesellschaft.",
+    "Bonne cuisine. Bonne compagnie.",
+    "Buon cibo. Buona compagnia.",
+    "اچھا کھانا۔ اچھی صحبت۔"
+  ],
+  "Getting your front desk ready…": [
+    "Preparando la recepción…",
+    "Preparando a recepção…",
+    "Empfang wird vorbereitet…",
+    "Préparation de l’accueil…",
+    "Preparazione reception…",
+    "استقبالیہ تیار ہو رہا ہے…"
+  ],
+  "Great evenings": [
+    "Grandes veladas",
+    "Ótimas noites",
+    "Schöne Abende",
+    "De belles soirées",
+    "Belle serate",
+    "خوشگوار شامیں"
+  ],
+  "Guest added. Share their private status link to enable mobile alerts.": [
+    "Invitado añadido. Comparte su enlace privado para activar avisos.",
+    "Convidado adicionado. Compartilhe o link privado para ativar avisos.",
+    "Gast hinzugefügt. Privaten Link teilen, um Benachrichtigungen zu aktivieren.",
+    "Client ajouté. Partagez le lien privé pour activer les alertes.",
+    "Ospite aggiunto. Condividi il link privato per attivare gli avvisi.",
+    "مہمان شامل ہو گیا۔ موبائل اطلاعات کے لیے اس کا نجی لنک دیں۔"
+  ],
+  "Guest agrees to receive updates about this visit.": [
+    "El invitado acepta avisos sobre esta visita.",
+    "O convidado aceita atualizações desta visita.",
+    "Der Gast stimmt Besuchsmitteilungen zu.",
+    "Le client accepte les nouvelles de cette visite.",
+    "L’ospite acconsente agli aggiornamenti della visita.",
+    "مہمان اس آمد کی اطلاعات حاصل کرنے پر راضی ہے۔"
+  ],
+  "Guest visits will appear here as your service moves along.": [
+    "Las visitas aparecerán durante el servicio.",
+    "As visitas aparecerão durante o atendimento.",
+    "Besuche erscheinen im Laufe des Services.",
+    "Les visites apparaîtront pendant le service.",
+    "Le visite appariranno durante il servizio.",
+    "خدمت کے دوران مہمانوں کی آمد یہاں دکھائی جائے گی۔"
+  ],
+  "Guests scan, check in, and get on with their evening.": [
+    "Los invitados escanean, se registran y disfrutan.",
+    "Convidados escaneiam, entram e aproveitam.",
+    "Gäste scannen, melden sich an und genießen den Abend.",
+    "Les clients scannent, s’inscrivent et profitent.",
+    "Gli ospiti scansionano, si registrano e si godono la serata.",
+    "مہمان اسکین کریں، اندراج کریں اور شام سے لطف اٹھائیں۔"
+  ],
+  "Here’s what’s happening at {value0} today.": [
+    "Esto ocurre hoy en {value0}.",
+    "Veja o que acontece hoje em {value0}.",
+    "Das passiert heute bei {value0}.",
+    "Voici l’activité du jour à {value0}.",
+    "Ecco cosa succede oggi da {value0}.",
+    "آج {value0} میں ہونے والی سرگرمیاں۔"
+  ],
+  "High chair, accessibility needs, special occasion…": [
+    "Silla infantil, accesibilidad, ocasión especial…",
+    "Cadeira infantil, acessibilidade, ocasião especial…",
+    "Kinderstuhl, Barrierefreiheit, besonderer Anlass…",
+    "Chaise enfant, accessibilité, occasion spéciale…",
+    "Seggiolone, accessibilità, occasione speciale…",
+    "بچوں کی کرسی، خصوصی ضروریات، خاص موقع…"
+  ],
+  "Hospitality starts before you sit down.": [
+    "La hospitalidad empieza antes de sentarse.",
+    "A hospitalidade começa antes de sentar.",
+    "Gastfreundschaft beginnt vor dem Hinsetzen.",
+    "L’hospitalité commence avant de s’asseoir.",
+    "L’ospitalità inizia prima di sedersi.",
+    "مہمان نوازی بیٹھنے سے پہلے شروع ہوتی ہے۔"
+  ],
+  "Hours are displayed to guests. Check-in remains open until you archive the branch.": [
+    "Los horarios se muestran a los invitados. El registro sigue abierto hasta archivar la sucursal.",
+    "Horários são exibidos aos convidados. A entrada fica aberta até arquivar a unidade.",
+    "Zeiten werden Gästen angezeigt. Check-in bleibt bis zur Archivierung offen.",
+    "Les horaires sont affichés. L’inscription reste ouverte jusqu’à l’archivage.",
+    "Gli orari sono mostrati agli ospiti. La registrazione resta aperta fino all’archiviazione.",
+    "مہمانوں کو اوقات دکھائے جاتے ہیں۔ برانچ محفوظ کرنے تک اندراج کھلا رہتا ہے۔"
+  ],
+  "I agree to receive updates about this visit. No marketing messages.": [
+    "Acepto avisos de esta visita. Sin mensajes de marketing.",
+    "Aceito atualizações desta visita. Sem marketing.",
+    "Ich stimme Besuchsmitteilungen zu. Keine Werbung.",
+    "J’accepte les nouvelles de cette visite. Sans marketing.",
+    "Accetto aggiornamenti della visita. Nessun marketing.",
+    "اس آمد کی اطلاعات پر راضی ہوں۔ تشہیری پیغامات نہیں۔"
+  ],
+  "Include the country code, without spaces.": [
+    "Incluye el código de país, sin espacios.",
+    "Inclua o código do país, sem espaços.",
+    "Ländervorwahl angeben, ohne Leerzeichen.",
+    "Incluez l’indicatif pays, sans espaces.",
+    "Includi il prefisso internazionale, senza spazi.",
+    "ملکی کوڈ شامل کریں، خالی جگہ نہ رکھیں۔"
+  ],
+  "Join the queue. We’ll take care of the rest.": [
+    "Únete a la cola. Nos encargamos del resto.",
+    "Entre na fila. Cuidamos do resto.",
+    "Eintragen, wir kümmern uns um den Rest.",
+    "Inscrivez-vous, nous nous occupons du reste.",
+    "Entra in coda, al resto pensiamo noi.",
+    "قطار میں شامل ہوں۔ باقی ہم سنبھالیں گے۔"
+  ],
+  "Joining the queue? Guest check-in →": [
+    "¿Quieres entrar? Registro de invitados →",
+    "Quer entrar? Entrada de convidados →",
+    "Eintragen? Gäste-Check-in →",
+    "Vous voulez vous inscrire ? Inscription clients →",
+    "Vuoi entrare? Registrazione ospiti →",
+    "قطار میں شامل ہونا ہے؟ مہمانوں کا اندراج ←"
+  ],
+  "Keep things moving. Make every guest feel looked after.": [
+    "Agiliza el servicio y cuida a cada invitado.",
+    "Agilize o serviço e cuide de cada convidado.",
+    "Service flüssig halten und jeden Gast betreuen.",
+    "Fluidifiez le service et prenez soin de chaque client.",
+    "Rendi fluido il servizio e cura ogni ospite.",
+    "خدمت رواں رکھیں اور ہر مہمان کا خیال رکھیں۔"
+  ],
+  "Keep this page open for live updates, or check with our host.": [
+    "Mantén la página abierta o consulta a recepción.",
+    "Mantenha a página aberta ou consulte a recepção.",
+    "Seite offen halten oder am Empfang nachfragen.",
+    "Gardez la page ouverte ou consultez l’accueil.",
+    "Tieni la pagina aperta o chiedi alla reception.",
+    "تازہ اطلاعات کے لیے صفحہ کھلا رکھیں یا استقبالیہ سے پوچھیں۔"
+  ],
+  "Let guests check in.": [
+    "Permite registrar invitados.",
+    "Permita a entrada dos convidados.",
+    "Gäste eintragen lassen.",
+    "Laissez les clients s’inscrire.",
+    "Consenti la registrazione ospiti.",
+    "مہمانوں کو اندراج کرنے دیں۔"
+  ],
+  "Live guest status is active. Configure Web Push or SMS to send alerts when guests leave the page.": [
+    "El estado en vivo está activo. Configura Web Push o SMS para avisar fuera de la página.",
+    "Status ao vivo ativo. Configure Web Push ou SMS para avisar fora da página.",
+    "Live-Status ist aktiv. Web Push oder SMS für Benachrichtigungen außerhalb der Seite konfigurieren.",
+    "Statut en direct actif. Configurez Web Push ou SMS pour les alertes hors page.",
+    "Stato in tempo reale attivo. Configura Web Push o SMS per avvisi a pagina chiusa.",
+    "براہ راست حیثیت فعال ہے۔ صفحہ بند ہونے پر اطلاعات کے لیے ویب پش یا ایس ایم ایس ترتیب دیں۔"
+  ],
+  "Loading your guest directory…": [
+    "Cargando clientes…",
+    "Carregando clientes…",
+    "Kunden werden geladen…",
+    "Chargement des clients…",
+    "Caricamento clienti…",
+    "گاہک لوڈ ہو رہے ہیں…"
+  ],
+  "Make yourself at home": [
+    "Siéntete como en casa",
+    "Sinta-se em casa",
+    "Fühlen Sie sich wie zu Hause",
+    "Faites comme chez vous",
+    "Sentiti a casa",
+    "اسے اپنا گھر سمجھیں"
+  ],
+  "Made for a warmer welcome": [
+    "Para una cálida bienvenida",
+    "Para uma recepção calorosa",
+    "Für einen herzlichen Empfang",
+    "Pour un accueil chaleureux",
+    "Per un caloroso benvenuto",
+    "پرتپاک استقبال کے لیے"
+  ],
+  "Manage branches & staff": [
+    "Gestionar sucursales y personal",
+    "Gerenciar unidades e equipe",
+    "Filialen und Mitarbeiter verwalten",
+    "Gérer les établissements et le personnel",
+    "Gestisci sedi e personale",
+    "برانچیں اور عملہ سنبھالیں"
+  ],
+  "Need a hand? Our host is happy to help.": [
+    "¿Necesitas ayuda? Pregunta en recepción.",
+    "Precisa de ajuda? Pergunte na recepção.",
+    "Brauchen Sie Hilfe? Unser Empfang hilft gerne.",
+    "Besoin d’aide ? L’accueil vous accompagne.",
+    "Serve aiuto? Chiedi alla reception.",
+    "مدد چاہیے؟ ہمارا استقبالیہ حاضر ہے۔"
+  ],
+  "No guests currently called": [
+    "Ningún invitado avisado",
+    "Nenhum convidado chamado",
+    "Keine Gäste aufgerufen",
+    "Aucun client appelé",
+    "Nessun ospite chiamato",
+    "ابھی کوئی مہمان نہیں بلایا گیا"
+  ],
+  "Notified and on their way": [
+    "Avisados y en camino",
+    "Notificados e a caminho",
+    "Benachrichtigt und unterwegs",
+    "Prévenus et en route",
+    "Avvisati e in arrivo",
+    "مطلع کیے گئے اور راستے میں ہیں"
+  ],
+  "One scan. A warmer welcome.": [
+    "Un escaneo. Una cálida bienvenida.",
+    "Uma leitura. Uma recepção calorosa.",
+    "Ein Scan. Ein herzlicher Empfang.",
+    "Un scan. Un accueil chaleureux.",
+    "Una scansione. Un caloroso benvenuto.",
+    "ایک اسکین۔ پرتپاک استقبال۔"
+  ],
+  "Place this QR code at your entrance. Guests can join your queue straight from their phones.": [
+    "Coloca el QR en la entrada. Los invitados se registran desde el móvil.",
+    "Coloque o QR na entrada. Convidados entram pelo celular.",
+    "QR-Code am Eingang platzieren. Gäste tragen sich am Handy ein.",
+    "Placez ce QR à l’entrée. Les clients s’inscrivent sur leur téléphone.",
+    "Metti il QR all’ingresso. Gli ospiti si registrano dal telefono.",
+    "یہ کیو آر دروازے پر رکھیں۔ مہمان اپنے فون سے قطار میں شامل ہو سکیں گے۔"
+  ],
+  "Please head back to the restaurant and check in with our host. We can’t wait to welcome you.": [
+    "Vuelve al restaurante y avisa en recepción. ¡Te esperamos!",
+    "Volte ao restaurante e avise a recepção. Esperamos você!",
+    "Bitte zum Restaurant zurückkommen und am Empfang melden. Wir freuen uns!",
+    "Revenez au restaurant et présentez-vous à l’accueil. Nous vous attendons !",
+    "Torna al ristorante e presentati alla reception. Ti aspettiamo!",
+    "ریستوران واپس آئیں اور استقبالیہ سے رابطہ کریں۔ ہم آپ کے منتظر ہیں۔"
+  ],
+  "Please try again. Your saved queue is safe.": [
+    "Inténtalo de nuevo. Tu cola guardada está segura.",
+    "Tente novamente. Sua fila salva está segura.",
+    "Erneut versuchen. Die gespeicherte Warteschlange bleibt erhalten.",
+    "Réessayez. Votre file enregistrée est conservée.",
+    "Riprova. La coda salvata è al sicuro.",
+    "دوبارہ کوشش کریں۔ آپ کی محفوظ قطار برقرار ہے۔"
+  ],
+  "Powered by": [
+    "Desarrollado por",
+    "Desenvolvido por",
+    "Bereitgestellt von",
+    "Propulsé par",
+    "Offerto da",
+    "پیشکش"
+  ],
+  "Ready to welcome your next guest": [
+    "Listos para el próximo invitado",
+    "Prontos para o próximo convidado",
+    "Bereit für den nächsten Gast",
+    "Prêt pour le prochain client",
+    "Pronti per il prossimo ospite",
+    "اگلے مہمان کے استقبال کو تیار"
+  ],
+  "Real insights will grow with your queue. No sample data is included.": [
+    "Las estadísticas se basan en visitas reales. No hay datos de ejemplo.",
+    "Estatísticas baseadas em visitas reais. Sem dados de exemplo.",
+    "Statistiken entstehen aus echten Besuchen. Keine Beispieldaten.",
+    "Les statistiques utilisent les visites réelles. Sans données d’exemple.",
+    "Le statistiche usano visite reali. Nessun dato di esempio.",
+    "تجزیات حقیقی قطار سے بنیں گے۔ نمونہ ڈیٹا شامل نہیں ہے۔"
+  ],
+  "Record consent only when the customer has explicitly agreed to marketing. Queue-update consent is separate.": [
+    "Registra el consentimiento solo con autorización explícita. El permiso para avisos de cola es distinto.",
+    "Registre consentimento apenas com autorização explícita. A permissão para avisos da fila é separada.",
+    "Einwilligung nur bei ausdrücklicher Zustimmung erfassen. Warteschlangenmitteilungen sind davon getrennt.",
+    "Enregistrez uniquement le consentement explicite. Les alertes de file ont un accord distinct.",
+    "Registra solo il consenso esplicito. Gli avvisi di coda hanno un consenso separato.",
+    "اجازت تب درج کریں جب گاہک نے واضح تشہیری رضامندی دی ہو۔ قطار کی اطلاعات کی اجازت الگ ہے۔"
+  ],
+  "Scan to join the restaurant queue": [
+    "Escanea para entrar a la cola",
+    "Escaneie para entrar na fila",
+    "Scannen, um sich einzutragen",
+    "Scannez pour rejoindre la file",
+    "Scansiona per entrare in coda",
+    "قطار میں شامل ہونے کے لیے اسکین کریں"
+  ],
+  "Scan. Join. Relax.": [
+    "Escanea. Únete. Relájate.",
+    "Escaneie. Entre. Relaxe.",
+    "Scannen. Eintragen. Entspannen.",
+    "Scannez. Inscrivez-vous. Détendez-vous.",
+    "Scansiona. Entra. Rilassati.",
+    "اسکین کریں۔ شامل ہوں۔ سکون کریں۔"
+  ],
+  "See your busy hours and make room for better service.": [
+    "Conoce las horas ocupadas y mejora el servicio.",
+    "Conheça horários movimentados e melhore o atendimento.",
+    "Stoßzeiten erkennen und den Service verbessern.",
+    "Identifiez les heures chargées et améliorez le service.",
+    "Conosci gli orari di punta e migliora il servizio.",
+    "مصروف اوقات دیکھیں اور خدمت بہتر کریں۔"
+  ],
+  "Sign in as an administrator to manage accounts and branches.": [
+    "Entra como administrador para gestionar cuentas y sucursales.",
+    "Entre como administrador para gerenciar contas e unidades.",
+    "Als Administrator anmelden, um Konten und Filialen zu verwalten.",
+    "Connectez-vous comme administrateur pour gérer comptes et établissements.",
+    "Accedi come amministratore per gestire account e sedi.",
+    "اکاؤنٹس اور برانچیں سنبھالنے کے لیے منتظم کے طور پر لاگ اِن کریں۔"
+  ],
+  "Sign in to manage your restaurant’s queue.": [
+    "Entra para gestionar la cola de tu restaurante.",
+    "Entre para gerenciar a fila do restaurante.",
+    "Anmelden, um die Restaurantwarteschlange zu verwalten.",
+    "Connectez-vous pour gérer la file du restaurant.",
+    "Accedi per gestire la coda del ristorante.",
+    "ریستوران کی قطار سنبھالنے کے لیے لاگ اِن کریں۔"
+  ],
+  "Skip the clipboard.": [
+    "Deja atrás el papel.",
+    "Deixe o papel para trás.",
+    "Schluss mit Papierlisten.",
+    "Oubliez les listes papier.",
+    "Dimentica le liste cartacee.",
+    "کاغذی فہرست چھوڑ دیں۔"
+  ],
+  "Something interrupted your visit.": [
+    "Se interrumpió tu visita.",
+    "Sua visita foi interrompida.",
+    "Ihr Besuch wurde unterbrochen.",
+    "Votre visite a été interrompue.",
+    "La tua visita è stata interrotta.",
+    "آپ کی آمد میں خلل آ گیا ہے۔"
+  ],
+  "Spend your wait your way.": [
+    "Espera a tu manera.",
+    "Espere do seu jeito.",
+    "Gestalten Sie Ihre Wartezeit.",
+    "Attendez à votre façon.",
+    "Aspetta a modo tuo.",
+    "انتظار اپنے انداز میں گزاریں۔"
+  ],
+  "Take a little stroll or catch up with your company. We’ll keep your place in line.": [
+    "Pasea o disfruta tu compañía. Conservamos tu lugar.",
+    "Passeie ou aproveite a companhia. Guardamos seu lugar.",
+    "Spazieren Sie oder genießen Sie Ihre Begleitung. Ihr Platz bleibt erhalten.",
+    "Promenez-vous ou profitez de vos proches. Nous gardons votre place.",
+    "Passeggia o goditi la compagnia. Manteniamo il tuo posto.",
+    "چہل قدمی کریں یا دوستوں سے باتیں کریں۔ آپ کی باری محفوظ ہے۔"
+  ],
+  "Thanks for spending a little of your day at our table. Here’s to good food and good company.": [
+    "Gracias por visitarnos. ¡Disfruta la comida y la compañía!",
+    "Obrigado pela visita. Aproveite a comida e a companhia!",
+    "Danke für Ihren Besuch. Genießen Sie Essen und Gesellschaft!",
+    "Merci de votre visite. Profitez du repas et de vos proches !",
+    "Grazie della visita. Goditi cibo e compagnia!",
+    "آمد کا شکریہ۔ اچھے کھانے اور صحبت سے لطف اٹھائیں۔"
+  ],
+  "The page you’re looking for could not be found.": [
+    "No se encontró la página.",
+    "A página não foi encontrada.",
+    "Die Seite wurde nicht gefunden.",
+    "La page est introuvable.",
+    "La pagina non è stata trovata.",
+    "مطلوبہ صفحہ نہیں ملا۔"
+  ],
+  "This branch is archived. Its history is preserved and new check-ins are closed. An administrator can restore it in Manage branches & staff.": [
+    "Sucursal archivada. El historial se conserva y el registro está cerrado. Un administrador puede restaurarla en la gestión de sucursales.",
+    "Unidade arquivada. Histórico preservado e entrada fechada. Um administrador pode restaurar na gestão de unidades.",
+    "Filiale archiviert. Verlauf erhalten, neue Check-ins geschlossen. Administratoren können sie in der Filialverwaltung wiederherstellen.",
+    "Établissement archivé. Historique conservé et inscriptions fermées. Un administrateur peut le restaurer dans la gestion des établissements.",
+    "Sede archiviata. Storico conservato e registrazioni chiuse. Un amministratore può ripristinarla nella gestione sedi.",
+    "برانچ محفوظ ہے۔ سابقہ ریکارڈ برقرار اور نئے اندراج بند ہیں۔ منتظم برانچوں کے انتظام سے اسے بحال کر سکتا ہے۔"
+  ],
+  "This branch is closed for check-in.": [
+    "Esta sucursal no acepta registros.",
+    "Esta unidade não aceita entradas.",
+    "Diese Filiale nimmt keine Check-ins an.",
+    "Les inscriptions sont fermées ici.",
+    "Questa sede non accetta registrazioni.",
+    "اس برانچ میں اندراج بند ہے۔"
+  ],
+  "This is your private visit link. Keep it handy.": [
+    "Este es tu enlace privado. Consérvalo.",
+    "Este é seu link privado. Guarde-o.",
+    "Dies ist Ihr privater Besuchslink. Bewahren Sie ihn auf.",
+    "Voici votre lien privé. Gardez-le.",
+    "Questo è il tuo link privato. Conservalo.",
+    "یہ آپ کی آمد کا نجی لنک ہے۔ اسے محفوظ رکھیں۔"
+  ],
+  "This table doesn’t exist.": [
+    "Esta mesa no existe.",
+    "Esta mesa não existe.",
+    "Dieser Tisch existiert nicht.",
+    "Cette table n’existe pas.",
+    "Questo tavolo non esiste.",
+    "یہ میز موجود نہیں۔"
+  ],
+  "Try another name, phone number, or email.": [
+    "Prueba otro nombre, teléfono o correo.",
+    "Tente outro nome, telefone ou e-mail.",
+    "Anderen Namen, Telefon oder E-Mail versuchen.",
+    "Essayez un autre nom, téléphone ou e-mail.",
+    "Prova un altro nome, telefono o email.",
+    "دوسرا نام، فون یا ای میل آزمائیں۔"
+  ],
+  "Try changing the date range or filters. Guests appear after check-in.": [
+    "Cambia las fechas o filtros. Los invitados aparecen tras registrarse.",
+    "Altere datas ou filtros. Convidados aparecem após entrar.",
+    "Zeitraum oder Filter ändern. Gäste erscheinen nach Check-in.",
+    "Changez les dates ou filtres. Les clients apparaissent après inscription.",
+    "Cambia date o filtri. Gli ospiti appaiono dopo la registrazione.",
+    "تاریخوں یا فلٹرز کو بدلیں۔ اندراج کے بعد مہمان دکھائی دیتے ہیں۔"
+  ],
+  "Unable to load your restaurant.": [
+    "No se pudo cargar el restaurante.",
+    "Não foi possível carregar o restaurante.",
+    "Restaurant konnte nicht geladen werden.",
+    "Impossible de charger le restaurant.",
+    "Impossibile caricare il ristorante.",
+    "ریستوران لوڈ نہیں ہو سکا۔"
+  ],
+  "Understand every wait.": [
+    "Comprende cada espera.",
+    "Entenda cada espera.",
+    "Jede Wartezeit verstehen.",
+    "Comprenez chaque attente.",
+    "Comprendi ogni attesa.",
+    "ہر انتظار کو سمجھیں۔"
+  ],
+  "We couldn’t find your visit.": [
+    "No encontramos tu visita.",
+    "Não encontramos sua visita.",
+    "Ihr Besuch wurde nicht gefunden.",
+    "Votre visite est introuvable.",
+    "Non troviamo la tua visita.",
+    "آپ کی آمد نہیں ملی۔"
+  ],
+  "Welcome back.": [
+    "Bienvenido de nuevo.",
+    "Bem-vindo novamente.",
+    "Willkommen zurück.",
+    "Bon retour.",
+    "Bentornato.",
+    "دوبارہ خوش آمدید۔"
+  ],
+  "We’ll keep your place. You enjoy the moment.": [
+    "Conservamos tu lugar. Disfruta el momento.",
+    "Guardamos seu lugar. Aproveite o momento.",
+    "Wir halten Ihren Platz. Genießen Sie den Moment.",
+    "Nous gardons votre place. Profitez du moment.",
+    "Manteniamo il tuo posto. Goditi il momento.",
+    "آپ کی باری محفوظ ہے۔ وقت سے لطف اٹھائیں۔"
+  ],
+  "We’ll let you know when your table is ready.": [
+    "Te avisamos cuando tu mesa esté lista.",
+    "Avisaremos quando sua mesa estiver pronta.",
+    "Wir melden uns, sobald Ihr Tisch bereit ist.",
+    "Nous vous préviendrons quand la table sera prête.",
+    "Ti avvisiamo quando il tavolo è pronto.",
+    "میز تیار ہونے پر آپ کو مطلع کریں گے۔"
+  ],
+  "We’ll text the mobile number you provided. Keep this page for live updates.": [
+    "Enviaremos un SMS a tu número. Conserva la página para el estado en vivo.",
+    "Enviaremos SMS ao seu número. Mantenha a página para atualizações.",
+    "Wir senden eine SMS an Ihre Nummer. Seite für Live-Status behalten.",
+    "Nous enverrons un SMS à votre numéro. Gardez cette page pour le suivi.",
+    "Invieremo un SMS al tuo numero. Tieni la pagina per gli aggiornamenti.",
+    "دیے گئے نمبر پر ایس ایم ایس بھیجیں گے۔ براہ راست اطلاعات کے لیے یہ صفحہ رکھیں۔"
+  ],
+  "Working…": [
+    "Procesando…",
+    "Processando…",
+    "Wird ausgeführt…",
+    "Traitement…",
+    "Elaborazione…",
+    "کام جاری ہے…"
+  ],
+  "You can leave this page. We’ll send a notification.": [
+    "Puedes cerrar la página. Te enviaremos un aviso.",
+    "Pode fechar a página. Enviaremos um aviso.",
+    "Sie können die Seite schließen. Wir senden eine Nachricht.",
+    "Vous pouvez fermer la page. Nous vous préviendrons.",
+    "Puoi chiudere la pagina. Invieremo un avviso.",
+    "آپ صفحہ بند کر سکتے ہیں۔ ہم اطلاع بھیجیں گے۔"
+  ],
+  "Your QR uses the configured public app URL.": [
+    "Tu QR usa la URL pública configurada.",
+    "Seu QR usa a URL pública configurada.",
+    "Ihr QR nutzt die konfigurierte öffentliche URL.",
+    "Votre QR utilise l’URL publique configurée.",
+    "Il QR usa l’URL pubblica configurata.",
+    "کیو آر میں مقررہ عوامی ویب سائٹ کا پتہ ہے۔"
+  ],
+  "Your account can manage assigned restaurant branches. A CMS administrator must grant administration access.": [
+    "Tu cuenta gestiona sucursales asignadas. Un administrador CMS debe conceder acceso administrativo.",
+    "Sua conta gerencia unidades atribuídas. Um administrador CMS deve conceder acesso administrativo.",
+    "Ihr Konto verwaltet zugewiesene Filialen. CMS-Zugriff muss ein Administrator gewähren.",
+    "Votre compte gère les établissements attribués. Un administrateur CMS doit autoriser l’accès administratif.",
+    "Il tuo account gestisce sedi assegnate. Un amministratore CMS deve concedere accesso amministrativo.",
+    "آپ کا اکاؤنٹ مقررہ برانچیں سنبھال سکتا ہے۔ انتظامی رسائی سی ایم ایس منتظم دے گا۔"
+  ],
+  "Your details are private and used for your visit.": [
+    "Tus datos son privados y se usan para tu visita.",
+    "Seus dados são privados e usados nesta visita.",
+    "Ihre Daten sind privat und dienen Ihrem Besuch.",
+    "Vos données sont privées et utilisées pour cette visite.",
+    "I tuoi dati sono privati e usati per la visita.",
+    "آپ کی معلومات نجی ہیں اور اس آمد کے لیے استعمال ہوں گی۔"
+  ],
+  "Your dining room is full. Free a table when guests leave.": [
+    "El comedor está lleno. Libera mesas cuando salgan invitados.",
+    "O salão está cheio. Libere mesas quando convidados saírem.",
+    "Der Gastraum ist voll. Tische nach Abreise freigeben.",
+    "La salle est pleine. Libérez les tables après le départ.",
+    "La sala è piena. Libera i tavoli dopo le partenze.",
+    "نشستیں بھر گئی ہیں۔ مہمان جانے پر میز خالی کریں۔"
+  ],
+  "Your guest journey will appear after your first check-in.": [
+    "El recorrido aparece tras el primer registro.",
+    "A jornada aparece após a primeira entrada.",
+    "Der Gastverlauf erscheint nach dem ersten Check-in.",
+    "Le parcours apparaît après la première inscription.",
+    "Il percorso appare dopo la prima registrazione.",
+    "پہلے اندراج کے بعد مہمانوں کا سفر دکھائی دے گا۔"
+  ],
+  "Your queue is clear. Add a guest or let them scan your QR code.": [
+    "La cola está vacía. Añade invitados o usa el QR.",
+    "A fila está vazia. Adicione convidados ou use o QR.",
+    "Die Warteschlange ist leer. Gast hinzufügen oder QR scannen lassen.",
+    "La file est vide. Ajoutez un client ou utilisez le QR.",
+    "La coda è vuota. Aggiungi ospiti o usa il QR.",
+    "قطار خالی ہے۔ مہمان شامل کریں یا کیو آر اسکین کروائیں۔"
+  ],
+  "Your queue.": [
+    "Tu cola.",
+    "Sua fila.",
+    "Ihre Warteschlange.",
+    "Votre file.",
+    "La tua coda.",
+    "آپ کی قطار۔"
+  ],
+  "Your visit has been cancelled. You’re always welcome to join again.": [
+    "Tu visita se canceló. Puedes registrarte de nuevo.",
+    "Sua visita foi cancelada. Pode entrar novamente.",
+    "Ihr Besuch wurde storniert. Sie können sich erneut eintragen.",
+    "Votre visite est annulée. Vous pouvez vous réinscrire.",
+    "La visita è annullata. Puoi registrarti di nuovo.",
+    "آپ کی آمد منسوخ ہے۔ دوبارہ شامل ہو سکتے ہیں۔"
+  ],
+  "Your workspace, managed.": [
+    "Tu espacio, gestionado.",
+    "Seu espaço, gerenciado.",
+    "Ihr Arbeitsbereich, verwaltet.",
+    "Votre espace, organisé.",
+    "Il tuo spazio, gestito.",
+    "آپ کی ورک اسپیس کا انتظام۔"
+  ],
+  "You’ll lose your current place. You can join again at any time.": [
+    "Perderás tu lugar. Puedes volver a registrarte.",
+    "Você perderá seu lugar. Pode entrar novamente.",
+    "Sie verlieren Ihren Platz. Erneutes Eintragen ist möglich.",
+    "Vous perdrez votre place. Vous pouvez vous réinscrire.",
+    "Perderai il posto. Puoi registrarti di nuovo.",
+    "موجودہ باری ختم ہو جائے گی۔ دوبارہ شامل ہو سکتے ہیں۔"
+  ],
+  "You’re already in the queue. View your visit": [
+    "Ya estás en la cola. Ver tu visita",
+    "Você já está na fila. Ver sua visita",
+    "Sie sind bereits eingetragen. Besuch ansehen",
+    "Vous êtes déjà inscrit. Voir votre visite",
+    "Sei già in coda. Vedi la visita",
+    "آپ پہلے ہی قطار میں ہیں۔ اپنی آمد دیکھیں"
+  ],
+  "and revoke every active session? Their personal settings and feedback will be deleted. Restaurant branches, queues, and customers will remain.": [
+    "y cerrar todas sus sesiones? Se eliminarán sus ajustes y comentarios. Las sucursales, colas y clientes se conservan.",
+    "e encerrar todas as sessões? Configurações e feedback serão excluídos. Unidades, filas e clientes permanecem.",
+    "und alle Sitzungen beenden? Persönliche Einstellungen und Feedback werden gelöscht. Filialen, Warteschlangen und Kunden bleiben erhalten.",
+    "et révoquer ses sessions ? Ses préférences et commentaires seront supprimés. Établissements, files et clients sont conservés.",
+    "e revocare tutte le sessioni? Preferenze e feedback saranno eliminati. Sedi, code e clienti restano.",
+    "اور تمام سیشن ختم کریں؟ ذاتی ترتیبات اور رائے حذف ہو جائیں گی۔ برانچیں، قطاریں اور گاہک برقرار رہیں گے۔"
+  ],
+  "This permanently removes your account, sessions, picture, and feedback. Restaurant queues and customers remain. Enter your password to continue.": [
+    "Se eliminarán tu cuenta, sesiones, foto y comentarios. Las colas y clientes se conservan. Introduce tu contraseña.",
+    "Sua conta, sessões, foto e feedback serão excluídos. Filas e clientes permanecem. Digite sua senha.",
+    "Konto, Sitzungen, Bild und Feedback werden gelöscht. Warteschlangen und Kunden bleiben erhalten. Passwort eingeben.",
+    "Votre compte, sessions, photo et commentaires seront supprimés. Files et clients sont conservés. Entrez votre mot de passe.",
+    "Account, sessioni, foto e feedback saranno eliminati. Code e clienti restano. Inserisci la password.",
+    "اکاؤنٹ، سیشن، تصویر اور رائے مستقل حذف ہو جائیں گے۔ قطاریں اور گاہک برقرار رہیں گے۔ پاس ورڈ درج کریں۔"
+  ],
+  "· You": ["· Tú", "· Você", "· Sie", "· Vous", "· Tu", "· آپ"],
+  "A BETTER WAIT. A WARMER WELCOME.": [
+    "Una cálida bienvenida empieza aquí.",
+    "Uma recepção calorosa começa aqui.",
+    "Hier beginnt ein herzlicher Empfang.",
+    "Un accueil chaleureux commence ici.",
+    "Un caloroso benvenuto inizia qui.",
+    "پرتپاک استقبال یہاں سے شروع ہوتا ہے۔"
+  ],
+  "A LITTLE LESS WAITING": [
+    "Un poco menos de espera.",
+    "Um pouco menos de espera.",
+    "Etwas weniger warten.",
+    "Un peu moins d’attente.",
+    "Un po’ meno attesa.",
+    "انتظار کچھ کم۔"
+  ],
+  "GOOD FOOD. GOOD COMPANY.": [
+    "Buena comida. Buena compañía.",
+    "Boa comida. Boa companhia.",
+    "Gutes Essen. Gute Gesellschaft.",
+    "Bonne cuisine. Bonne compagnie.",
+    "Buon cibo. Buona compagnia.",
+    "اچھا کھانا۔ اچھی صحبت۔"
+  ],
+  "MAKE YOURSELF AT HOME": [
+    "Siéntete como en casa",
+    "Sinta-se em casa",
+    "Fühlen Sie sich wie zu Hause",
+    "Faites comme chez vous",
+    "Sentiti a casa",
+    "اسے اپنا گھر سمجھیں"
+  ],
+  "WORKSPACE": [
+    "Espacio de trabajo",
+    "Espaço de trabalho",
+    "Arbeitsbereich",
+    "Espace de travail",
+    "Spazio di lavoro",
+    "ورک اسپیس"
+  ],
+  "ADMINISTRATION": [
+    "Administración CMS",
+    "Administração CMS",
+    "CMS-Verwaltung",
+    "Administration CMS",
+    "Amministrazione CMS",
+    "سی ایم ایس انتظام"
+  ],
+  "GUEST": ["Invitado", "Convidado", "Gast", "Client", "Ospite", "مہمان"],
+  "PARTY": ["grupo", "grupo", "Gruppe", "groupe", "gruppo", "گروپ"],
+  "PARTY SIZE": [
+    "Tamaño del grupo",
+    "Tamanho do grupo",
+    "Gruppengröße",
+    "Taille du groupe",
+    "Dimensione del gruppo",
+    "گروپ کا حجم"
+  ],
+  "Parties": ["grupos", "grupos", "Gruppen", "groupes", "gruppi", "گروپ"],
+  "STATUS": [
+    "Tu estado",
+    "Seu status",
+    "Ihr Status",
+    "Votre statut",
+    "Il tuo stato",
+    "آپ کی حیثیت"
+  ],
+  "ESTIMATED WAIT": [
+    "Espera estimada",
+    "Espera estimada",
+    "Geschätzte Wartezeit",
+    "Attente estimée",
+    "Attesa stimata",
+    "متوقع انتظار"
+  ],
+  "WAIT TIME": [
+    "Espera estimada",
+    "Espera estimada",
+    "Geschätzte Wartezeit",
+    "Attente estimée",
+    "Attesa stimata",
+    "متوقع انتظار"
+  ],
+  "YOUR POSITION": [
+    "Tu posición",
+    "Sua posição",
+    "Ihre Position",
+    "Votre position",
+    "La tua posizione",
+    "آپ کی باری"
+  ],
+  "YOUR STATUS": [
+    "Tu estado",
+    "Seu status",
+    "Ihr Status",
+    "Votre statut",
+    "Il tuo stato",
+    "آپ کی حیثیت"
+  ],
+  "YOUR RESTAURANT": [
+    "Espacio del restaurante",
+    "Espaço do restaurante",
+    "Restaurant-Arbeitsbereich",
+    "Espace du restaurant",
+    "Spazio ristorante",
+    "ریستوران کی ورک اسپیس"
+  ],
+  "YOUR FRONT DESK, AT A GLANCE": [
+    "Resumen",
+    "Visão geral",
+    "Übersicht",
+    "Vue d’ensemble",
+    "Panoramica",
+    "جائزہ"
+  ],
+  "YOUR PLACE IS SAVED": [
+    "Tu lugar está guardado",
+    "Seu lugar está salvo",
+    "Ihr Platz ist gespeichert",
+    "Votre place est gardée",
+    "Il tuo posto è salvato",
+    "آپ کی باری محفوظ ہے"
+  ],
+  "YOU’RE IN GOOD COMPANY": [
+    "Buena comida. Buena compañía.",
+    "Boa comida. Boa companhia.",
+    "Gutes Essen. Gute Gesellschaft.",
+    "Bonne cuisine. Bonne compagnie.",
+    "Buon cibo. Buona compagnia.",
+    "اچھا کھانا۔ اچھی صحبت۔"
+  ],
+  "THE WAIT IS OVER": [
+    "Tu mesa está lista.",
+    "Sua mesa está pronta.",
+    "Ihr Tisch ist bereit.",
+    "Votre table est prête.",
+    "Il tuo tavolo è pronto.",
+    "آپ کی میز تیار ہے۔"
+  ],
+  "UNTIL NEXT TIME": [
+    "Buen provecho.",
+    "Bom apetite.",
+    "Guten Appetit.",
+    "Bon appétit.",
+    "Buon appetito.",
+    "کھانے سے لطف اندوز ہوں۔"
+  ],
+  "FAMILIAR FACES, BETTER HOSPITALITY": [
+    "Directorio de clientes",
+    "Diretório de clientes",
+    "Kundenverzeichnis",
+    "Répertoire des clients",
+    "Elenco clienti",
+    "گاہکوں کی فہرست"
+  ],
+  "FROM BUSY NIGHTS TO BETTER INSIGHTS": [
+    "Estadísticas",
+    "Estatísticas",
+    "Statistiken",
+    "Statistiques",
+    "Statistiche",
+    "تجزیات"
+  ],
+  "New password · leave blank to keep current": [
+    "Nueva contraseña (dejar vacío para conservar)",
+    "Nova senha (deixe vazio para manter)",
+    "Neues Passwort (leer lassen zum Beibehalten)",
+    "Nouveau mot de passe (laisser vide pour conserver)",
+    "Nuova password (lascia vuoto per mantenere)",
+    "نیا پاس ورڈ (موجودہ رکھنے کے لیے خالی چھوڑیں)"
+  ],
+  "Priority:": [
+    "Prioridad:",
+    "Prioridade:",
+    "Priorität:",
+    "Priorité:",
+    "Priorità:",
+    "ترجیح:"
+  ],
+  "Marketing consent:": [
+    "Consentimiento de marketing:",
+    "Consentimento de marketing:",
+    "Marketingeinwilligung:",
+    "Consentement marketing:",
+    "Consenso marketing:",
+    "تشہیر کی اجازت:"
+  ],
+  "No-show:": [
+    "Ausente:",
+    "Não compareceu:",
+    "Nicht erschienen:",
+    "Absent:",
+    "Assente:",
+    "نہ آنے والا:"
+  ],
+  "Total visits:": [
+    "Visitas totales:",
+    "Total de visitas:",
+    "Besuche insgesamt:",
+    "Total des visites:",
+    "Visite totali:",
+    "کل آمد:"
+  ],
+  "Opening hours:": [
+    "Horario de apertura:",
+    "Horário de funcionamento:",
+    "Öffnungszeiten:",
+    "Horaires d’ouverture:",
+    "Orari di apertura:",
+    "کھلنے کے اوقات:"
+  ],
+  "Queue ·": [
+    "Cola ·",
+    "Fila ·",
+    "Warteschlange ·",
+    "File d’attente ·",
+    "Coda ·",
+    "قطار ·"
+  ],
+  "(archived)": [
+    "(archivado)",
+    "(arquivado)",
+    "(archiviert)",
+    "(archivé)",
+    "(archiviato)",
+    "(محفوظ شدہ)"
+  ],
+  "Powered by TableQ.": [
+    "Desarrollado por TableQ.",
+    "Desenvolvido por TableQ.",
+    "Bereitgestellt von TableQ.",
+    "Propulsé par TableQ.",
+    "Offerto da TableQ.",
+    "پیشکش TableQ."
+  ],
+  ". Queue visits.": [
+    ". Visitas de cola.",
+    ". Visitas da fila.",
+    ". Warteschlangenbesuche.",
+    ". Visites de la file.",
+    ". Visite in coda.",
+    "۔ قطار کی آمد۔"
+  ],
+  "ACTIONS": [
+    "ACCIONES",
+    "AÇÕES",
+    "AKTIONEN",
+    "ACTIONS",
+    "AZIONI",
+    "کارروائیاں"
+  ],
+  "start at the door.": [
+    "empiezan en la puerta.",
+    "começam na porta.",
+    "beginnen an der Tür.",
+    "commencent à la porte.",
+    "iniziano dalla porta.",
+    "دروازے سے شروع ہوتی ہیں۔"
+  ],
+  "T": ["T", "T", "T", "T", "T", "T"],
+  "Q": ["Q", "Q", "Q", "Q", "Q", "Q"],
+  "M": ["M", "M", "M", "M", "M", "M"],
+  "TableQ": ["TableQ", "TableQ", "TableQ", "TableQ", "TableQ", "TableQ"],
+  "TableQ.": ["TableQ.", "TableQ.", "TableQ.", "TableQ.", "TableQ.", "TableQ."],
+  "TableQ CMS": [
+    "TableQ CMS",
+    "TableQ CMS",
+    "TableQ CMS",
+    "TableQ CMS",
+    "TableQ CMS",
+    "TableQ CMS"
+  ],
+  "you@example.com": [
+    "you@example.com",
+    "you@example.com",
+    "you@example.com",
+    "you@example.com",
+    "you@example.com",
+    "you@example.com"
+  ],
+  "name@example.com": [
+    "name@example.com",
+    "name@example.com",
+    "name@example.com",
+    "name@example.com",
+    "name@example.com",
+    "name@example.com"
+  ],
+  "you@restaurant.com": [
+    "you@restaurant.com",
+    "you@restaurant.com",
+    "you@restaurant.com",
+    "you@restaurant.com",
+    "you@restaurant.com",
+    "you@restaurant.com"
+  ],
+  "Mon–Fri 12:00–22:00; Sat–Sun 11:00–23:00": [
+    "Mon–Fri 12:00–22:00; Sat–Sun 11:00–23:00",
+    "Mon–Fri 12:00–22:00; Sat–Sun 11:00–23:00",
+    "Mon–Fri 12:00–22:00; Sat–Sun 11:00–23:00",
+    "Mon–Fri 12:00–22:00; Sat–Sun 11:00–23:00",
+    "Mon–Fri 12:00–22:00; Sat–Sun 11:00–23:00",
+    "Mon–Fri 12:00–22:00; Sat–Sun 11:00–23:00"
+  ],
+  "Local development: admin@tableq.local / tableq-dev-only": [
+    "Local development: admin@tableq.local / tableq-dev-only",
+    "Local development: admin@tableq.local / tableq-dev-only",
+    "Local development: admin@tableq.local / tableq-dev-only",
+    "Local development: admin@tableq.local / tableq-dev-only",
+    "Local development: admin@tableq.local / tableq-dev-only",
+    "Local development: admin@tableq.local / tableq-dev-only"
+  ],
+  "s": ["s", "s", "s", "s", "s", "s"],
+  "Website color": [
+    "Color del sitio web",
+    "Cor do site",
+    "Website-Farbe",
+    "Couleur du site",
+    "Colore del sito",
+    "ویب سائٹ کا رنگ"
+  ],
+  "Choose a preset or enter a custom hex color. Your choice applies to all themes.": [
+    "Elige un color o introduce un código hexadecimal. Se aplica a todos los temas.",
+    "Escolha uma cor ou insira um código hexadecimal. Aplica-se a todos os temas.",
+    "Wähle eine Farbe oder einen Hex-Code. Die Auswahl gilt für alle Designs.",
+    "Choisissez une couleur ou un code hexadécimal. Ce choix s’applique à tous les thèmes.",
+    "Scegli un colore o un codice esadecimale. Si applica a tutti i temi.",
+    "رنگ منتخب کریں یا اپنا ہیکس کوڈ درج کریں۔ یہ تمام تھیمز پر لاگو ہوگا۔"
+  ],
+  "Hex color": [
+    "Color hexadecimal",
+    "Cor hexadecimal",
+    "Hex-Farbe",
+    "Couleur hexadécimale",
+    "Colore esadecimale",
+    "ہیکس رنگ"
+  ],
+  "Save color": [
+    "Guardar color",
+    "Salvar cor",
+    "Farbe speichern",
+    "Enregistrer la couleur",
+    "Salva colore",
+    "رنگ محفوظ کریں"
+  ],
+  "Website color saved.": [
+    "Color guardado.",
+    "Cor salva.",
+    "Farbe gespeichert.",
+    "Couleur enregistrée.",
+    "Colore salvato.",
+    "ویب سائٹ کا رنگ محفوظ ہو گیا۔"
+  ],
+  "Enter a valid hex color.": [
+    "Introduce un color hexadecimal válido.",
+    "Insira uma cor hexadecimal válida.",
+    "Gib einen gültigen Hex-Code ein.",
+    "Saisissez une couleur hexadécimale valide.",
+    "Inserisci un colore esadecimale valido.",
+    "درست ہیکس رنگ درج کریں۔"
+  ],
+  "Amber": ["Ámbar", "Âmbar", "Bernstein", "Ambre", "Ambra", "عنبر"],
+  "Blue": ["Azul", "Azul", "Blau", "Bleu", "Blu", "نیلا"],
+  "Teal": [
+    "Verde azulado",
+    "Verde-azulado",
+    "Türkis",
+    "Sarcelle",
+    "Verde acqua",
+    "فیروزی"
+  ],
+  "Purple": ["Morado", "Roxo", "Violett", "Violet", "Viola", "جامنی"],
+  "Rose": ["Rosa", "Rosa", "Rosa", "Rose", "Rosa", "گلابی"],
+  "Green": ["Verde", "Verde", "Grün", "Vert", "Verde", "سبز"],
+  "Could not save language.": [
+    "No se pudo guardar el idioma.",
+    "Não foi possível salvar o idioma.",
+    "Sprache konnte nicht gespeichert werden.",
+    "Impossible d’enregistrer la langue.",
+    "Impossibile salvare la lingua.",
+    "زبان محفوظ نہیں ہو سکی۔"
+  ],
+  "{name} will be removed from the active queue. Their visit remains in your history.": [
+    "{name} se eliminará de la cola activa. Su visita permanece en el historial.",
+    "{name} será removido da fila ativa. A visita permanece no histórico.",
+    "{name} wird aus der aktiven Warteschlange entfernt. Der Besuch bleibt im Verlauf.",
+    "{name} sera retiré de la file active. Sa visite reste dans l’historique.",
+    "{name} sarà rimosso dalla coda attiva. La visita rimane nella cronologia.",
+    "{name} کو موجودہ قطار سے ہٹا دیا جائے گا۔ دورے کی تفصیل تاریخ میں رہے گی۔"
+  ],
+  "Remove this staff account and revoke access?": [
+    "¿Eliminar esta cuenta y revocar el acceso?",
+    "Remover esta conta e revogar o acesso?",
+    "Dieses Mitarbeiterkonto entfernen und Zugriff entziehen?",
+    "Supprimer ce compte et révoquer l’accès ?",
+    "Rimuovere questo account e revocare l’accesso?",
+    "کیا عملے کا یہ اکاؤنٹ ہٹا کر رسائی ختم کریں؟"
+  ],
+  "Mark this called guest as a no-show and release their reserved seats?": [
+    "¿Marcar este cliente como ausente y liberar sus asientos?",
+    "Marcar este cliente como ausente e liberar os lugares?",
+    "Diesen Gast als nicht erschienen markieren und Plätze freigeben?",
+    "Marquer ce client absent et libérer ses places ?",
+    "Segnare questo ospite come assente e liberare i posti?",
+    "اس بلائے گئے مہمان کو غیر حاضر قرار دے کر محفوظ نشستیں خالی کریں؟"
+  ],
+  "Queue updated.": [
+    "Cola actualizada.",
+    "Fila atualizada.",
+    "Warteschlange aktualisiert.",
+    "File mise à jour.",
+    "Coda aggiornata.",
+    "قطار اپ ڈیٹ ہو گئی۔"
+  ],
+  "Guest record deleted.": [
+    "Registro eliminado.",
+    "Registro excluído.",
+    "Gasteintrag gelöscht.",
+    "Fiche supprimée.",
+    "Scheda eliminata.",
+    "مہمان کا ریکارڈ حذف ہو گیا۔"
+  ],
+  "Guest added to the queue.": [
+    "Cliente añadido a la cola.",
+    "Cliente adicionado à fila.",
+    "Gast zur Warteschlange hinzugefügt.",
+    "Client ajouté à la file.",
+    "Ospite aggiunto alla coda.",
+    "مہمان قطار میں شامل ہو گیا۔"
+  ],
+  "Guest details updated.": [
+    "Datos actualizados.",
+    "Dados atualizados.",
+    "Gastdaten aktualisiert.",
+    "Informations mises à jour.",
+    "Dati aggiornati.",
+    "مہمان کی تفصیلات اپ ڈیٹ ہو گئیں۔"
+  ],
+  "Cancel this visit?": [
+    "¿Cancelar esta visita?",
+    "Cancelar esta visita?",
+    "Diesen Besuch abbrechen?",
+    "Annuler cette visite ?",
+    "Annullare questa visita?",
+    "یہ دورہ منسوخ کریں؟"
+  ],
+  "Delete this guest record?": [
+    "¿Eliminar este registro?",
+    "Excluir este registro?",
+    "Diesen Gasteintrag löschen?",
+    "Supprimer cette fiche ?",
+    "Eliminare questa scheda?",
+    "مہمان کا یہ ریکارڈ حذف کریں؟"
+  ],
+  "This permanently deletes this visit and its notification records. This cannot be undone.": [
+    "Esto elimina la visita y sus notificaciones de forma permanente. No se puede deshacer.",
+    "Exclui permanentemente a visita e suas notificações. Não pode ser desfeito.",
+    "Besuch und Benachrichtigungen werden dauerhaft gelöscht. Nicht rückgängig zu machen.",
+    "La visite et ses notifications seront définitivement supprimées. Action irréversible.",
+    "Elimina definitivamente la visita e le notifiche. Non può essere annullato.",
+    "یہ دورہ اور اس کی اطلاعات مستقل حذف ہو جائیں گی۔ اسے واپس نہیں کیا جا سکتا۔"
+  ],
+  "Staff access removed.": [
+    "Acceso revocado.",
+    "Acesso removido.",
+    "Zugriff entzogen.",
+    "Accès révoqué.",
+    "Accesso revocato.",
+    "عملے کی رسائی ختم ہو گئی۔"
+  ]
+}

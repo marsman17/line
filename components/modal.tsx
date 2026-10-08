@@ -1,4 +1,5 @@
 "use client";
+import { usePreferences } from "./preferences";
 import { useEffect } from "react";
 import { X } from "lucide-react";
 export function Modal({
@@ -12,6 +13,8 @@ export function Modal({
   children: React.ReactNode;
   className?: string;
 }) {
+  const { t: tx, locale, n } = usePreferences();
+
   useEffect(() => {
     const prior = document.activeElement as HTMLElement | null;
     const old = document.body.style.overflow;
@@ -59,15 +62,15 @@ export function Modal({
         className={`modal ${className}`}
         role="dialog"
         aria-modal="true"
-        aria-label={title}
+        aria-label={tx(title)}
         tabIndex={-1}
       >
         <div className="modal-heading">
-          <h2>{title}</h2>
+          <h2>{tx(title)}</h2>
           <button
             className="icon-button"
             onClick={onClose}
-            aria-label="Close dialog"
+            aria-label={tx("Close dialog")}
           >
             <X size={20} />
           </button>

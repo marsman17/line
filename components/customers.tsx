@@ -1,4 +1,5 @@
 "use client";
+import { usePreferences } from "./preferences";
 import { useEffect, useRef, useState } from "react";
 import {
   ArrowDown,
@@ -56,6 +57,8 @@ export default function Customers({
   branchId: string;
   onBranchChange?: (id: string) => void;
 }) {
+  const { t: tx, locale, n } = usePreferences();
+
   const [selectedBranch, setSelectedBranch] = useState(branchId);
   const [range, setRange] = useState(() => datePreset("365"));
   const [dateOpen, setDateOpen] = useState(false);
@@ -175,7 +178,10 @@ export default function Customers({
     }
   }
   return (
-    <section className="customer-directory" aria-label="Customer directory">
+    <section
+      className="customer-directory"
+      aria-label={tx("Customer directory")}
+    >
       <div className="customer-controls">
         <div className="customer-control-row">
           <button
@@ -184,20 +190,20 @@ export default function Customers({
             onClick={exportCustomers}
           >
             <ArrowDownToLine size={18} />
-            {exporting ? "Exporting…" : "Export CSV"}
+            {exporting ? tx("Exporting…") : tx("Export CSV")}
           </button>
           <button
             className="customer-control customer-date-button"
             onClick={() => setDateOpen(true)}
           >
             <CalendarDays size={18} />
-            {range.label}
+            {tx(range.label)}
             <ChevronDown size={16} />
           </button>
           <label className="customer-control">
             <MapPin size={18} />
             <select
-              aria-label="Customer branch"
+              aria-label={tx("Customer branch")}
               value={selectedBranch}
               onChange={(e) => {
                 setSelectedBranch(e.target.value);
@@ -207,7 +213,7 @@ export default function Customers({
               {branches.map((b) => (
                 <option key={b.id} value={b.id}>
                   {b.name}
-                  {b.archived ? " (archived)" : ""}
+                  {b.archived ? tx(" (archived)") : ""}
                 </option>
               ))}
             </select>
@@ -216,15 +222,15 @@ export default function Customers({
         <div className="customer-control-row">
           <label className="customer-control customer-source">
             <ListOrdered size={18} />
-            <select aria-label="Customer visit source">
-              <option value="queue">Queue</option>
+            <select aria-label={tx("Customer visit source")}>
+              <option value="queue">{tx("Queue")}</option>
             </select>
           </label>
           <label className="customer-control customer-search">
             <Search size={18} />
             <input
-              aria-label="Search customers"
-              placeholder="Search by name or phone"
+              aria-label={tx("Search customers")}
+              placeholder={tx("Search by name or phone")}
               maxLength={200}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -234,55 +240,59 @@ export default function Customers({
         <div className="customer-control-row customer-filter-row">
           <label className="customer-control customer-pill">
             <Star size={19} />
-            <span>Priority:</span>
+            <span>{tx("Priority:")}</span>
             <select
-              aria-label="Priority filter"
-              style={{ width: priority === "any" ? 53 : 160 }}
+              aria-label={tx("Priority filter")}
+              style={{ minWidth: 70 }}
               value={priority}
               onChange={(e) => setPriority(e.target.value)}
             >
-              <option value="any">Any</option>
-              <option value="yes">Had a priority visit</option>
-              <option value="no">No priority visits</option>
+              <option value="any">{tx("Any")}</option>
+              <option value="yes">{tx("Had a priority visit")}</option>
+              <option value="no">{tx("No priority visits")}</option>
             </select>
           </label>
           <label className="customer-control customer-pill">
             <Megaphone size={19} />
-            <span>Marketing consent:</span>
+            <span>{tx("Marketing consent:")}</span>
             <select
-              aria-label="Marketing consent filter"
-              style={{
-                width:
-                  marketing === "any" ? 53 : marketing === "granted" ? 85 : 120,
-              }}
+              aria-label={tx("Marketing consent filter")}
+              style={{ minWidth: 70 }}
               value={marketing}
               onChange={(e) => setMarketing(e.target.value)}
             >
-              <option value="any">Any</option>
-              <option value="granted">Granted</option>
-              <option value="not-granted">Not granted</option>
+              <option value="any">{tx("Any")}</option>
+              <option value="granted">{tx("Granted")}</option>
+              <option value="not-granted">{tx("Not granted")}</option>
             </select>
           </label>
           <span className="customer-match" role="status">
             {loading
-              ? "Loading customers…"
-              : `${rows.length} customer${rows.length === 1 ? "" : "s"} match`}
+              ? tx("Loading customers…")
+              : tx(
+                  rows.length === 1
+                    ? "{count} customer matches"
+                    : "{count} customers match",
+                  { count: rows.length },
+                )}
           </span>
         </div>
       </div>
       {error && (
         <p className="error" role="alert">
-          {error}
+          {tx(error)}
         </p>
       )}
       <div className="customer-list">
         <div className="customer-sort-bar">
-          <span>Sort</span>
+          <span>{tx("Sort")}</span>
           <div className="customer-sort-select">
             <button
               className="customer-sort-direction"
               aria-label={
-                direction === "desc" ? "Sort ascending" : "Sort descending"
+                direction === "desc"
+                  ? tx("Sort ascending")
+                  : tx("Sort descending")
               }
               onClick={() =>
                 setDirection((d) => (d === "desc" ? "asc" : "desc"))
@@ -295,7 +305,7 @@ export default function Customers({
               )}
             </button>
             <select
-              aria-label="Sort customers"
+              aria-label={tx("Sort customers")}
               value={sort}
               onChange={(e) => {
                 setSort(e.target.value);
@@ -308,11 +318,11 @@ export default function Customers({
             >
               {sorting.map((s) => (
                 <option key={s.value} value={s.value}>
-                  {s.label}
+                  {tx(s.label)}
                 </option>
               ))}
               <option disabled value="next">
-                Next visit (no bookings)
+                {tx("Next visit (no bookings)")}
               </option>
             </select>
             <ChevronDown size={15} />
@@ -324,41 +334,45 @@ export default function Customers({
               <button
                 className="customer-row-identity"
                 onClick={() => setEditing(c)}
-                aria-label={`View customer ${c.name || "Unnamed customer"}`}
+                aria-label={tx("View customer {value0}", {
+                  value0: c.name || tx("Unnamed customer"),
+                })}
               >
                 <span
                   className={`customer-avatar customer-color-${c.id.charCodeAt(0) % 5}`}
                 >
                   {initials(c.name)}
                 </span>
-                <strong>{c.name || "Unnamed customer"}</strong>
+                <strong>{c.name || tx("Unnamed customer")}</strong>
                 {c.priority && <Star size={15} className="priority-star" />}
               </button>
               <div className="customer-row-visits">
-                <small>Total visits</small>
-                <span>{c.visits}</span>
+                <small>{tx("Total visits")}</small>
+                <span>{n(c.visits)}</span>
               </div>
               <div className="customer-row-marketing">
-                <small>Marketing</small>
+                <small>{tx("Marketing")}</small>
                 <span>
                   {c.marketing_consent ? <Check size={16} /> : <X size={16} />}{" "}
-                  {c.marketing_consent ? "Granted" : "Not granted"}
+                  {c.marketing_consent ? tx("Granted") : tx("Not granted")}
                 </span>
               </div>
               <button
                 className="customer-edit-button"
                 onClick={() => setEditing(c)}
-                aria-label={`Edit customer ${c.name || "Unnamed customer"}`}
+                aria-label={tx("Edit customer {value0}", {
+                  value0: c.name || tx("Unnamed customer"),
+                })}
               >
                 <Pencil size={17} />
-                Edit
+                {tx("Edit")}
               </button>
               <div className="customer-row-phone">
-                <small>Phone</small>
+                <small>{tx("Phone")}</small>
                 <span>{c.phone || "—"}</span>
               </div>
               <div className="customer-row-email">
-                <small>Email</small>
+                <small>{tx("Email")}</small>
                 <span>{c.email || "—"}</span>
               </div>
             </article>
@@ -366,16 +380,17 @@ export default function Customers({
         {loading && (
           <div className="customer-empty">
             <Clock size={25} />
-            <p>Loading your guest directory…</p>
+            <p>{tx("Loading your guest directory…")}</p>
           </div>
         )}
         {!loading && !error && !rows.length && (
           <div className="customer-empty">
             <Users size={32} />
-            <h3>No customers match.</h3>
+            <h3>{tx("No customers match.")}</h3>
             <p>
-              Try changing the date range or filters. Guests appear after
-              check-in.
+              {tx(
+                "Try changing the date range or filters. Guests appear after check-in.",
+              )}
             </p>
           </div>
         )}
@@ -413,6 +428,8 @@ function DatePicker({
   onClose: () => void;
   onApply: (range: CustomerDateRange) => void;
 }) {
+  const { t: tx, locale, n } = usePreferences();
+
   const [draft, setDraft] = useState(range);
   const [month, setMonth] = useState(() => new Date(range.end + "T00:00:00"));
   const [choosingEnd, setChoosingEnd] = useState(false);
@@ -436,7 +453,7 @@ function DatePicker({
   }
   return (
     <Modal
-      title="Customer date range"
+      title={tx("Customer date range")}
       className="customer-date-dialog"
       onClose={onClose}
     >
@@ -461,13 +478,13 @@ function DatePicker({
               setError("");
             }}
           >
-            {label}
+            {tx(label)}
           </button>
         ))}
       </div>
       <div className="customer-date-inputs">
         <label>
-          Start date
+          {tx("Start date")}
           <input
             type="date"
             value={draft.start}
@@ -481,7 +498,7 @@ function DatePicker({
           />
         </label>
         <label>
-          End date
+          {tx("End date")}
           <input
             type="date"
             value={draft.end}
@@ -493,7 +510,7 @@ function DatePicker({
       </div>
       <div className="customer-calendar-header">
         <button
-          aria-label="Previous month"
+          aria-label={tx("Previous month")}
           onClick={() =>
             setMonth(new Date(month.getFullYear(), month.getMonth() - 1, 1))
           }
@@ -501,13 +518,13 @@ function DatePicker({
           <ChevronLeft size={20} />
         </button>
         <strong>
-          {month.toLocaleDateString(undefined, {
+          {month.toLocaleDateString(locale, {
             month: "long",
             year: "numeric",
           })}
         </strong>
         <button
-          aria-label="Next month"
+          aria-label={tx("Next month")}
           onClick={() =>
             setMonth(new Date(month.getFullYear(), month.getMonth() + 1, 1))
           }
@@ -518,9 +535,13 @@ function DatePicker({
       <div
         className="customer-calendar"
         role="group"
-        aria-label="Select date range"
+        aria-label={tx("Select date range")}
       >
-        {["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"].map((d) => (
+        {Array.from({ length: 7 }, (_, i) =>
+          new Date(2024, 0, 8 + i).toLocaleDateString(locale, {
+            weekday: "short",
+          }),
+        ).map((d) => (
           <span className="weekday" key={d}>
             {d}
           </span>
@@ -535,7 +556,7 @@ function DatePicker({
           return (
             <button
               key={key}
-              aria-label={date.toLocaleDateString(undefined, {
+              aria-label={date.toLocaleDateString(locale, {
                 year: "numeric",
                 month: "long",
                 day: "numeric",
@@ -551,12 +572,12 @@ function DatePicker({
       </div>
       <p className="customer-calendar-help">
         {choosingEnd
-          ? "Choose the end date."
-          : "Choose a preset or select a start and end date."}
+          ? tx("Choose the end date.")
+          : tx("Choose a preset or select a start and end date.")}
       </p>
       {error && (
         <p className="error" role="alert">
-          {error}
+          {tx(error)}
         </p>
       )}
       <div className="customer-editor-footer">
@@ -580,10 +601,10 @@ function DatePicker({
             });
           }}
         >
-          Apply
+          {tx("Apply")}
         </button>
         <button className="button secondary" onClick={onClose}>
-          Cancel
+          {tx("Cancel")}
         </button>
       </div>
     </Modal>
@@ -600,6 +621,8 @@ function CustomerEditor({
   onClose: () => void;
   onSaved: () => void;
 }) {
+  const { t: tx, locale, n } = usePreferences();
+
   const [name, setName] = useState(customer.name),
     [phone, setPhone] = useState(customer.phone),
     [email, setEmail] = useState(customer.email),
@@ -611,7 +634,9 @@ function CustomerEditor({
   async function noShow(id: string) {
     if (
       !window.confirm(
-        "Mark this called guest as a no-show and release their reserved seats?",
+        tx(
+          "Mark this called guest as a no-show and release their reserved seats?",
+        ),
       )
     )
       return;
@@ -636,7 +661,9 @@ function CustomerEditor({
   }
   return (
     <Modal
-      title={`Customer ${customer.name || "Unnamed customer"}`}
+      title={tx("Customer {value0}", {
+        value0: customer.name || tx("Unnamed customer"),
+      })}
       className="customer-dialog"
       onClose={onClose}
     >
@@ -659,9 +686,9 @@ function CustomerEditor({
         }}
       >
         <div className="customer-editor-fields">
-          <h3>Customer details</h3>
+          <h3>{tx("Customer details")}</h3>
           <label>
-            Name (optional)
+            {tx("Name (optional)")}
             <input
               maxLength={80}
               value={name}
@@ -669,17 +696,17 @@ function CustomerEditor({
             />
           </label>
           <label>
-            Phone (optional)
+            {tx("Phone (optional)")}
             <input
               type="tel"
               maxLength={20}
               value={phone}
-              placeholder="Phone number"
+              placeholder={tx("Phone number")}
               onChange={(e) => setPhone(e.target.value)}
             />
           </label>
           <label>
-            Email (optional)
+            {tx("Email (optional)")}
             <input
               type="email"
               maxLength={200}
@@ -691,54 +718,63 @@ function CustomerEditor({
             <input
               type="checkbox"
               role="switch"
-              aria-label="Marketing consent"
+              aria-label={tx("Marketing consent")}
               checked={consent}
               onChange={(e) => setConsent(e.target.checked)}
             />
             <span className="customer-switch-track" aria-hidden="true" />
-            <span>Marketing consent</span>
+            <span>{tx("Marketing consent")}</span>
             <span
               className="customer-consent-info"
-              title="Record consent only when the customer has explicitly agreed to marketing. Queue-update consent is separate."
+              title={tx(
+                "Record consent only when the customer has explicitly agreed to marketing. Queue-update consent is separate.",
+              )}
             >
               ⓘ
             </span>
           </label>
           <label>
-            Notes (optional)
+            {tx("Notes (optional)")}
             <textarea
               rows={4}
               maxLength={1000}
               value={notes}
-              placeholder="Internal customer notes"
+              placeholder={tx("Internal customer notes")}
               onChange={(e) => setNotes(e.target.value)}
             />
           </label>
           {error && (
             <p className="error" role="alert">
-              {error}
+              {tx(error)}
             </p>
           )}
         </div>
         <section className="customer-activity">
-          <h3>Activity</h3>
-          <p>{range.label}. Queue visits.</p>
+          <h3>{tx("Activity")}</h3>
+          <p>
+            {tx(range.label)}
+            {tx(". Queue visits.")}
+          </p>
           <div className="customer-activity-summary">
             <span>
-              Total visits: <strong>{history.length}</strong>
+              {tx("Total visits:")}
+              <strong>{n(history.length)}</strong>
             </span>
             <span>
-              No-show:{" "}
-              <strong>{history.filter((t) => !!t.no_show).length}</strong>
+              {tx("No-show:")}{" "}
+              <strong>{n(history.filter((t) => !!t.no_show).length)}</strong>
             </span>
           </div>
           {history.map((t) => (
             <div className="customer-activity-row" key={t.id}>
               <ListOrdered size={19} />
               <div>
-                <strong>Queue · {t.queue_number}</strong>
+                <strong>
+                  {tx("Queue ·")}
+                  {t.queue_number}
+                </strong>
                 <small>
-                  {new Date(t.joined_at).toLocaleString(undefined, {
+                  {new Date(t.joined_at).toLocaleString(locale, {
                     month: "short",
                     day: "2-digit",
                     year: "numeric",
@@ -755,14 +791,14 @@ function CustomerEditor({
                 className={`customer-activity-badge ${t.status === "served" ? "showed" : t.no_show ? "no-show" : ""}`}
               >
                 {t.status === "served"
-                  ? "Showed"
+                  ? tx("Showed")
                   : t.no_show
-                    ? "No-show"
+                    ? tx("No-show")
                     : t.status === "cancelled"
-                      ? "Cancelled"
+                      ? tx("Cancelled")
                       : t.status === "notified"
-                        ? "Table ready"
-                        : "Waiting"}
+                        ? tx("Table ready")
+                        : tx("Waiting")}
               </span>
               {t.status === "notified" && (
                 <button
@@ -771,7 +807,7 @@ function CustomerEditor({
                   disabled={busy}
                   onClick={() => noShow(t.id)}
                 >
-                  Mark no-show
+                  {tx("Mark no-show")}
                 </button>
               )}
             </div>
@@ -779,10 +815,10 @@ function CustomerEditor({
         </section>
         <div className="customer-editor-footer">
           <button className="button primary" disabled={busy}>
-            {busy ? "Saving…" : "Save changes"}
+            {busy ? tx("Saving…") : tx("Save changes")}
           </button>
           <button type="button" className="button secondary" onClick={onClose}>
-            Cancel
+            {tx("Cancel")}
           </button>
         </div>
       </form>

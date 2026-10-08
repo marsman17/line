@@ -5,6 +5,7 @@ import { api } from "../lib/client";
 import type { Account } from "../lib/account";
 import { usePreferences, AccountAvatar } from "./preferences";
 import { languageNames, type Language } from "../lib/translations";
+import AppearanceSettings from "./appearance";
 import AccountMenu from "./account-menu";
 import { Modal } from "./modal";
 const countries = [
@@ -23,6 +24,8 @@ const countries = [
   ["AE", "971"],
 ] as const;
 export default function Profile() {
+  const { t: tx, locale, n } = usePreferences();
+
   const { user, update, setUser, t } = usePreferences();
   const [loaded, setLoaded] = useState(false);
   const [name, setName] = useState("");
@@ -76,7 +79,7 @@ export default function Profile() {
   if (!loaded || !user)
     return (
       <main className="profile-page">
-        <p>Loading profile…</p>
+        <p>{tx("Loading profile…")}</p>
       </main>
     );
   return (
@@ -86,7 +89,7 @@ export default function Profile() {
           <span className="brand-mark">
             <Leaf size={23} />
           </span>
-          TableQ
+          {tx("TableQ")}
         </a>
         <a className="button secondary" href="/">
           <ArrowLeft size={16} />
@@ -155,7 +158,7 @@ export default function Profile() {
               >
                 {Object.entries(languageNames).map(([value, label]) => (
                   <option key={value} value={value}>
-                    {label}
+                    {tx(label)}
                   </option>
                 ))}
               </select>
@@ -278,12 +281,12 @@ export default function Profile() {
           </section>
           {error && (
             <p role="alert" className="account-error">
-              {error}
+              {tx(error)}
             </p>
           )}
           {message && (
             <p role="status" className="profile-message">
-              {message}
+              {tx(message)}
             </p>
           )}
           <div className="profile-save-row">
@@ -309,6 +312,7 @@ export default function Profile() {
             </p>
           )}
         </form>
+        <AppearanceSettings />
       </main>
       {deleting && (
         <Modal
@@ -344,7 +348,7 @@ export default function Profile() {
             </label>
             {error && (
               <p role="alert" className="account-error">
-                {error}
+                {tx(error)}
               </p>
             )}
             <div className="account-actions">

@@ -4,11 +4,15 @@ import { z } from "zod";
 import { db, transaction, rateLimit, type Manager } from "./db.ts";
 import { passwordHash, passwordMatches, token } from "./security.ts";
 import { smsConfigured } from "./notifications.ts";
-export const languages = ["en", "es", "pt", "de", "fr", "it"] as const;
+export const languages = ["en", "es", "pt", "de", "fr", "it", "ur"] as const;
 export const settingsSchema = z.object({
   name: z.string().trim().min(1).max(80).optional(),
   language: z.enum(languages).optional(),
   theme: z.enum(["light", "dark", "system"]).optional(),
+  accent: z
+    .string()
+    .regex(/^#[0-9a-f]{6}$/i, "Use a six-digit hex color, for example #3b82f6.")
+    .optional(),
 });
 export const feedbackSchema = z.object({
   category: z.enum(["general", "feature", "billing", "performance"]),
@@ -25,7 +29,18 @@ export class AccountError extends Error {
 db.exec(`CREATE TABLE IF NOT EXISTS manager_settings(manager_id INTEGER PRIMARY KEY REFERENCES managers(id) ON DELETE CASCADE,name TEXT NOT NULL,language TEXT NOT NULL DEFAULT 'en',theme TEXT NOT NULL DEFAULT 'system',phone TEXT NOT NULL DEFAULT '',phone_verified_at TEXT,avatar BLOB,avatar_version TEXT);
 CREATE TABLE IF NOT EXISTS phone_challenges(manager_id INTEGER PRIMARY KEY REFERENCES managers(id) ON DELETE CASCADE,phone TEXT NOT NULL,code_hash TEXT NOT NULL,nonce TEXT NOT NULL,expires INTEGER NOT NULL,attempts INTEGER NOT NULL DEFAULT 0,ready INTEGER NOT NULL DEFAULT 0);
 CREATE TABLE IF NOT EXISTS feedback(id INTEGER PRIMARY KEY,manager_id INTEGER NOT NULL REFERENCES managers(id) ON DELETE CASCADE,category TEXT NOT NULL,comment TEXT NOT NULL,created_at TEXT NOT NULL,resolved INTEGER NOT NULL DEFAULT 0);`);
+if (
+  !(
+    db.prepare("PRAGMA table_info(manager_settings)").all() as {
+      name: string;
+    }[]
+  ).some((c) => c.name === "accent")
+)
+  db.exec(
+    "ALTER TABLE manager_settings ADD COLUMN accent TEXT NOT NULL DEFAULT '#f2aa35'",
+  );
 export type Account = Manager & {
+  accent: string;
   name: string;
   language: (typeof languages)[number];
   theme: "light" | "dark" | "system";
@@ -41,7 +56,7 @@ export function account(user: Manager): Account {
   ).run(user.id, user.email.split("@")[0].slice(0, 80));
   const profile = db
     .prepare(
-      "SELECT name,language,theme,phone,phone_verified_at,avatar_version FROM manager_settings WHERE manager_id=?",
+      "SELECT name,language,theme,accent,phone,phone_verified_at,avatar_version FROM manager_settings WHERE manager_id=?",
     )
     .get(user.id);
   const admins = db
