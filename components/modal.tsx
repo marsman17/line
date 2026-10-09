@@ -1,6 +1,7 @@
 "use client";
 import { usePreferences } from "./preferences";
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
+import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 export function Modal({
   title,
@@ -13,15 +14,16 @@ export function Modal({
   children: React.ReactNode;
   className?: string;
 }) {
-  const { t: tx, locale, n } = usePreferences();
-
+  const { t: tx } = usePreferences();
+  const [mounted, setMounted] = useState(false);
+  const dialogRef = useRef<HTMLElement>(null);
+  useEffect(() => setMounted(true), []);
   useEffect(() => {
+    if (!mounted) return;
     const prior = document.activeElement as HTMLElement | null;
     const old = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    const dialog = document.querySelector(
-      '[role="dialog"]',
-    ) as HTMLElement | null;
+    const dialog = dialogRef.current;
     dialog?.focus();
     const trap = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -50,8 +52,10 @@ export function Modal({
       document.removeEventListener("keydown", trap);
       prior?.focus();
     };
-  }, []);
-  return (
+  }, [mounted]);
+  if (!mounted) return null;
+  // A transformed mobile sidebar must not become the dialog's containing block.
+  return createPortal(
     <div
       className="modal-backdrop"
       onMouseDown={(e) => {
@@ -60,6 +64,7 @@ export function Modal({
     >
       <section
         className={`modal ${className}`}
+        ref={dialogRef}
         role="dialog"
         aria-modal="true"
         aria-label={tx(title)}
@@ -77,6 +82,7 @@ export function Modal({
         </div>
         {children}
       </section>
-    </div>
+    </div>,
+    document.body,
   );
 }

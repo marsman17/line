@@ -88,3 +88,7 @@ Run the app once before type checking so Next.js can generate its route types. T
 ## Restaurant website and menu links
 
 In **CMS → Branches**, edit a branch and enter optional **Website URL** and **Menu URL** values, including `https://`. These links appear on that branch’s guest check-in and waiting pages and open in a new tab. Leave a field blank to hide its link. Branch managers retain queue access; administrators manage branch configuration. Existing data and links are preserved when updating other branch settings.
+
+## Customize workspace colors
+
+Click **Customize colors** above the account button in the sidebar, or **Account menu → Website color**. Select a preset, use the color picker, or enter a custom 3-/6-digit hex value; click **Save color**. Overview, Queue, Customers and Analytics update together, including chart marks, and the preference survives reloads. The same controls remain on the Profile page.

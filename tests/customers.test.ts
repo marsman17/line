@@ -10,7 +10,8 @@ const { db, join, tickets, transition, guestView, saveBranch } =
   await import("../lib/db.ts");
 const { customerDirectory, updateCustomer, customerProfile } =
   await import("../lib/customers.ts");
-const { datePreset, dateBounds } = await import("../lib/customer-dates.ts");
+const { datePreset, dateBounds, dateRangeLabel } =
+  await import("../lib/customer-dates.ts");
 beforeEach(() =>
   db.exec(
     "DELETE FROM notifications; DELETE FROM subscriptions; DELETE FROM tickets; DELETE FROM customers; DELETE FROM manager_branches; DELETE FROM branches WHERE id!='main';",
@@ -232,5 +233,25 @@ test("date presets include complete local days and handle daylight saving bounda
   assert.equal(
     new Date(spring.to).getTime() - new Date(spring.from).getTime(),
     23 * 3600000,
+  );
+});
+test("custom customer date ranges use the selected locale, including Urdu digits", () => {
+  const range = {
+    start: "2026-10-08",
+    end: "2026-10-09",
+    label: "Custom dates",
+  };
+  assert.equal(dateRangeLabel(range, "en"), "Oct 8, 2026 – Oct 9, 2026");
+  const label = dateRangeLabel(range, "ur-PK-u-nu-arabext");
+  assert.match(label, /۲۰۲۶/);
+  assert.match(label, /۸/);
+  assert.match(label, /۹/);
+  assert.equal(
+    dateRangeLabel(datePreset("7"), "ur-PK-u-nu-arabext"),
+    "Last 7 days",
+  );
+  assert.equal(
+    dateRangeLabel({ ...range, end: range.start }, "en"),
+    "Oct 8, 2026",
   );
 });

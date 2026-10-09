@@ -3801,5 +3801,69 @@
     "Saisissez une URL http:// ou https:// valide sans identifiants.",
     "Inserisci un URL http:// o https:// valido senza credenziali.",
     "لاگ ان معلومات کے بغیر درست http:// یا https:// URL درج کریں۔"
+  ],
+  "Customize colors": [
+    "Personalizar colores",
+    "Personalizar cores",
+    "Farben anpassen",
+    "Personnaliser les couleurs",
+    "Personalizza colori",
+    "رنگ تبدیل کریں"
+  ],
+  "Choose color": [
+    "Elegir color",
+    "Escolher cor",
+    "Farbe wählen",
+    "Choisir une couleur",
+    "Scegli colore",
+    "رنگ منتخب کریں"
+  ],
+  "Selected color": [
+    "Color seleccionado",
+    "Cor selecionada",
+    "Ausgewählte Farbe",
+    "Couleur sélectionnée",
+    "Colore selezionato",
+    "منتخب رنگ"
+  ],
+  "Save to apply this color to Overview, Queue, Customers and Analytics.": [
+    "Guarde para aplicar este color a Resumen, Cola, Clientes y Estadísticas.",
+    "Salve para aplicar esta cor ao Resumo, Fila, Clientes e Estatísticas.",
+    "Speichern, um diese Farbe auf Übersicht, Warteschlange, Kunden und Analysen anzuwenden.",
+    "Enregistrez pour appliquer cette couleur à la vue d’ensemble, la file, les clients et les statistiques.",
+    "Salva per applicare questo colore a Panoramica, Coda, Clienti e Analisi.",
+    "یہ رنگ جائزہ، قطار، گاہکوں اور تجزیات پر لاگو کرنے کے لیے محفوظ کریں۔"
+  ],
+  "No measured waits": [
+    "Sin esperas medidas",
+    "Nenhuma espera medida",
+    "Keine gemessenen Wartezeiten",
+    "Aucune attente mesurée",
+    "Nessuna attesa misurata",
+    "انتظار کی پیمائش موجود نہیں"
+  ],
+  "No table-ready times recorded yet": [
+    "Aún no hay horas de mesa lista registradas",
+    "Nenhum horário de mesa pronta registrado ainda",
+    "Noch keine Tisch-bereit-Zeiten erfasst",
+    "Aucun horaire de table prête enregistré",
+    "Nessun orario di tavolo pronto registrato",
+    "ابھی میز تیار ہونے کے اوقات درج نہیں ہوئے"
+  ],
+  "{value0} no-shows · {value1} other cancellations": [
+    "{value0} ausencias · {value1} otras cancelaciones",
+    "{value0} ausências · {value1} outros cancelamentos",
+    "{value0} nicht erschienen · {value1} andere Stornierungen",
+    "{value0} absences · {value1} autres annulations",
+    "{value0} assenze · {value1} altre cancellazioni",
+    "{value0} غیر حاضریاں · {value1} دیگر منسوخیاں"
+  ],
+  "Your local time · all 24 hours": [
+    "Hora local · las 24 horas",
+    "Hora local · todas as 24 horas",
+    "Ihre Ortszeit · alle 24 Stunden",
+    "Votre heure locale · les 24 heures",
+    "Ora locale · tutte le 24 ore",
+    "آپ کا مقامی وقت · تمام ۲۴ گھنٹے"
   ]
 }

@@ -702,7 +702,7 @@ test("customer reference layout, filters, profile editing, activity and filtered
     .fill("");
   await expect(rows).toHaveCount(4);
   await page
-    .getByRole("button", { name: "2020-01-01 – 2099-12-31", exact: false })
+    .getByRole("button", { name: "Jan 1, 2020 – Dec 31, 2099", exact: false })
     .click();
   await dialog
     .getByRole("button", { name: "Last 365 days", exact: true })

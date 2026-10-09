@@ -11,11 +11,13 @@ import {
   ChevronRight,
   ChevronDown,
   Check,
+  Palette,
 } from "lucide-react";
 import { api } from "../lib/client";
 import { usePreferences, AccountAvatar } from "./preferences";
 import { languageNames, type Language } from "../lib/translations";
 import { Modal } from "./modal";
+import AppearanceSettings from "./appearance";
 const categories = {
   general: "General feedback or support",
   feature: "Feature Request",
@@ -29,6 +31,7 @@ export default function AccountMenu() {
   const [open, setOpen] = useState(false);
   const [submenu, setSubmenu] = useState("");
   const [support, setSupport] = useState(false);
+  const [appearanceOpen, setAppearanceOpen] = useState(false);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -70,6 +73,16 @@ export default function AccountMenu() {
   return (
     <>
       <div className="account-menu" ref={ref}>
+        <button
+          type="button"
+          className="account-color-shortcut"
+          onClick={() => {
+            setAppearanceOpen(true);
+            setOpen(false);
+          }}
+        >
+          <Palette size={17} /> {t("Customize colors")}
+        </button>
         <button
           className="account-trigger"
           aria-label={t("Account menu")}
@@ -163,10 +176,16 @@ export default function AccountMenu() {
                 {tx("CMS administration")}
               </a>
             )}
-            <a href="/profile#appearance">
-              <Sun size={19} />
+            <button
+              type="button"
+              onClick={() => {
+                setAppearanceOpen(true);
+                setOpen(false);
+              }}
+            >
+              <Palette size={19} />
               {t("Website color")}
-            </a>
+            </button>
             <a href="/profile">
               <User size={19} />
               {t("Profile")}
@@ -194,6 +213,15 @@ export default function AccountMenu() {
         )}
       </div>
       {support && <Support onClose={() => setSupport(false)} />}
+      {appearanceOpen && (
+        <Modal
+          title={t("Website color")}
+          className="appearance-dialog"
+          onClose={() => setAppearanceOpen(false)}
+        >
+          <AppearanceSettings />
+        </Modal>
+      )}
     </>
   );
 }

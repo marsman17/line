@@ -30,6 +30,7 @@ import {
   X,
 } from "lucide-react";
 import { api, csv, type Restaurant } from "../lib/client";
+import { analyticsSummary, analyticsTickets } from "../lib/analytics";
 import Customers from "./customers";
 import AccountMenu from "./account-menu";
 import { usePreferences } from "./preferences";
@@ -1017,22 +1018,20 @@ export default function Dashboard() {
                 <section className="panel branch-comparison">
                   <h2>{tx("Branch comparison")}</h2>
                   {data.branches.map((b) => {
-                    const visits = all.filter(
-                      (t) =>
-                        t.branch_id === b.id &&
-                        new Date(t.joined_at).getTime() >=
-                          Date.now() - Number(range) * 86400000,
+                    const visits = analyticsTickets(
+                      all.filter((t) => t.branch_id === b.id),
+                      Number(range),
                     );
                     return (
                       <div className="branch-item" key={b.id}>
                         <strong>{b.name}</strong>
                         <small>
                           {n(visits.length)} {tx("parties ·")}{" "}
-                          {visits.reduce((n, t) => n + t.party_size, 0)}{" "}
+                          {n(visits.reduce((sum, t) => sum + t.party_size, 0))}{" "}
                           {tx("guests ·")}
-                          {
-                            visits.filter((t) => t.status === "served").length
-                          }{" "}
+                          {n(
+                            visits.filter((t) => t.status === "served").length,
+                          )}{" "}
                           {tx("seated parties")}
                         </small>
                       </div>
@@ -1394,60 +1393,26 @@ function Analytics({
 }) {
   const { t: tx, locale, n } = usePreferences();
 
-  const selected = tickets.filter(
-    (t) => new Date(t.joined_at).getTime() >= Date.now() - range * 86400000,
-  );
-  const served = selected.filter((t) => t.status === "served");
-  const notified = selected.filter((t) => t.notified_at);
-  const cancelled = selected.filter((t) => t.status === "cancelled");
-  const waitValues = notified.map(
-    (t) =>
-      (new Date(t.notified_at!).getTime() - new Date(t.joined_at).getTime()) /
-      60000,
-  );
-  const average = waitValues.length
-    ? Math.round(waitValues.reduce((a, b) => a + b, 0) / waitValues.length)
-    : 0;
-  const hours = Array.from({ length: 12 }, (_, i) => ({
-    label: new Date(2024, 0, 1, i + 10).toLocaleTimeString(locale, {
-      hour: "numeric",
+  const summary = analyticsSummary(tickets, range);
+  const { selected, served, notified, cancelled, average, noShows } = summary;
+  const hours = summary.hours.map((value, hour) => ({
+    label: new Date(2024, 0, 1, hour).toLocaleTimeString(locale, {
+      hour: "2-digit",
+      minute: "2-digit",
+      hourCycle: "h23",
     }),
-    value: selected
-      .filter((t) => new Date(t.joined_at).getHours() === i + 10)
-      .reduce((s, t) => s + t.party_size, 0),
+    value,
   }));
-  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(
-    (label, i) => ({
-      label: new Date(2024, 0, 7 + i).toLocaleDateString(locale, {
-        weekday: "short",
-      }),
-      value: selected
-        .filter((t) => new Date(t.joined_at).getDay() === i)
-        .reduce((s, t) => s + t.party_size, 0),
+  const days = summary.weekdays.map((value, weekday) => ({
+    label: new Date(2024, 0, 7 + weekday).toLocaleDateString(locale, {
+      weekday: "short",
     }),
-  );
-  const sizes = ["1–2", "3–4", "5–6", "7+"].map((label, i) => {
-    const group = notified.filter((t) =>
-      i === 3
-        ? t.party_size >= 7
-        : t.party_size >= i * 2 + 1 && t.party_size <= i * 2 + 2,
-    );
-    return {
-      label: i === 3 ? n(7) + "+" : n(i * 2 + 1) + "–" + n(i * 2 + 2),
-      value: group.length
-        ? Math.round(
-            group.reduce(
-              (s, t) =>
-                s +
-                (new Date(t.notified_at!).getTime() -
-                  new Date(t.joined_at).getTime()) /
-                  60000,
-              0,
-            ) / group.length,
-          )
-        : 0,
-    };
-  });
+    value,
+  }));
+  const sizes = summary.partyWaits.map((value, group) => ({
+    label: group === 3 ? n(7) + "+" : n(group * 2 + 1) + "–" + n(group * 2 + 2),
+    value,
+  }));
   return (
     <>
       <div className="stats-grid">
@@ -1461,10 +1426,14 @@ function Analytics({
         />
         <Stat
           label={tx("Average wait")}
-          value={average}
+          value={average ?? "—"}
           unit={tx("min")}
           icon={Clock}
-          note={tx("From check-in to table-ready")}
+          note={tx(
+            average === null
+              ? "No table-ready times recorded yet"
+              : "From check-in to table-ready",
+          )}
           tone="purple"
         />
         <Stat
@@ -1480,11 +1449,14 @@ function Analytics({
           tone="green"
         />
         <Stat
-          label={tx("Walk-aways")}
+          label={tx("Cancelled")}
           value={cancelled.length}
           unit={tx("parties")}
           icon={ArrowRight}
-          note={tx("Cancelled visits in this period")}
+          note={tx("{value0} no-shows · {value1} other cancellations", {
+            value0: noShows,
+            value1: cancelled.length - noShows,
+          })}
           tone="blue"
         />
       </div>
@@ -1523,7 +1495,12 @@ function Analytics({
             <span className="tiny-dot green" />
             {notified.length
               ? tx("{value0}% of notified parties were seated.", {
-                  value0: Math.round((served.length / notified.length) * 100),
+                  value0: Math.round(
+                    (notified.filter((ticket) => ticket.status === "served")
+                      .length /
+                      notified.length) *
+                      100,
+                  ),
                 })
               : tx("Your guest journey will appear after your first check-in.")}
           </div>
@@ -1538,8 +1515,10 @@ function Analytics({
           <p className="chart-description">
             {tx("Find your busiest moments. Plan your warmest welcome.")}
           </p>
-          <Bars values={hours} suffix={" " + tx("guests")} />
-          <div className="chart-note">{tx("Local time · 10 AM to 9 PM")}</div>
+          <Bars values={hours} suffix={" " + tx("guests")} dense />
+          <div className="chart-note">
+            {tx("Your local time · all 24 hours")}
+          </div>
         </section>
         <section className="panel chart-panel">
           <div className="panel-heading">
@@ -1585,18 +1564,22 @@ function Analytics({
 function Bars({
   values,
   suffix,
+  dense = false,
 }: {
-  values: { label: string; value: number }[];
+  values: { label: string; value: number | null }[];
   suffix: string;
+  dense?: boolean;
 }) {
-  const { n } = usePreferences();
-  const max = Math.max(...values.map((v) => v.value), 1);
+  const { n, t: tx } = usePreferences();
+  const max = Math.max(...values.map((v) => v.value ?? 0), 1);
+  const description = (value: number | null) =>
+    value === null ? tx("No measured waits") : `${n(value)}${suffix}`;
   return (
     <div
       className="bar-chart"
       role="img"
       aria-label={values
-        .map((v) => `${v.label}: ${n(v.value)}${suffix}`)
+        .map((v) => `${v.label}: ${description(v.value)}`)
         .join(", ")}
     >
       <div className="chart-grid">
@@ -1604,19 +1587,23 @@ function Bars({
         <span>{n(Math.round(max / 2))}</span>
         <span>{n(0)}</span>
       </div>
-      <div className="bars">
+      <div className="bars" style={dense ? { gap: 3 } : undefined}>
         {values.map((v, i) => (
           <div className="bar-column" key={i}>
             <div className="bar-track">
               <div
                 className="bar"
-                style={{ height: `${(v.value / max) * 100}%` }}
-                title={`${n(v.value)}${suffix}`}
+                style={{ height: `${((v.value ?? 0) / max) * 100}%` }}
+                title={`${v.label}: ${description(v.value)}`}
               >
-                <span>{v.value > 0 ? n(v.value) : ""}</span>
+                {!dense && (
+                  <span>
+                    {v.value === null ? "—" : v.value > 0 ? n(v.value) : ""}
+                  </span>
+                )}
               </div>
             </div>
-            <small>{v.label}</small>
+            <small>{!dense || i % 4 === 0 ? v.label : "\u00a0"}</small>
           </div>
         ))}
       </div>

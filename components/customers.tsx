@@ -28,6 +28,7 @@ import {
   dateKey,
   dateBounds,
   datePreset,
+  dateRangeLabel,
   type CustomerDateRange,
 } from "../lib/customer-dates";
 import { Modal } from "./modal";
@@ -52,6 +53,7 @@ function initials(name: string) {
 export default function Customers({
   branches,
   branchId,
+  onBranchChange,
 }: {
   branches: Branch[];
   branchId: string;
@@ -59,7 +61,9 @@ export default function Customers({
 }) {
   const { t: tx, locale, n } = usePreferences();
 
-  const [selectedBranch, setSelectedBranch] = useState(branchId);
+  const [selectedBranch, setSelectedBranch] = useState(() =>
+    branches.some((b) => b.id === branchId) ? branchId : branches[0]?.id || "",
+  );
   const [range, setRange] = useState(() => datePreset("365"));
   const [dateOpen, setDateOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -76,6 +80,20 @@ export default function Customers({
   const [exporting, setExporting] = useState(false);
   const version = useRef(0);
   const lastQuery = useRef("");
+  const lastBranch = useRef(branchId);
+  useEffect(() => {
+    if (
+      lastBranch.current === branchId &&
+      branches.some((b) => b.id === selectedBranch)
+    )
+      return;
+    lastBranch.current = branchId;
+    const next = branches.some((b) => b.id === branchId)
+      ? branchId
+      : branches[0]?.id || "";
+    setSelectedBranch(next);
+    setEditing(null);
+  }, [branchId, branches, selectedBranch]);
   const params = () =>
     new URLSearchParams({
       branch: selectedBranch,
@@ -149,15 +167,15 @@ export default function Customers({
       );
       csv("tableq-customers.csv", [
         [
-          "Name",
-          "Phone",
-          "Email",
-          "Branch",
-          "Total visits",
-          "Last visit",
-          "Had a priority visit",
-          "Marketing consent",
-          "Notes",
+          tx("Name"),
+          tx("Phone"),
+          tx("Email"),
+          tx("Branch"),
+          tx("Total visits"),
+          tx("Last visit"),
+          tx("Had a priority visit"),
+          tx("Marketing consent"),
+          tx("Notes"),
         ],
         ...result.customers.map((c) => [
           c.name,
@@ -166,8 +184,8 @@ export default function Customers({
           branches.find((b) => b.id === c.branch_id)?.name || c.branch_id,
           c.visits,
           c.last,
-          c.priority ? "Yes" : "No",
-          c.marketing_consent ? "Granted" : "Not granted",
+          c.priority ? tx("Had a priority visit") : tx("No priority visits"),
+          c.marketing_consent ? tx("Granted") : tx("Not granted"),
           c.notes,
         ]),
       ]);
@@ -197,7 +215,7 @@ export default function Customers({
             onClick={() => setDateOpen(true)}
           >
             <CalendarDays size={18} />
-            {tx(range.label)}
+            {tx(dateRangeLabel(range, locale))}
             <ChevronDown size={16} />
           </button>
           <label className="customer-control">
@@ -208,6 +226,7 @@ export default function Customers({
               onChange={(e) => {
                 setSelectedBranch(e.target.value);
                 setEditing(null);
+                onBranchChange?.(e.target.value);
               }}
             >
               {branches.map((b) => (
@@ -369,11 +388,15 @@ export default function Customers({
               </button>
               <div className="customer-row-phone">
                 <small>{tx("Phone")}</small>
-                <span>{c.phone || "—"}</span>
+                <span>
+                  <bdi dir="ltr">{c.phone || "—"}</bdi>
+                </span>
               </div>
               <div className="customer-row-email">
                 <small>{tx("Email")}</small>
-                <span>{c.email || "—"}</span>
+                <span>
+                  <bdi dir="ltr">{c.email || "—"}</bdi>
+                </span>
               </div>
             </article>
           ))}
@@ -565,7 +588,7 @@ function DatePicker({
               className={`${selected ? "in-range" : ""} ${key === draft.start || key === draft.end ? "endpoint" : ""}`}
               onClick={() => pick(key)}
             >
-              {i + 1}
+              {n(i + 1)}
             </button>
           );
         })}
@@ -592,13 +615,7 @@ function DatePicker({
               setError("Choose a valid start and end date.");
               return;
             }
-            onApply({
-              ...draft,
-              label:
-                draft.label === "Custom dates"
-                  ? `${draft.start} – ${draft.end}`
-                  : draft.label,
-            });
+            onApply(draft);
           }}
         >
           {tx("Apply")}
@@ -752,7 +769,7 @@ function CustomerEditor({
         <section className="customer-activity">
           <h3>{tx("Activity")}</h3>
           <p>
-            {tx(range.label)}
+            {tx(dateRangeLabel(range, locale))}
             {tx(". Queue visits.")}
           </p>
           <div className="customer-activity-summary">
@@ -771,7 +788,7 @@ function CustomerEditor({
               <div>
                 <strong>
                   {tx("Queue ·")}
-                  {t.queue_number}
+                  {n(t.queue_number)}
                 </strong>
                 <small>
                   {new Date(t.joined_at).toLocaleString(locale, {
@@ -783,7 +800,7 @@ function CustomerEditor({
                   })}{" "}
                   {t.email && <Mail size={15} />}
                   <Users size={15} />
-                  {t.party_size}
+                  {n(t.party_size)}
                   {!!t.priority && <Star size={14} />}
                 </small>
               </div>
