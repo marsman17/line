@@ -1,4 +1,6 @@
+export const defaultAccent = "#237b63";
 export const colorPresets = [
+  { name: "TableQ", hex: defaultAccent },
   { name: "Amber", hex: "#f2aa35" },
   { name: "Blue", hex: "#3b82f6" },
   { name: "Teal", hex: "#14b8a6" },

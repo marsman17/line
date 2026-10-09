@@ -1,0 +1,22 @@
+# TableQ feature update — October 9, 2026
+
+This package includes:
+
+- **Optional estimates:** CMS → Branches → Edit branch → Use service-based wait estimates. Disabled by default. Configure average duration and seating capacity; managers still free seats manually.
+- **TableQ design:** light and botanical green defaults for new accounts and public guest pages; the marketing website uses its own cream/green design. Dark and System themes remain available.
+- **Stable theme options:** Account menu → Theme. Labels stay on the left; the selected option gets a tick in a reserved column on the right.
+- **Restaurant logos:** CMS → Branches → Upload company logo. PNG/JPG up to 2 MB. Logos appear beside the selected branch and on guest pages; each branch can have its own logo. Personal profile pictures are separate.
+- **Workspace translations:** Account menu → Language. Overview, Queue, Customers, Analytics, account settings and branch controls translate, including Urdu with right-to-left layout. Customer-entered names remain unchanged. The public marketing website currently remains English.
+- **Website/menu links:** CMS → Branches → Edit branch. Optional links appear on guest check-in and waiting pages.
+
+## Run this copy
+
+Install Node.js 24. Extract into a **new folder**, open the folder containing `package.json` in VS Code, then run `npm.cmd ci` and `npm.cmd run local` on Windows (`npm` on macOS/Linux). Open http://localhost:3000. Stop any older TableQ app first so it does not keep serving on port 3000. For another port: `npm.cmd run local -- --port 3005`.
+
+Local test login: `admin@tableq.local` / `tableq-dev-only`. Never deploy those credentials.
+
+## Keep existing data
+
+Stop the old app and worker, back up the old folder, and copy its `data` folder and `.env.local` into this new folder before running. Existing account language, accent and theme preferences are preserved. To adopt the new appearance on an existing account, choose **Light** under Theme and the **TableQ** color preset in Website color (Profile). Do not delete restaurant data to change appearance.
+
+Multi-company isolation, public signup/recovery and subscription billing remain unfinished; this release does not claim global SaaS launch readiness.

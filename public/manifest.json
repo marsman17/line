@@ -5,7 +5,7 @@
   "start_url": "/check-in",
   "display": "standalone",
   "background_color": "#f5f4ee",
-  "theme_color": "#536548",
+  "theme_color": "#237b63",
   "icons": [
     {
       "src": "/icon.svg",

@@ -6,8 +6,8 @@
   --border: #353830;
   --text: #f0f0e8;
   --muted: #92978b;
-  --amber: #f2aa35;
-  --amber-dim: #342c1b;
+  --amber: #237b63;
+  --amber-dim: color-mix(in srgb, #237b63 16%, transparent);
   --green: #9fbd8e;
   --purple: #be9bd8;
   --blue: #90b8cb;
@@ -4662,8 +4662,8 @@ select {
 
 /* Account accent colors and bidirectional workspace layouts. */
 :root {
-  --accent: #f2aa35;
-  --accent-text: #000000;
+  --accent: #237b63;
+  --accent-text: #ffffff;
 }
 .primary,
 .guest-primary {

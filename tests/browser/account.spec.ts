@@ -19,6 +19,8 @@ test("profile, all account languages, theme persistence and administrator suppor
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
   await login(page);
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+  expect(await page.locator("html").evaluate(el => el.style.getPropertyValue("--accent"))).toBe("#237b63");
   await page.getByRole("button", { name: "Account menu" }).click();
   await page.getByRole("button", { name: "Theme", exact: true }).click();
   await page.getByRole("button", { name: "Dark", exact: true }).click();

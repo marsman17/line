@@ -1,3 +1,4 @@
+import { defaultAccent } from "./appearance.ts";
 import { randomInt } from "node:crypto";
 import sharp from "sharp";
 import { z } from "zod";
@@ -52,8 +53,8 @@ export type Account = Manager & {
 };
 export function account(user: Manager): Account {
   db.prepare(
-    "INSERT OR IGNORE INTO manager_settings(manager_id,name) VALUES (?,?)",
-  ).run(user.id, user.email.split("@")[0].slice(0, 80));
+    "INSERT OR IGNORE INTO manager_settings(manager_id,name,theme,accent) VALUES (?,?,'light',?)",
+  ).run(user.id, user.email.split("@")[0].slice(0, 80), defaultAccent);
   const profile = db
     .prepare(
       "SELECT name,language,theme,accent,phone,phone_verified_at,avatar_version FROM manager_settings WHERE manager_id=?",

@@ -17,7 +17,7 @@ import {
   type Language,
   type Parameters,
 } from "../lib/translations";
-import { appearance } from "../lib/appearance";
+import { appearance, defaultAccent } from "../lib/appearance";
 type Settings = Partial<
   Pick<Account, "name" | "language" | "theme" | "accent">
 >;
@@ -73,12 +73,15 @@ export function Preferences({ children }: { children: React.ReactNode }) {
           ? mq.matches
             ? "dark"
             : "light"
-          : user?.theme || "dark";
+          : user?.theme || "light";
       const root = document.documentElement;
       root.dataset.theme = theme;
       root.lang = language;
       root.dir = language === "ur" ? "rtl" : "ltr";
-      const colors = appearance(user?.accent || "#f2aa35", theme === "dark");
+      const colors = appearance(
+        user?.accent || defaultAccent,
+        theme === "dark",
+      );
       root.style.setProperty("--accent", colors.accent);
       root.style.setProperty("--accent-text", colors.onAccent);
       root.style.setProperty("--amber", colors.ink);
